@@ -1,2 +1,2 @@
-# DEEN-
+# DEEN
 Knowledge changes lives 
