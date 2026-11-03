@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#062b23">
+
+<title>Departments | DEEN</title>
+<meta name="description" content="Explore the six organizational departments of Dawah Education & E-learning Nexus.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#062b23;
+--green2:#0b4033;
+--gold:#d7b46a;
+--gold2:#f2d99c;
+--cream:#faf8f1;
+--white:#fff;
+--muted:#718078;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+font-family:'Hind Siliguri',sans-serif;
+background:var(--cream);
+color:#24352d;
+overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1150px,92%);margin:auto}
+.topbar{
+background:#031c17;
+color:#e2d5b4;
+text-align:center;
+padding:10px;
+font-size:12px;
+}
+header{
+background:var(--green);
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:1px solid #b89b5c55;
+}
+.navbar{
+min-height:76px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;color:white}
+.brand img{
+width:49px;height:49px;
+border-radius:50%;
+object-fit:contain;background:white;padding:3px;
+}
+.brand-name{
+font:700 24px 'Playfair Display',serif;
+color:var(--gold2);letter-spacing:2px;
+}
+.brand-sub{font-size:8px;color:#e1ddca}
+.nav-menu{
+display:flex;list-style:none;
+align-items:center;gap:15px;
+}
+.nav-menu a{color:white;font-size:12px}
+.nav-menu a:hover,.nav-menu a.active{color:var(--gold2)}
+.nav-cta{
+border:1px solid var(--gold);
+padding:9px 12px;border-radius:4px;
+color:var(--gold2)!important;
+}
+.menu-toggle{
+display:none;background:none;
+border:1px solid #91a49a;
+color:white;border-radius:5px;
+padding:6px 12px;font-size:22px;
+}
+.hero{
+min-height:390px;
+display:flex;align-items:center;
+color:white;
+background:
+linear-gradient(90deg,#031c17f5,#062b23b9),
+url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+.hero-content{padding:75px 0}
+.hero-label{
+display:inline-block;
+border:1px solid var(--gold);
+border-radius:30px;
+padding:8px 17px;
+color:var(--gold2);
+font-size:12px;
+margin-bottom:20px;
+}
+.hero h1{
+font:700 clamp(38px,7vw,65px) 'Playfair Display',serif;
+margin-bottom:15px;
+}
+.hero h1 span{color:var(--gold2)}
+.hero p{max-width:650px;line-height:1.9;color:#e2e9e2}
+.breadcrumb{margin-top:20px;font-size:13px;color:#ddd}
+.breadcrumb a{color:var(--gold2)}
+.section{padding:80px 0}
+.center{text-align:center}
+.tag{
+font-size:12px;
+letter-spacing:2px;
+color:#a17b36;
+font-weight:700;
+margin-bottom:12px;
+}
+.heading{
+color:var(--green);
+font-size:clamp(28px,4vw,40px);
+margin-bottom:15px;
+}
+.description{
+color:var(--muted);
+line-height:1.9;
+max-width:750px;
+margin:auto;
+}
+.department-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:24px;
+margin-top:45px;
+}
+.dept-card{
+background:white;
+border:1px solid #e9e4d8;
+border-bottom:3px solid var(--gold);
+padding:30px;
+border-radius:7px;
+box-shadow:0 8px 28px #00000008;
+transition:.3s;
+}
+.dept-card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 35px #00000012;
+}
+.dept-number{
+font:600 34px 'Playfair Display',serif;
+color:#b18d4c;
+}
+.dept-icon{
+font-size:29px;
+margin:13px 0;
+}
+.dept-card h2{
+font-size:23px;
+color:var(--green);
+margin-bottom:5px;
+}
+.dept-card h3{
+font:600 15px 'Playfair Display',serif;
+color:#a17b36;
+margin-bottom:14px;
+}
+.dept-card p{
+color:var(--muted);
+line-height:1.9;
+font-size:14px;
+}
+.dept-card ul{
+list-style:none;
+margin-top:18px;
+}
+.dept-card li{
+font-size:14px;
+padding:8px 0;
+border-top:1px solid #eee;
+color:#46564d;
+}
+.dept-card li:before{
+content:"✦ ";
+color:#b18d4c;
+margin-right:7px;
+}
+.mandate{
+background:var(--green);
+color:white;
+}
+.mandate .heading{color:white}
+.mandate .description{color:#d4ded5}
+.mandate-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-top:40px;
+}
+.mandate-item{
+padding:25px;
+background:#ffffff0b;
+border:1px solid #d7b46a55;
+border-radius:5px;
+}
+.mandate-item h3{
+color:var(--gold2);
+font-size:19px;
+margin-bottom:10px;
+}
+.mandate-item p{
+color:#d6ded8;
+font-size:14px;
+line-height:1.9;
+}
+.workflow{background:#f0e9d9}
+.workflow-list{
+max-width:800px;
+margin:40px auto 0;
+}
+.workflow-item{
+display:flex;
+gap:20px;
+padding:22px;
+background:white;
+border-left:3px solid var(--gold);
+margin-bottom:14px;
+border-radius:4px;
+}
+.workflow-item span{
+font:600 26px 'Playfair Display',serif;
+color:#a17b36;
+}
+.workflow-item h3{color:var(--green);margin-bottom:5px}
+.workflow-item p{font-size:14px;color:var(--muted);line-height:1.8}
+.quote{
+padding:75px 0;
+text-align:center;
+background:var(--green);
+color:white;
+}
+.quote h2{
+font:700 clamp(29px,5vw,43px) 'Playfair Display',serif;
+color:var(--gold2);
+margin:15px 0;
+}
+.quote p{color:#e0e7df}
+.cta{text-align:center;padding:75px 0}
+.cta h2{font-size:30px;color:var(--green);margin-bottom:12px}
+.cta p{color:var(--muted);line-height:1.9}
+.btn{
+display:inline-block;
+margin-top:22px;
+background:var(--gold);
+color:var(--green);
+padding:13px 25px;
+border-radius:4px;
+font-weight:700;
+}
+footer{background:#031c17;color:#d9e0d9;padding:50px 0 20px}
+.footer-grid{
+display:grid;
+grid-template-columns:1.4fr 1fr 1fr;
+gap:28px;
+}
+.footer-col h3{color:var(--gold2);margin-bottom:15px}
+.footer-col p,.footer-col li{
+font-size:13px;line-height:2;color:#c1ccc2;
+}
+.footer-col ul{list-style:none}
+.footer-col a:hover{color:var(--gold2)}
+.footer-brand{
+font:700 27px 'Playfair Display',serif;
+color:var(--gold2);margin-bottom:12px;
+}
+.footer-bottom{
+border-top:1px solid #ffffff22;
+text-align:center;padding-top:18px;
+margin-top:30px;font-size:12px;color:#9daaa0;
+}
+.whatsapp{
+position:fixed;right:18px;bottom:20px;
+width:54px;height:54px;
+display:grid;place-items:center;
+background:#168b55;color:white;
+border-radius:50%;font-size:24px;z-index:900;
+}
+@media(max-width:950px){
+.nav-menu{gap:9px}
+.nav-menu a{font-size:10px}
+}
+@media(max-width:760px){
+.navbar{min-height:70px}
+.brand img{width:45px;height:45px}
+.brand-name{font-size:21px}
+.brand-sub{font-size:8px}
+.menu-toggle{display:block}
+.nav-menu{
+display:none;position:absolute;
+top:70px;left:0;width:100%;
+background:var(--green);
+padding:12px 5%;
+flex-direction:column;align-items:stretch;
+gap:0;max-height:calc(100vh - 150px);
+overflow-y:auto;
+}
+.nav-menu.active{display:flex}
+.nav-menu li{border-bottom:1px solid #ffffff18}
+.nav-menu a{display:block;padding:12px 5px;font-size:15px}
+.nav-cta{display:inline-block!important;margin:10px 0}
+.hero-content{padding:60px 0}
+.section{padding:60px 0}
+.department-grid{grid-template-columns:1fr}
+.mandate-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+Knowledge Changes Lives | Established August 2024
+</div>
+
+<header>
+<div class="container navbar">
+
+<a href="index.html" class="brand">
+<img src="images/logo.jpg" alt="DEEN Logo">
+<div>
+<div class="brand-name">DEEN</div>
+<div class="brand-sub">DAWAH EDUCATION & E-LEARNING NEXUS</div>
+</div>
+</a>
+
+<button class="menu-toggle" id="menuToggle"
+aria-label="Open menu" aria-expanded="false">☰</button>
+
+<ul class="nav-menu" id="navMenu">
+<li><a href="index.html">হোম</a></li>
+<li><a href="about.html">আমাদের সম্পর্কে</a></li>
+<li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+<li><a href="departments.html" class="active">বিভাগসমূহ</a></li>
+<li><a href="quran.html">আল-কুরআন</a></li>
+<li><a href="hadith.html">হাদীস</a></li>
+<li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+<li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+<li><a href="gallery.html">গ্যালারি</a></li>
+<li><a href="contact.html">যোগাযোগ</a></li>
+<li><a href="donate.html">সহযোগিতা</a></li>
+<li><a href="login.html" class="nav-cta">শিক্ষার্থী লগইন</a></li>
+</ul>
+</div>
+</header>
+
+<section class="hero">
+<div class="container hero-content">
+<div class="hero-label">OUR ORGANIZATIONAL STRUCTURE</div>
+<h1>Our <span>Departments</span></h1>
+<p>
+বিশেষায়িত বিভাগগুলোর সমন্বয়ে জ্ঞান, শিক্ষা,
+দাওয়াহ, গবেষণা ও প্রযুক্তির একটি সমন্বিত
+প্রাতিষ্ঠানিক কাঠামো গড়ে তোলাই আমাদের প্রত্যয়।
+</p>
+<div class="breadcrumb">
+<a href="index.html">হোম</a> / বিভাগসমূহ
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<div class="center">
+<div class="tag">SIX CORE DEPARTMENTS</div>
+<h2 class="heading">আমাদের ছয়টি সাংগঠনিক বিভাগ</h2>
+<p class="description">
+প্রতিটি বিভাগ নিজস্ব দায়িত্ব ও কার্যপরিধি
+অনুযায়ী প্রতিষ্ঠানের সামগ্রিক লক্ষ্য অর্জনে
+সমন্বিতভাবে কাজ করবে।
+</p>
+</div>
+
+<div class="department-grid">
+
+<article class="dept-card">
+<div class="dept-number">01</div>
+<div class="dept-icon">📚</div>
+<h2>একাডেমিক ও পাঠ্যক্রম</h2>
+<h3>Academic & Curriculum</h3>
+<p>
+DEEN-এর শিক্ষা কার্যক্রম, পাঠ্যক্রম,
+কোর্স পরিকল্পনা এবং শিক্ষার মান উন্নয়নে
+এই বিভাগ কাজ করবে।
+</p>
+<ul>
+<li>কোর্স ও পাঠ্যক্রম প্রণয়ন</li>
+<li>শিক্ষক ও শিক্ষার্থী সমন্বয়</li>
+<li>ক্লাস ও পরীক্ষা ব্যবস্থাপনা</li>
+<li>শিক্ষার অগ্রগতি মূল্যায়ন</li>
+</ul>
+</article>
+
+<article class="dept-card">
+<div class="dept-number">02</div>
+<div class="dept-icon">🌍</div>
+<h2>দাওয়াহ ও প্রচার</h2>
+<h3>Dawah & Outreach</h3>
+<p>
+ইসলামী জ্ঞান ও দাওয়াহকে মানুষের কাছে
+প্রজ্ঞা, সৌন্দর্য ও দায়িত্বশীলতার সঙ্গে
+পৌঁছে দেওয়াই এই বিভাগের লক্ষ্য।
+</p>
+<ul>
+<li>দাওয়াহ কার্যক্রম পরিচালনা</li>
+<li>সামাজিক যোগাযোগমাধ্যম ব্যবস্থাপনা</li>
+<li>প্রচার ও জনসম্পৃক্ততা</li>
+<li>ইসলামী সচেতনতামূলক কনটেন্ট</li>
+</ul>
+</article>
+
+<article class="dept-card">
+<div class="dept-number">03</div>
+<div class="dept-icon">💻</div>
+<h2>ই-লার্নিং ও প্রযুক্তি উন্নয়ন</h2>
+<h3>E-learning & Technology Development</h3>
+<p>
+আধুনিক প্রযুক্তি ও ডিজিটাল শিক্ষাব্যবস্থার
+মাধ্যমে DEEN-এর কার্যক্রমকে সহজ,
+কার্যকর ও সম্প্রসারণযোগ্য করা।
+</p>
+<ul>
+<li>ওয়েবসাইট ও ডিজিটাল প্ল্যাটফর্ম</li>
+<li>অনলাইন ক্লাস ও LMS ব্যবস্থাপনা</li>
+<li>প্রযুক্তিগত সহায়তা</li>
+<li>ডিজিটাল শিক্ষা উপকরণ তৈরি</li>
+</ul>
+</article>
+
+<article class="dept-card">
+<div class="dept-number">04</div>
+<div class="dept-icon">🔬</div>
+<h2>গবেষণা ও মান নিয়ন্ত্রণ</h2>
+<h3>Research & Quality Control</h3>
+<p>
+শিক্ষা ও দাওয়াহ কার্যক্রমের নির্ভরযোগ্যতা,
+গুণগত মান এবং ধারাবাহিক উন্নয়ন
+নিশ্চিত করতে এই বিভাগ কাজ করবে।
+</p>
+<ul>
+<li>গবেষণা ও তথ্য যাচাই</li>
+<li>শিক্ষাসামগ্রীর মান পর্যালোচনা</li>
+<li>কোর্স মূল্যায়ন</li>
+<li>মান উন্নয়ন ও প্রতিবেদন</li>
+</ul>
+</article>
+
+<article class="dept-card">
+<div class="dept-number">05</div>
+<div class="dept-icon">🏛️</div>
+<h2>অর্থ, প্রশাসন ও কৌশলগত ব্যবস্থাপনা</h2>
+<h3>Administration & Strategy</h3>
+<p>
+প্রতিষ্ঠানের প্রশাসনিক শৃঙ্খলা, আর্থিক
+স্বচ্ছতা এবং দীর্ঘমেয়াদি পরিকল্পনা
+বাস্তবায়নে এই বিভাগ ভূমিকা রাখবে।
+</p>
+<ul>
+<li>অর্থ ও বাজেট ব্যবস্থাপনা</li>
+<li>প্রশাসনিক কার্যক্রম</li>
+<li>মানবসম্পদ ও দায়িত্ব বণ্টন</li>
+<li>কৌশলগত পরিকল্পনা ও পর্যবেক্ষণ</li>
+</ul>
+</article>
+
+<article class="dept-card">
+<div class="dept-number">06</div>
+<div class="dept-icon">🏺</div>
+<h2>ইতিহাস ও সংস্কৃতি</h2>
+<h3>History & Culture</h3>
+<p>
+ইসলামী সভ্যতা, ইতিহাস, ঐতিহ্য ও
+সংস্কৃতির জ্ঞানচর্চা এবং সংরক্ষণে
+এই বিভাগ কাজ করবে।
+</p>
+<ul>
+<li>ইসলামী ইতিহাস অধ্যয়ন</li>
+<li>মুসলিম সভ্যতা ও ঐতিহ্য</li>
+<li>ইতিহাসভিত্তিক প্রকাশনা</li>
+<li>সংস্কৃতি ও জ্ঞানচর্চার প্রসার</li>
+</ul>
+</article>
+
+</div>
+</div>
+</section>
+
+<section class="section mandate">
+<div class="container">
+<div class="center">
+<div class="tag">OUR COLLECTIVE COMMITMENT</div>
+<h2 class="heading">একটি লক্ষ্য, ছয়টি বিভাগ</h2>
+<p class="description">
+বিভাগগুলোর পারস্পরিক সহযোগিতা ও
+সমন্বয়ের মাধ্যমেই প্রতিষ্ঠানের সামগ্রিক
+লক্ষ্য বাস্তবায়িত হবে।
+</p>
+</div>
+
+<div class="mandate-grid">
+<div class="mandate-item">
+<h3>জ্ঞান ও শিক্ষা</h3>
+<p>বিশুদ্ধ জ্ঞান ও মানসম্মত শিক্ষার প্রসার।</p>
+</div>
+<div class="mandate-item">
+<h3>দাওয়াহ ও সমাজ</h3>
+<p>সচেতনতা, নৈতিকতা ও কল্যাণমূলক কার্যক্রম।</p>
+</div>
+<div class="mandate-item">
+<h3>প্রযুক্তি ও উদ্ভাবন</h3>
+<p>আধুনিক প্রযুক্তিতে শিক্ষার সুযোগ সম্প্রসারণ।</p>
+</div>
+<div class="mandate-item">
+<h3>গবেষণা ও উৎকর্ষ</h3>
+<p>নির্ভরযোগ্যতা ও গুণগত মান নিশ্চিতকরণ।</p>
+</div>
+<div class="mandate-item">
+<h3>শৃঙ্খলা ও ব্যবস্থাপনা</h3>
+<p>স্বচ্ছতা, জবাবদিহি ও পরিকল্পিত পরিচালনা।</p>
+</div>
+<div class="mandate-item">
+<h3>ইতিহাস ও ঐতিহ্য</h3>
+<p>ইসলামী সভ্যতা ও ঐতিহাসিক জ্ঞানের সংরক্ষণ।</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section workflow">
+<div class="container">
+<div class="center">
+<div class="tag">HOW WE WORK</div>
+<h2 class="heading">সমন্বিত কর্মপদ্ধতি</h2>
+<p class="description">
+পরিকল্পনা, বাস্তবায়ন, মূল্যায়ন ও উন্নয়নের
+ধারাবাহিক প্রক্রিয়ায় আমাদের কার্যক্রম পরিচালিত হবে।
+</p>
+</div>
+
+<div class="workflow-list">
+<div class="workflow-item">
+<span>01</span>
+<div>
+<h3>পরিকল্পনা</h3>
+<p>প্রাতিষ্ঠানিক লক্ষ্য অনুযায়ী কার্যক্রম ও কর্মপরিকল্পনা নির্ধারণ।</p>
+</div>
+</div>
+<div class="workflow-item">
+<span>02</span>
+<div>
+<h3>বাস্তবায়ন</h3>
+<p>সংশ্লিষ্ট বিভাগের দায়িত্ব ও সক্ষমতা অনুযায়ী কার্যক্রম পরিচালনা।</p>
+</div>
+</div>
+<div class="workflow-item">
+<span>03</span>
+<div>
+<h3>মূল্যায়ন</h3>
+<p>কাজের অগ্রগতি, গুণগত মান ও ফলাফল পর্যালোচনা।</p>
+</div>
+</div>
+<div class="workflow-item">
+<span>04</span>
+<div>
+<h3>উন্নয়ন</h3>
+<p>পর্যালোচনার ভিত্তিতে কার্যক্রম ও ব্যবস্থাপনার ধারাবাহিক উন্নয়ন।</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="quote">
+<div class="container">
+<h2>Knowledge Changes Lives.</h2>
+<p>একটি প্রতিষ্ঠান, একটি প্রত্যয়, জ্ঞান ও কল্যাণের একটি যাত্রা।</p>
+</div>
+</section>
+
+<section class="cta">
+<div class="container">
+<div class="tag">JOIN OUR JOURNEY</div>
+<h2>DEEN-এর সঙ্গে জ্ঞানচর্চায় যুক্ত হোন</h2>
+<p>
+শিক্ষা, দাওয়াহ ও মানবিক কল্যাণের
+এই যাত্রায় আপনার অংশগ্রহণ আমাদের
+অগ্রযাত্রাকে আরও সমৃদ্ধ করবে।
+</p>
+<a href="Courses.html" class="btn">কোর্সসমূহ দেখুন →</a>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+
+<div class="footer-col">
+<div class="footer-brand">DEEN</div>
+<p>
+Dawah Education & E-learning Nexus.
+Knowledge Changes Lives.
+</p>
+</div>
+
+<div class="footer-col">
+<h3>প্রতিষ্ঠান</h3>
+<ul>
+<li><a href="index.html">হোম</a></li>
+<li><a href="about.html">আমাদের সম্পর্কে</a></li>
+<li><a href="departments.html">বিভাগসমূহ</a></li>
+<li><a href="Courses.html">কোর্সসমূহ</a></li>
+</ul>
+</div>
+
+<div class="footer-col">
+<h3>যোগাযোগ</h3>
+<ul>
+<li>01332991478</li>
+<li>01769668093</li>
+<li>Online / Everywhere</li>
+<li><a href="https://www.facebook.com/profile.php?id=61583726953306">Facebook</a></li>
+<li><a href="https://youtube.com/@dawaheducatione-learningnexus">YouTube</a></li>
+</ul>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 DEEN — Dawah Education & E-learning Nexus.
+All Rights Reserved.
+<br>Knowledge Changes Lives.
+</div>
+</div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478"
+target="_blank" aria-label="WhatsApp">✆</a>
+
+<script>
+const menuToggle=document.getElementById('menuToggle');
+const navMenu=document.getElementById('navMenu');
+
+menuToggle.addEventListener('click',function(){
+const opened=navMenu.classList.toggle('active');
+menuToggle.textContent=opened?'✕':'☰';
+menuToggle.setAttribute('aria-expanded',opened);
+});
+
+document.querySelectorAll('.nav-menu a').forEach(link=>{
+link.addEventListener('click',()=>{
+navMenu.classList.remove('active');
+menuToggle.textContent='☰';
+menuToggle.setAttribute('aria-expanded','false');
+});
+});
+</script>
+
+</body>
+</html>
