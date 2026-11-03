@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>একাডেমিক ও কোর্সসমূহ | DEEN</title>
+<meta name="description" content="DEEN-এর ৩০টি কোর্স: আল-কুরআন, আরবি, ইংরেজি, বিজ্ঞান ও প্রযুক্তি, রোবোটিকস, সার্কিট, কম্পিউটার, আইসিটি ও কোডিং।">
+<meta property="og:title" content="DEEN — একাডেমিক ও কোর্সসমূহ">
+<meta property="og:description" content="ইসলামী শিক্ষা, ভাষা, বিজ্ঞান ও প্রযুক্তির ৩০টি কোর্স।">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --green:#062b23;
+  --green2:#0b4033;
+  --gold:#d7b46a;
+  --gold2:#f2d99c;
+  --cream:#faf8f1;
+  --muted:#5f6f67;
+  --ink:#26372f;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  font-family:'Hind Siliguri',system-ui,sans-serif;
+  background:var(--cream);color:var(--ink);
+  overflow-x:hidden;line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button,input{font-family:inherit}
+.container{width:min(1160px,92%);margin:auto}
+
+/* ---------- TOPBAR & HEADER ---------- */
+.topbar{
+  background:#031c17;color:#e2d5b4;text-align:center;
+  padding:9px 10px;font-size:12px;letter-spacing:.5px;
+}
+header{
+  background:rgba(6,43,35,.97);
+  position:sticky;top:0;z-index:1000;
+  border-bottom:1px solid #d7b46a55;
+  backdrop-filter:blur(8px);
+}
+.navbar{
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;position:relative;
+}
+.brand{display:flex;align-items:center;gap:10px;color:white}
+.brand img{
+  width:49px;height:49px;border-radius:50%;
+  object-fit:contain;background:white;padding:3px;
+}
+.brand-name{
+  font:700 24px 'Playfair Display',serif;
+  color:var(--gold2);letter-spacing:2px;
+}
+.brand-sub{font-size:8px;color:#e1ddca;letter-spacing:.5px}
+.nav-menu{display:flex;list-style:none;align-items:center;gap:14px;flex-wrap:wrap}
+.nav-menu a{color:white;font-size:12px;transition:color .25s}
+.nav-menu a:hover,.nav-menu a.active{color:var(--gold2)}
+.nav-cta{
+  border:1px solid var(--gold);padding:8px 12px;border-radius:6px;
+  color:var(--gold2)!important;
+}
+.menu-toggle{
+  display:none;background:none;border:1px solid #91a49a;color:white;
+  border-radius:8px;padding:6px 12px;font-size:22px;cursor:pointer;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:440px;display:flex;align-items:center;color:white;
+  background:
+    radial-gradient(circle at 80% 20%,#d7b46a33,transparent 45%),
+    linear-gradient(120deg,#031c17f2 0%,#062b23d9 55%,#0b4033cc 100%),
+    url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+}
+.hero-content{padding:80px 0;animation:fadeUp .9s ease both}
+.hero-label{
+  display:inline-block;border:1px solid var(--gold);border-radius:30px;
+  padding:7px 16px;color:var(--gold2);font-size:12px;letter-spacing:1.5px;margin-bottom:20px;
+  background:#03191433;
+}
+.hero h1{
+  font:700 clamp(38px,7vw,68px)/1.1 'Playfair Display',serif;margin-bottom:16px;
+}
+.hero h1 span{
+  background:linear-gradient(90deg,var(--gold2),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{max-width:660px;line-height:1.9;color:#e2e9e2;font-size:16px}
+.breadcrumb{margin-top:22px;font-size:13px;color:#d6dcd6}
+.breadcrumb a{color:var(--gold2)}
+
+/* ---------- STATS ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  margin-top:-42px;position:relative;z-index:3;
+}
+.stat-card{
+  background:white;text-align:center;padding:24px 12px;border-radius:var(--radius);
+  box-shadow:0 18px 40px #0000001a;border-bottom:3px solid var(--gold);
+  transition:transform .35s ease;
+}
+.stat-card:hover{transform:translateY(-4px)}
+.stat-card strong{
+  display:block;color:var(--green);font:700 36px 'Playfair Display',serif;
+}
+.stat-card span{font-size:14px;color:var(--muted)}
+
+/* ---------- CATALOG ---------- */
+.section{padding:80px 0}
+.catalog{background:#f1f0e8}
+.center{text-align:center}
+.tag{
+  font-size:12px;letter-spacing:3px;color:#a17b36;font-weight:700;margin-bottom:12px;
+}
+.heading{color:var(--green);font-size:clamp(28px,4vw,40px);margin-bottom:14px;line-height:1.3}
+.description{color:var(--muted);line-height:1.9;max-width:720px;margin:auto}
+
+.search-box{max-width:620px;margin:34px auto 22px;position:relative}
+.search-box input{
+  width:100%;padding:15px 18px 15px 46px;border:1px solid #d8d7ca;border-radius:999px;
+  font-size:15px;outline:none;background:white;transition:border-color .25s, box-shadow .25s;
+}
+.search-box::before{
+  content:"⌕";position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  color:#a17b36;font-size:20px;pointer-events:none;
+}
+.search-box input:focus{border-color:var(--gold);box-shadow:0 0 0 4px #d7b46a33}
+
+.filter-list{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.filter-btn{
+  padding:9px 18px;border:1px solid #d4c9ae;background:white;color:var(--green);
+  border-radius:30px;cursor:pointer;font-size:14px;transition:.3s;
+}
+.filter-btn.active,.filter-btn:hover{background:var(--green);color:white;border-color:var(--green)}
+.result-count{text-align:center;font-size:13px;color:var(--muted);margin-bottom:30px}
+
+/* ---------- COURSE CARDS ---------- */
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.course-card{
+  position:relative;background:white;border-radius:var(--radius);overflow:hidden;
+  border:1px solid #e8e4d9;box-shadow:0 8px 24px #00000008;
+  transition:transform .35s ease, box-shadow .35s ease;
+  animation:fadeUp .6s ease both;display:flex;flex-direction:column;
+}
+.course-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px #0000001a}
+.course-top{height:6px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.course-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.course-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.course-number{font:600 28px 'Playfair Display',serif;color:#b18d4c}
+.course-category{
+  font-size:11px;color:#8b682b;background:#f7efd9;padding:5px 11px;border-radius:20px;
+  white-space:nowrap;
+}
+.course-card h3{font-size:19px;color:var(--green);line-height:1.5;margin:14px 0 8px}
+.course-card p{font-size:14px;color:var(--muted);line-height:1.75;min-height:50px}
+.course-meta{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;
+}
+.course-meta span{
+  font-size:11.5px;color:var(--green2);background:#e9f2ee;padding:4px 10px;border-radius:20px;
+}
+.course-bottom{
+  border-top:1px solid #eee;margin-top:auto;padding-top:16px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.course-level{font-size:12px;color:#758078}
+.course-link{
+  color:#fff;background:var(--green);font-size:13px;font-weight:600;
+  padding:8px 14px;border-radius:999px;white-space:nowrap;transition:background .3s;
+}
+.course-link:hover{background:#a17b36}
+.empty-message{
+  display:none;text-align:center;padding:40px;color:var(--muted);grid-column:1/-1;
+}
+
+/* ---------- NEW COURSES BADGE ---------- */
+.badge-new{
+  position:absolute;top:18px;right:-34px;transform:rotate(35deg);
+  background:var(--gold);color:var(--green);font-size:10px;font-weight:700;
+  padding:3px 40px;letter-spacing:1px;
+}
+
+/* ---------- UPCOMING / WHY ---------- */
+.dark{background:var(--green);color:white}
+.dark .heading{color:white}
+.dark .description{color:#d4ded5}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+.why-item{
+  padding:26px 22px;border:1px solid #d7b46a55;background:#ffffff0a;
+  border-radius:var(--radius);text-align:center;transition:background .3s;
+}
+.why-item:hover{background:#ffffff14}
+.why-icon{font-size:30px;margin-bottom:10px}
+.why-item strong{display:block;color:var(--gold2);font-size:18px;margin-bottom:6px}
+.why-item span{font-size:14px;color:#d4ded5;line-height:1.7}
+
+/* ---------- ADMISSION CTA ---------- */
+.admission{background:#f0e9d9;text-align:center}
+.admission h2{color:var(--green);font-size:clamp(27px,4vw,38px);margin-bottom:14px}
+.admission p{color:var(--muted);line-height:1.9;max-width:700px;margin:auto}
+.btn{
+  display:inline-block;margin-top:24px;background:var(--gold);color:var(--green);
+  padding:14px 28px;border-radius:999px;font-weight:700;transition:.3s;
+}
+.btn:hover{background:var(--gold2);transform:translateY(-3px)}
+
+/* ---------- FOOTER ---------- */
+footer{background:#031c17;color:#d9e0d9;padding:50px 0 20px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+.footer-brand{font:700 27px 'Playfair Display',serif;color:var(--gold2);margin-bottom:12px}
+.footer-col h3{color:var(--gold2);margin-bottom:15px}
+.footer-col p,.footer-col li{font-size:13px;line-height:2;color:#c1ccc2}
+.footer-col ul{list-style:none}
+.footer-col a:hover{color:var(--gold2)}
+.footer-bottom{
+  border-top:1px solid #ffffff22;text-align:center;padding-top:18px;
+  margin-top:30px;font-size:12px;color:#9daaa0;
+}
+
+/* ---------- FLOATING WHATSAPP ---------- */
+.whatsapp{
+  position:fixed;right:18px;bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  width:56px;height:56px;display:grid;place-items:center;background:#168b55;
+  color:white;border-radius:50%;font-size:24px;z-index:900;
+  box-shadow:0 10px 25px #0006;transition:transform .3s;
+}
+.whatsapp:hover{transform:scale(1.08)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1000px){
+  .course-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .navbar{min-height:70px}
+  .brand img{width:45px;height:45px}
+  .brand-name{font-size:21px}
+  .menu-toggle{display:block}
+  .nav-menu{
+    display:none;position:absolute;top:70px;left:0;width:100%;
+    background:var(--green);padding:10px 5%;flex-direction:column;
+    align-items:stretch;gap:0;max-height:calc(100vh - 150px);overflow-y:auto;
+    border-top:1px solid #d7b46a44;
+  }
+  .nav-menu.active{display:flex}
+  .nav-menu li{border-bottom:1px solid #ffffff18}
+  .nav-menu a{display:block;padding:12px 5px;font-size:15px}
+  .nav-cta{display:inline-block!important;margin:10px 0}
+  .hero{min-height:380px}
+  .hero-content{padding:60px 0}
+  .section{padding:60px 0}
+  .stats{gap:8px;margin-top:-30px}
+  .stat-card{padding:17px 5px}
+  .stat-card strong{font-size:26px}
+  .stat-card span{font-size:11px}
+  .course-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">Knowledge Changes Lives | Established August 2024</div>
+
+<header>
+  <div class="container navbar">
+    <a href="index.html" class="brand">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false">☰</button>
+
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html" class="active">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-label">ACADEMIC EXCELLENCE &amp; LIFELONG LEARNING</div>
+    <h1>Explore Our <span>Courses</span></h1>
+    <p>
+      বিশুদ্ধ ইসলামী জ্ঞান, পবিত্র কুরআন, আরবি ও ইংরেজি ভাষা, বিজ্ঞান, প্রযুক্তি ও
+      আধুনিক দক্ষতার সমন্বয়ে জ্ঞান অর্জনের একটি সমৃদ্ধ শিক্ষাযাত্রা।
+    </p>
+    <div class="breadcrumb"><a href="index.html">হোম</a> / একাডেমিক ও কোর্সসমূহ</div>
+  </div>
+</section>
+
+<div class="container stats">
+  <div class="stat-card"><strong>30</strong><span>মোট কোর্স</span></div>
+  <div class="stat-card"><strong>05</strong><span>শিক্ষার ক্ষেত্র</span></div>
+  <div class="stat-card"><strong>2024</strong><span>প্রতিষ্ঠিত</span></div>
+</div>
+
+<section class="section catalog" id="catalog">
+  <div class="container">
+    <div class="center">
+      <div class="tag">OUR ACADEMIC PROGRAMS</div>
+      <h2 class="heading">আমাদের কোর্সসমূহ</h2>
+      <p class="description">
+        নিজের লক্ষ্য, বয়স ও আগ্রহ অনুযায়ী উপযুক্ত কোর্সটি খুঁজে নিন।
+        যেকোনো কোর্সের জন্য সরাসরি WhatsApp-এ যোগাযোগ করুন।
+      </p>
+    </div>
+
+    <div class="search-box">
+      <input type="search" id="courseSearch" placeholder="কোর্সের নাম লিখে খুঁজুন..." aria-label="কোর্স খুঁজুন">
+    </div>
+
+    <div class="filter-list" role="group" aria-label="ক্যাটাগরি ফিল্টার">
+      <button class="filter-btn active" data-filter="all">সকল কোর্স</button>
+      <button class="filter-btn" data-filter="quran">আল-কুরআন</button>
+      <button class="filter-btn" data-filter="arabic">আরবি ও ইসলামিক স্টাডিজ</button>
+      <button class="filter-btn" data-filter="english">ইংরেজি</button>
+      <button class="filter-btn" data-filter="science">বিজ্ঞান ও প্রযুক্তি</button>
+      <button class="filter-btn" data-filter="ict">কম্পিউটার ও আইসিটি</button>
+    </div>
+    <div class="result-count" id="resultCount"></div>
+
+    <div class="course-grid" id="courseGrid"></div>
+    <div class="empty-message" id="emptyMessage">
+      কোনো কোর্স পাওয়া যায়নি। অন্য নামে অনুসন্ধান করুন অথবা ফিল্টার পরিবর্তন করুন।
+    </div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="container">
+    <div class="center">
+      <div class="tag">WHY DEEN</div>
+      <h2 class="heading">কেন DEEN-এর কোর্স বেছে নেবেন</h2>
+      <p class="description">ইসলামী জ্ঞান ও আধুনিক দক্ষতা, দুটোই একসাথে অর্জনের সুযোগ।</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">📖</div>
+        <strong>বিশুদ্ধ ইসলামী জ্ঞান</strong>
+        <span>কুরআন, হাদীস, আরবি ও আকাইদের শিক্ষা হবে নির্ভরযোগ্য উৎস ও শিক্ষকদের মাধ্যমে।</span>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🎓</div>
+        <strong>বোর্ড ও ক্যারিয়ার কেন্দ্রিক</strong>
+        <span>এসএসসি-এইচএসসি প্রস্তুতি, ইংরেজি দক্ষতা ও আইসিটি কোর্স বাস্তব প্রয়োজনকে সামনে রেখে সাজানো।</span>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🛠️</div>
+        <strong>হাতে-কলমে শেখা</strong>
+        <span>রোবোটিকস, সার্কিট ও সোলার কোর্সে প্রজেক্ট ও প্রায়োগিক অনুশীলনের উপর জোর।</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section admission">
+  <div class="container">
+    <div class="tag">START YOUR LEARNING JOURNEY</div>
+    <h2>জ্ঞান অর্জনের যাত্রা শুরু করুন</h2>
+    <p>
+      আপনার পছন্দের কোর্স, ভর্তি প্রক্রিয়া ও সময়সূচি সম্পর্কে জানতে
+      আমাদের সঙ্গে WhatsApp-এ যোগাযোগ করুন।
+    </p>
+    <a href="https://wa.me/8801332991478?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%E0%A5%A4%20%E0%A6%95%E0%A7%8B%E0%A6%B0%E0%A7%8D%E0%A6%B8%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A7%87%20%E0%A6%9C%E0%A6%BE%E0%A6%A8%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87%E0%A5%A4"
+       target="_blank" rel="noopener" class="btn">ভর্তি ও যোগাযোগ →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>
+          Dawah Education &amp; E-learning Nexus.
+          বিশুদ্ধ ইসলামী জ্ঞান, আধুনিক শিক্ষা ও প্রযুক্তির সমন্বয়ে একটি জ্ঞানকেন্দ্র।
+        </p>
+        <p style="color:#e2c987;margin-top:10px">Knowledge Changes Lives.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>প্রতিষ্ঠান</h3>
+        <ul>
+          <li><a href="index.html">হোম</a></li>
+          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          <li><a href="departments.html">বিভাগসমূহ</a></li>
+          <li><a href="Courses.html">কোর্সসমূহ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul>
+          <li>01332991478</li>
+          <li>01769668093</li>
+          <li>Online / Everywhere</li>
+          <li><a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 DEEN — Dawah Education &amp; E-learning Nexus. All Rights Reserved.<br>Knowledge Changes Lives.
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp-এ যোগাযোগ করুন">✆</a>
+
+<script>
+/* ================= MOBILE MENU ================= */
+(function () {
+  var toggle = document.getElementById('menuToggle');
+  var menu = document.getElementById('navMenu');
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', function () {
+    var open = menu.classList.toggle('active');
+    toggle.textContent = open ? '✕' : '☰';
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  menu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      menu.classList.remove('active');
+      toggle.textContent = '☰';
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+
+/* ================= COURSE DATA ================= */
+var CATEGORY_LABEL = {
+  quran: 'আল-কুরআন',
+  arabic: 'আরবি ও ইসলামিক স্টাডিজ',
+  english: 'ইংরেজি',
+  science: 'বিজ্ঞান ও প্রযুক্তি',
+  ict: 'কম্পিউটার ও আইসিটি'
+};
+
+var COURSES = [
+  /* ---- আল-কুরআন ও ইসলামী শিক্ষা (01–05) ---- */
+  { cat:'quran', tag:'কুরআন শিক্ষা', title:'আল-কুরআন শিক্ষা বেসিক',
+    desc:'কুরআন শিক্ষার প্রাথমিক ভিত্তি, হরফ চেনা ও শুদ্ধ পাঠের প্রস্তুতি।',
+    level:'প্রাথমিক স্তর', duration:'৩ মাস', mode:'অনলাইন ও সরাসরি' },
+  { cat:'quran', tag:'কুরআন শিক্ষা', title:'নাজেরা বেসিক',
+    desc:'সঠিক উচ্চারণ ও তাজবীদের নিয়ম অনুসরণ করে কুরআন পাঠ শেখা।',
+    level:'প্রাথমিক স্তর', duration:'৬ মাস', mode:'অনলাইন ও সরাসরি' },
+  { cat:'quran', tag:'তিলাওয়াত', title:'তিলাওয়াত শিক্ষা (মাকামাত)',
+    desc:'তিলাওয়াতের সৌন্দর্য, সুর ও মাকামাত বিষয়ে বিশেষ প্রশিক্ষণ।',
+    level:'বিশেষায়িত', duration:'৩ মাস', mode:'অনলাইন' },
+  { cat:'quran', tag:'কুরআন শিক্ষা', title:'নাজেরা অ্যাডভান্স',
+    desc:'উন্নত পর্যায়ে শুদ্ধতা ও সাবলীলতার সঙ্গে কুরআন তিলাওয়াত।',
+    level:'উন্নত স্তর', duration:'৬ মাস', mode:'অনলাইন ও সরাসরি' },
+  { cat:'quran', tag:'কুরআন শিক্ষা', title:'হিফজুল কুরআন',
+    desc:'পরিকল্পিত পদ্ধতিতে পবিত্র কুরআন মুখস্থ ও নিয়মিত পুনরাবৃত্তি।',
+    level:'বিশেষায়িত', duration:'প্রোগ্রাম অনুযায়ী', mode:'সরাসরি' },
+
+  /* ---- আরবি ও ইসলামিক স্টাডিজ (06–08, 11–14) ---- */
+  { cat:'arabic', tag:'আরবি ভাষা', title:'ইলমুস সরফ',
+    desc:'আরবি শব্দের গঠন, রূপান্তর ও মৌলিক সরফের জ্ঞান।',
+    level:'মধ্যবর্তী স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+  { cat:'arabic', tag:'আরবি ভাষা', title:'ইলমুন নাহু',
+    desc:'আরবি বাক্যগঠন ও ব্যাকরণের প্রাথমিক ও ব্যবহারিক শিক্ষা।',
+    level:'মধ্যবর্তী স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+  { cat:'arabic', tag:'কুরআন অধ্যয়ন', title:'তাফসিরুল কুরআন',
+    desc:'পবিত্র কুরআনের অর্থ, ব্যাখ্যা ও শিক্ষণীয় বিষয়ের গভীর অধ্যয়ন।',
+    level:'বিশেষায়িত', duration:'৬ মাস', mode:'অনলাইন' },
+  { cat:'quran', tag:'কুরআন অধ্যয়ন', title:'শব্দে শব্দে আল-কুরআন',
+    desc:'কুরআনের শব্দার্থ ও বাক্যের অর্থ অনুধাবনের শিক্ষা।',
+    level:'বিশেষায়িত', duration:'৬ মাস', mode:'অনলাইন' },
+  { cat:'quran', tag:'প্রতিযোগিতা', title:'অর্থসহ তিলাওয়াত প্রতিযোগিতা',
+    desc:'অর্থ অনুধাবনসহ তিলাওয়াতের দক্ষতা যাচাই ও নিয়মিত অনুশীলন।',
+    level:'বিশেষ আয়োজন', duration:'আয়োজন অনুযায়ী', mode:'অনলাইন ও সরাসরি' },
+  { cat:'arabic', tag:'হাদীস শিক্ষা', title:'হাদীস শিক্ষা (ছিহাহ সিত্তাহ)',
+    desc:'প্রামাণ্য হাদীসগ্রন্থ ও নববী শিক্ষার সুশৃঙ্খল অধ্যয়ন।',
+    level:'বিশেষায়িত', duration:'৬ মাস', mode:'অনলাইন' },
+  { cat:'arabic', tag:'আকাইদ', title:'আকাইদ বেসিক',
+    desc:'ইসলামী বিশ্বাস ও আকিদার মৌলিক বিষয়গুলোর সহজ ও সুস্পষ্ট শিক্ষা।',
+    level:'প্রাথমিক স্তর', duration:'২ মাস', mode:'অনলাইন' },
+  { cat:'arabic', tag:'ইসলামী জ্ঞান', title:'আসমাউল হুসনা (ইসমে আজম)',
+    desc:'আল্লাহর সুন্দর নামসমূহ ও সেগুলোর তাৎপর্য অধ্যয়ন।',
+    level:'বিশেষায়িত', duration:'২ মাস', mode:'অনলাইন' },
+  { cat:'arabic', tag:'ইসলামী ইতিহাস', title:'সীরাত শিক্ষা',
+    desc:'রাসূলুল্লাহ ﷺ-এর জীবন, আদর্শ ও শিক্ষার অধ্যয়ন।',
+    level:'সাধারণ স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+
+  /* ---- ইংরেজি (15–16, 17–19) ---- */
+  { cat:'english', tag:'ইংরেজি শিক্ষা', title:'ইংরেজি শিক্ষা বেসিক (শিশু)',
+    desc:'শিশুদের জন্য ইংরেজি ভাষার প্রাথমিক দক্ষতা, শব্দভাণ্ডার ও ভিত্তি।',
+    level:'শিশুদের স্তর', duration:'৬ মাস', mode:'সরাসরি ও অনলাইন' },
+  { cat:'english', tag:'ইংরেজি শিক্ষা', title:'ইংরেজি অ্যাডভান্স',
+    desc:'Speaking, Listening, Reading ও Writing দক্ষতার সমন্বিত উন্নয়ন।',
+    level:'উন্নত স্তর', duration:'৪ মাস', mode:'অনলাইন ও সরাসরি' },
+  { cat:'english', tag:'কথোপকথন', isNew:true, title:'স্পোকেন ইংলিশ (দৈনন্দিন কথোপকথন)',
+    desc:'ক্লাস, অফিস ও দৈনন্দিন জীবনে আত্মবিশ্বাসের সঙ্গে ইংরেজিতে কথা বলার অনুশীলন।',
+    level:'সব স্তর', duration:'৩ মাস', mode:'অনলাইন ও সরাসরি' },
+  { cat:'english', tag:'ক্যারিয়ার', isNew:true, title:'ইংরেজি ফর ক্যারিয়ার ও ইন্টারভিউ',
+    desc:'চাকরির আবেদন, সিভি লেখা, প্রেজেন্টেশন ও ইন্টারভিউয়ের জন্য কার্যকর ইংরেজি।',
+    level:'মধ্যবর্তী স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+  { cat:'english', tag:'পরীক্ষা প্রস্তুতি', isNew:true, title:'IELTS প্রস্তুতি (Academic)',
+    desc:'IELTS-এর চারটি মডিউল (Listening, Reading, Writing, Speaking) অনুযায়ী পরিকল্পিত প্রস্তুতি।',
+    level:'উন্নত স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+
+  /* ---- বিজ্ঞান ও প্রযুক্তি (20–24) ---- */
+  { cat:'science', tag:'রোবোটিকস', isNew:true, title:'রোবোটিকস বেসিক',
+    desc:'মাইক্রোকন্ট্রোলার, সেন্সর ও মোটর ব্যবহার করে ছোট রোবট তৈরির হাতে-কলমে শিক্ষা।',
+    level:'প্রাথমিক স্তর', duration:'৩ মাস', mode:'সরাসরি ও প্রজেক্ট ভিত্তিক' },
+  { cat:'science', tag:'সার্কিট ও মেইনটেন্যান্স', isNew:true, title:'সার্কিট ডিজাইন ও ইলেকট্রনিক্স মেইনটেন্যান্স',
+    desc:'বেসিক ইলেকট্রিক্যাল সার্কিট, সোল্ডারিং, মাল্টিমিটার ব্যবহার ও সাধারণ যন্ত্র মেরামতের প্রশিক্ষণ।',
+    level:'প্রাথমিক স্তর', duration:'৪ মাস', mode:'সরাসরি ও ল্যাব ভিত্তিক' },
+  { cat:'science', tag:'ইন্টারনেট অব থিংস', isNew:true, title:'IoT বেসিক (ইন্টারনেট অব থিংস)',
+    desc:'সেন্সর ও ওয়াই-ফাই মডিউল দিয়ে স্মার্ট ডিভাইস তৈরি ও তথ্য পাঠানোর বাস্তব শিক্ষা।',
+    level:'মধ্যবর্তী স্তর', duration:'৩ মাস', mode:'সরাসরি ও প্রজেক্ট ভিত্তিক' },
+  { cat:'science', tag:'নবায়নযোগ্য শক্তি', isNew:true, title:'সোলার সিস্টেম ইনস্টলেশন ও মেইনটেন্যান্স',
+    desc:'সোলার প্যানেল, ব্যাটারি ও ইনভার্টারের নকশা, স্থাপন ও রক্ষণাবেক্ষণের বাস্তব প্রশিক্ষণ।',
+    level:'প্রাথমিক স্তর', duration:'৩ মাস', mode:'সরাসরি ও ব্যবহারিক' },
+  { cat:'science', tag:'বিজ্ঞান প্রজেক্ট', isNew:true, title:'বিজ্ঞান প্রজেক্ট ও উদ্ভাবন ল্যাব',
+    desc:'বৈজ্ঞানিক গবেষণার পদ্ধতি শিখে বিজ্ঞান মেলা ও প্রতিযোগিতার জন্য নিজের প্রজেক্ট তৈরি।',
+    level:'সব স্তর', duration:'৩ মাস', mode:'সরাসরি' },
+
+  /* ---- বোর্ড শিক্ষা (25) ---- */
+  { cat:'science', tag:'বোর্ড প্রস্তুতি', isNew:true, title:'বিজ্ঞান শাখা: এসএসসি ও এইচএসসি প্রস্তুতি',
+    desc:'বাংলাদেশের শিক্ষা বোর্ডের বিজ্ঞান শাখার পাঠ্যক্রম অনুযায়ী বিষয়ভিত্তিক প্রস্তুতি ও অনুশীলন।',
+    level:'এসএসসি / এইচএসসি', duration:'বর্ষ অনুযায়ী', mode:'অনলাইন ও সরাসরি' },
+
+  /* ---- কম্পিউটার ও আইসিটি (26–30) ---- */
+  { cat:'ict', tag:'আইসিটি', isNew:true, title:'তথ্য ও যোগাযোগ প্রযুক্তি (ICT)',
+    desc:'বাংলাদেশের শিক্ষা বোর্ডের ICT পাঠ্যক্রম অনুযায়ী তত্ত্ব ও ব্যবহারিক প্রস্তুতি।',
+    level:'এসএসসি / এইচএসসি', duration:'বর্ষ অনুযায়ী', mode:'অনলাইন ও সরাসরি' },
+  { cat:'ict', tag:'কম্পিউটার শিক্ষা', isNew:true, title:'কম্পিউটার শিক্ষা বেসিক',
+    desc:'কম্পিউটারের মৌলিক ধারণা, অপারেটিং সিস্টেম, টাইপিং, MS Office ও ইন্টারনেট ব্যবহার।',
+    level:'প্রাথমিক স্তর', duration:'২ মাস', mode:'সরাসরি ও অনলাইন' },
+  { cat:'ict', tag:'কম্পিউটার শিক্ষা', isNew:true, title:'কম্পিউটার শিক্ষা এডভান্স',
+    desc:'Excel, PowerPoint, গ্রাফিক্স ডিজাইন ও ডিজিটাল ডকুমেন্ট ব্যবস্থাপনার উন্নত দক্ষতা।',
+    level:'উন্নত স্তর', duration:'৩ মাস', mode:'সরাসরি ও অনলাইন' },
+  { cat:'ict', tag:'ডিজিটাল মার্কেটিং', isNew:true, title:'অনলাইন মার্কেটিং',
+    desc:'Facebook ও Google Ads, কন্টেন্ট তৈরি, SEO ও ই-কমার্স ব্যবসা শুরুর বাস্তব প্রশিক্ষণ।',
+    level:'মধ্যবর্তী স্তর', duration:'৩ মাস', mode:'অনলাইন' },
+  { cat:'ict', tag:'কোডিং', isNew:true, title:'কোডিং শিক্ষা (প্রোগ্রামিং বেসিক)',
+    desc:'HTML, CSS, JavaScript ও Python দিয়ে প্রোগ্রামিংয়ের ভিত্তি এবং ছোট প্রজেক্ট তৈরি।',
+    level:'প্রাথমিক স্তর', duration:'৪ মাস', mode:'অনলাইন ও সরাসরি' }
+];
+
+/* ================= RENDER ================= */
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function waLink(title){
+  var msg = 'আসসালামু আলাইকুম, আমি "' + title + '" কোর্সটি সম্পর্কে জানতে চাই।';
+  return 'https://wa.me/8801332991478?text=' + encodeURIComponent(msg);
+}
+
+function renderCourses(){
+  var grid = document.getElementById('courseGrid');
+  if (!grid) return;
+  var html = '';
+  COURSES.forEach(function (c, i) {
+    var num = String(i + 1).padStart(2, '0');
+    html +=
+      '<article class="course-card" data-category="' + c.cat + '" style="animation-delay:' + (Math.min(i, 12) * 0.04) + 's">' +
+        (c.isNew ? '<span class="badge-new">NEW</span>' : '') +
+        '<div class="course-top"></div>' +
+        '<div class="course-body">' +
+          '<div class="course-head">' +
+            '<div class="course-number">' + num + '</div>' +
+            '<span class="course-category">' + esc(c.tag) + '</span>' +
+          '</div>' +
+          '<h3>' + esc(c.title) + '</h3>' +
+          '<p>' + esc(c.desc) + '</p>' +
+          '<div class="course-meta">' +
+            '<span>⏱ ' + esc(c.duration) + '</span>' +
+            '<span>📍 ' + esc(c.mode) + '</span>' +
+          '</div>' +
+          '<div class="course-bottom">' +
+            '<span class="course-level">' + esc(c.level) + '</span>' +
+            '<a class="course-link" href="' + waLink(c.title) + '" target="_blank" rel="noopener">যোগাযোগ →</a>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+  });
+  grid.innerHTML = html;
+}
+
+/* ================= SEARCH & FILTER ================= */
+(function () {
+  var input = document.getElementById('courseSearch');
+  var buttons = document.querySelectorAll('.filter-btn');
+  var grid = document.getElementById('courseGrid');
+  var empty = document.getElementById('emptyMessage');
+  var count = document.getElementById('resultCount');
+  var active = 'all';
+
+  function apply() {
+    var q = input ? input.value.trim().toLowerCase() : '';
+    var cards = grid.querySelectorAll('.course-card');
+    var visible = 0;
+
+    cards.forEach(function (card) {
+      var c = COURSES[Array.prototype.indexOf.call(cards, card)];
+      var text = (c.title + ' ' + c.desc + ' ' + c.tag + ' ' + (CATEGORY_LABEL[c.cat] || '')).toLowerCase();
+      var okCat = active === 'all' || c.cat === active;
+      var okText = !q || text.indexOf(q) !== -1;
+      var show = okCat && okText;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+    if (count) count.textContent = 'মোট ' + visible + ' টি কোর্স দেখানো হচ্ছে';
+  }
+
+  if (input) input.addEventListener('input', apply);
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      active = btn.getAttribute('data-filter');
+      apply();
+    });
+  });
+
+  renderCourses();
+  apply();
+})();
+</script>
+
+</body>
+</html>
