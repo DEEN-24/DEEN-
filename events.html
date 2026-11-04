@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>ইভেন্ট ও নোটিশ | DEEN — Knowledge Changes Lives</title>
+<meta name="description" content="DEEN-এর সর্বশেষ ইভেন্ট, কর্মশালা, লাইভ সম্প্রচার ও গুরুত্বপূর্ণ নোটিশ এক জায়গায়।">
+<meta property="og:title" content="ইভেন্ট ও নোটিশ | DEEN">
+<meta property="og:description" content="সর্বশেষ ইভেন্ট, লাইভ সম্প্রচার ও নোটিশ।">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .hero-band{position:relative;overflow:hidden;color:#fff;padding:90px 0 80px;
+    background:radial-gradient(ellipse at 85% 15%,rgba(215,180,106,.22),transparent 50%),
+      linear-gradient(120deg,rgba(3,28,23,.97),rgba(6,43,35,.9)),
+      url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1800&q=80') center/cover}
+  .hero-band::before{content:"";position:absolute;inset:0;opacity:.09;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent 0 40px,var(--gold) 41px 42px,transparent 43px 84px)}
+  .hero-band .in{position:relative;z-index:2}
+  .hero-band h1{font-family:'Playfair Display',serif;font-size:clamp(38px,6vw,62px);line-height:1.1;margin-bottom:14px}
+  .hero-band h1 em{font-style:italic;background:linear-gradient(90deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-band p{color:#dfe7e0;font-size:16.5px;line-height:1.9;max-width:640px}
+  .crumb{font-size:13px;color:#cfd9d1;margin-bottom:18px}
+  .crumb a{color:var(--gold-2)}
+  .pulse-line{display:inline-flex;align-items:center;gap:10px;margin-top:22px;color:var(--gold-2);font-size:13.5px;border:1px solid rgba(215,180,106,.45);border-radius:999px;padding:7px 15px;background:rgba(3,28,23,.35)}
+  .pulse-line i{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:ping 1.8s infinite}
+
+  /* LIVE banner */
+  .live-wrap{padding:40px 0 0}
+  .live-banner{position:relative;display:flex;align-items:center;gap:22px;flex-wrap:wrap;color:#fff;border-radius:22px;padding:28px 30px;overflow:hidden;
+    background:linear-gradient(120deg,#3a0b0b,#7a1a14 55%,#3a0b0b);box-shadow:var(--shadow-lg);border:1px solid rgba(255,120,100,.35)}
+  .live-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 0%,rgba(255,90,70,.25),transparent 55%);pointer-events:none}
+  .live-tag{display:inline-flex;align-items:center;gap:8px;background:#e53e2f;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:1.5px;padding:6px 12px;border-radius:999px}
+  .live-tag i{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+  .live-text{flex:1;min-width:220px;position:relative;z-index:2}
+  .live-text h2{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,30px);margin:10px 0 6px;color:#fff}
+  .live-text p{color:#f5d9d3;font-size:15px;line-height:1.7}
+  .live-banner .btn{position:relative;z-index:2}
+
+  /* filters */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:46px 0 10px}
+  .filters button{border:1px solid #d4c9ae;background:#fff;color:var(--green);padding:10px 20px;border-radius:999px;font-weight:600;font-size:14.5px;transition:.3s}
+  .filters button.on,.filters button:hover{background:var(--green);color:var(--gold-2);border-color:var(--green)}
+  .updated{text-align:center;font-size:13px;color:var(--muted);margin-bottom:10px}
+
+  .sec-head{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:50px 0 26px}
+  .sec-head h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,38px);color:var(--green)}
+  .sec-head p{color:var(--muted);font-size:14.5px}
+
+  /* event cards */
+  .ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .ev-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s;animation:fadeUp .6s var(--ease) both}
+  .ev-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}
+  .ev-cover{height:170px;background:linear-gradient(135deg,var(--green),var(--green-2));position:relative;overflow:hidden}
+  .ev-cover img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .ev-card:hover .ev-cover img{transform:scale(1.07)}
+  .ev-date{position:absolute;left:16px;top:16px;background:rgba(3,28,23,.85);color:var(--gold-2);border:1px solid rgba(215,180,106,.5);border-radius:14px;padding:8px 12px;text-align:center;min-width:64px}
+  .ev-date b{display:block;font-family:'Playfair Display',serif;font-size:26px;line-height:1}
+  .ev-date span{font-size:12px}
+  .ev-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+  .ev-body h3{color:var(--green);font-size:19px;line-height:1.45;margin:10px 0 8px}
+  .ev-body p{color:var(--muted);font-size:14.5px;line-height:1.8}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+  .chip{display:inline-block;padding:4px 11px;border-radius:999px;background:#f7efd9;color:#8b682b;font-size:12px;font-weight:700}
+  .chip.gold{background:var(--gold);color:var(--green)}
+  .chip.new{background:#e3f4ea;color:#1b6b43}
+  .chip.live{background:#e53e2f;color:#fff}
+  .countdown{margin-top:14px;display:inline-flex;align-items:center;gap:8px;background:#f3f8f4;border:1px solid #cfe3d6;color:#1b5e3e;border-radius:12px;padding:9px 13px;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+  .countdown.now{background:#fdf0ee;border-color:#f0c8c2;color:#8e2f25}
+  .ev-body .lnk{margin-top:auto;padding-top:18px}
+  .lnk a{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:#99712f;border-bottom:1px solid var(--gold);padding-bottom:3px}
+  .lnk a:hover{color:var(--green)}
+  .past .ev-card{opacity:.78;filter:saturate(.7)}
+
+  /* notices */
+  .nt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .nt-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s;animation:fadeUp .6s var(--ease) both}
+  .nt-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}
+  .nt-card.pinned{border:1px solid rgba(215,180,106,.6);box-shadow:0 14px 34px rgba(215,180,106,.18)}
+  .nt-img{height:180px;overflow:hidden}
+  .nt-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .nt-card:hover .nt-img img{transform:scale(1.06)}
+  .nt-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+  .nt-body h3{color:var(--green);font-size:18.5px;line-height:1.5;margin:12px 0 8px}
+  .nt-text{color:var(--muted);font-size:14.5px;line-height:1.85;white-space:pre-wrap}
+  .nt-body details summary{cursor:pointer;color:#99712f;font-weight:700;font-size:14px;margin-top:8px;list-style:none}
+  .nt-body details summary::-webkit-details-marker{display:none}
+  .nt-date{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+  .empty-box{grid-column:1/-1;text-align:center;padding:36px 20px;background:#fff;border:1px dashed #d4c9ae;border-radius:var(--radius);color:var(--muted)}
+  .skeleton{height:220px;border-radius:var(--radius);background:linear-gradient(90deg,#efece2,#f8f6ee,#efece2);background-size:200% 100%;animation:shimmer 1.4s infinite}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 10px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  @media(max-width:1020px){.ev-grid,.nt-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.ev-grid,.nt-grid{grid-template-columns:1fr}.hero-band{padding:64px 0}.live-banner{padding:22px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links">
+      <a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html" class="active">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="container in">
+    <div class="crumb"><a href="index.html">হোম</a> / ইভেন্ট ও নোটিশ</div>
+    <div class="eyebrow" style="color:var(--gold-2)">EVENTS &amp; NOTICES</div>
+    <h1>সর্বশেষ <em>ইভেন্ট ও ঘোষণা</em></h1>
+    <p>কর্মশালা, লাইভ ক্লাস, প্রতিযোগিতা ও গুরুত্বপূর্ণ নোটিশ, সবকিছু এক জায়গায়। এখানে সরাসরি আপডেট হয়।</p>
+    <div class="pulse-line"><i></i> সরাসরি আপডেট চালু আছে</div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- LIVE -->
+  <div class="live-wrap hide" id="liveBox"></div>
+
+  <!-- FILTERS -->
+  <div class="filters" role="group" aria-label="দেখুন">
+    <button class="on" data-f="all">সব</button>
+    <button data-f="events">ইভেন্ট ও কর্মশালা</button>
+    <button data-f="notices">নোটিশ ও ঘোষণা</button>
+  </div>
+  <div class="updated" id="lastUpdate">লোড হচ্ছে...</div>
+
+  <div class="alert" id="pageAlert" role="status" style="margin-top:10px"></div>
+
+  <!-- UPCOMING EVENTS -->
+  <section data-sec="events">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">UPCOMING</div>
+        <h2>আসন্ন ইভেন্ট</h2>
+      </div>
+      <p>সময় গোনা চলছে, প্রস্তুত থাকুন।</p>
+    </div>
+    <div class="ev-grid" id="upcomingGrid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+
+    <div class="sec-head past" style="margin-top:60px">
+      <div>
+        <div class="eyebrow">ARCHIVE</div>
+        <h2>সম্পন্ন ইভেন্ট</h2>
+      </div>
+    </div>
+    <div class="ev-grid past" id="pastGrid"></div>
+  </section>
+
+  <!-- NOTICES -->
+  <section data-sec="notices">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">ANNOUNCEMENTS</div>
+        <h2>নোটিশ ও ঘোষণা</h2>
+      </div>
+      <p>পিন করা নোটিশ সবসময় উপরে থাকে।</p>
+    </div>
+    <div class="nt-grid" id="noticeGrid"></div>
+  </section>
+
+  <div style="height:70px"></div>
+</div>
+
+<!-- CTA -->
+<section style="background:linear-gradient(120deg,var(--green-3),var(--green-2));color:#fff;padding:70px 0;text-align:center">
+  <div class="container">
+    <div class="eyebrow" style="color:var(--gold-2)">JOIN US</div>
+    <h2 class="title" style="color:#fff">আপনার আসন নিশ্চিত করুন</h2>
+    <p class="lead" style="color:#d6e0d8;margin:0 auto 26px">ইভেন্ট বা কোর্সে অংশ নিতে চাইলে আজই আবেদন করুন।</p>
+    <div class="row" style="justify-content:center">
+      <a href="apply.html" class="btn btn-gold">ভর্তির আবেদন</a>
+      <a href="contact.html" class="btn btn-light">যোগাযোগ করুন</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>Dawah Education &amp; E-learning Nexus. Knowledge Changes Lives.</p>
+      </div>
+      <div class="footer-col">
+        <h3>লিংক</h3>
+        <ul>
+          <li><a href="index.html">হোম</a></li>
+          <li><a href="Courses.html">কোর্সসমূহ</a></li>
+          <li><a href="apply.html">ভর্তির আবেদন</a></li>
+          <li><a href="contact.html">যোগাযোগ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul>
+          <li>📞 01332991478</li>
+          <li>📞 01769668093</li>
+          <li>🌐 Online / Everywhere</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 DEEN — Dawah Education &amp; E-learning Nexus. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp-এ যোগাযোগ করুন">✆</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = D.esc;
+  var state = { filter: 'all', settings: {}, events: [], notices: [] };
+
+  function safeUrl(u) { return typeof u === 'string' && /^https:\/\//i.test(u) ? u : ''; }
+  function fmtDate(d) { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' }); }
+  function fmtTime(d) { return new Date(d).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }); }
+  function isNew(d) { return Date.now() - new Date(d).getTime() < 3 * 86400000; }
+  function endOf(ev) { return ev.ends_at ? new Date(ev.ends_at).getTime() : new Date(ev.starts_at).getTime() + 86400000; }
+
+  /* ---------- লাইভ সম্প্রচার ---------- */
+  function renderLive() {
+    var s = state.settings, box = $('liveBox'), url = safeUrl(s.live_url);
+    if (s.live_enabled && url) {
+      box.innerHTML =
+        '<div class="live-banner">' +
+          '<div><span class="live-tag"><i></i> LIVE NOW</span></div>' +
+          '<div class="live-text"><h2>' + esc(s.live_title || 'সরাসরি সম্প্রচার') + '</h2>' +
+          '<p>' + esc(s.live_note || '') + '</p></div>' +
+          '<a class="btn btn-gold" href="' + esc(url) + '" target="_blank" rel="noopener">লাইভে যুক্ত হন →</a>' +
+        '</div>';
+      box.classList.remove('hide');
+    } else {
+      box.innerHTML = '';
+      box.classList.add('hide');
+    }
+  }
+
+  /* ---------- ইভেন্ট ---------- */
+  function eventCard(ev, isPast) {
+    var d = ev.starts_at;
+    var cover = safeUrl(ev.image_url)
+      ? '<img src="' + esc(safeUrl(ev.image_url)) + '" alt="' + esc(ev.title) + '" loading="lazy">'
+      : '';
+    var link = safeUrl(ev.link_url)
+      ? '<div class="lnk"><a href="' + esc(safeUrl(ev.link_url)) + '" target="_blank" rel="noopener">' + esc(ev.link_label || 'বিস্তারিত') + ' →</a></div>'
+      : '';
+    var cd = isPast ? '' : '<div class="countdown" data-start="' + esc(ev.starts_at) + '" data-end="' + esc(endOf(ev)) + '">⏳ লোড হচ্ছে...</div>';
+    return '<article class="ev-card">' +
+      '<div class="ev-cover">' + cover +
+        '<div class="ev-date"><b>' + new Date(d).getDate() + '</b><span>' +
+        new Date(d).toLocaleDateString('bn-BD', { month: 'short' }) + '</span></div>' +
+      '</div>' +
+      '<div class="ev-body">' +
+        '<div class="meta"><span class="chip">' + esc(ev.category) + '</span>' +
+          (ev.is_pinned ? '<span class="chip gold">📌 বিশেষ</span>' : '') +
+          '<span>🕒 ' + esc(fmtTime(d)) + '</span><span>📍 ' + esc(ev.location) + '</span></div>' +
+        '<h3>' + esc(ev.title) + '</h3>' +
+        (ev.description ? '<p>' + esc(ev.description) + '</p>' : '') +
+        cd + link +
+      '</div></article>';
+  }
+
+  function renderEvents() {
+    var now = Date.now();
+    var up = [], past = [];
+    state.events.forEach(function (ev) { (endOf(ev) >= now ? up : past).push(ev); });
+    up.sort(function (a, b) { return (b.is_pinned - a.is_pinned) || (new Date(a.starts_at) - new Date(b.starts_at)); });
+    past.sort(function (a, b) { return new Date(b.starts_at) - new Date(a.starts_at); });
+
+    $('upcomingGrid').innerHTML = up.length
+      ? up.map(function (e) { return eventCard(e, false); }).join('')
+      : '<div class="empty-box">এখন কোনো আসন্ন ইভেন্ট নেই। শীঘ্রই নতুন ইভেন্ট ঘোষণা করা হবে।</div>';
+
+    $('pastGrid').innerHTML = past.length
+      ? past.slice(0, 6).map(function (e) { return eventCard(e, true); }).join('')
+      : '<div class="empty-box">এখনো কোনো সম্পন্ন ইভেন্ট নেই।</div>';
+    tick();
+  }
+
+  /* ---------- নোটিশ ---------- */
+  function noticeCard(n) {
+    var img = safeUrl(n.image_url)
+      ? '<div class="nt-img"><img src="' + esc(safeUrl(n.image_url)) + '" alt="' + esc(n.title) + '" loading="lazy"></div>'
+      : '';
+    var body = n.body || '';
+    var text = body.length > 220
+      ? '<details><summary>আরও পড়ুন</summary><div class="nt-text">' + esc(body) + '</div></details>'
+      : (body ? '<div class="nt-text">' + esc(body) + '</div>' : '');
+    var link = safeUrl(n.link_url)
+      ? '<div class="lnk" style="margin-top:14px"><a href="' + esc(safeUrl(n.link_url)) + '" target="_blank" rel="noopener">' + esc(n.link_label || 'বিস্তারিত') + ' →</a></div>'
+      : '';
+    return '<article class="nt-card' + (n.is_pinned ? ' pinned' : '') + '">' + img +
+      '<div class="nt-body">' +
+        '<div class="meta">' +
+          (n.is_pinned ? '<span class="chip gold">📌 পিন করা</span>' : '') +
+          '<span class="chip">' + esc(n.category || 'নোটিশ') + '</span>' +
+          (isNew(n.created_at) ? '<span class="chip new">নতুন</span>' : '') +
+        '</div>' +
+        '<h3>' + esc(n.title) + '</h3>' +
+        text + link +
+        '<div class="nt-date">' + esc(fmtDate(n.created_at)) + '</div>' +
+      '</div></article>';
+  }
+
+  function renderNotices() {
+    $('noticeGrid').innerHTML = state.notices.length
+      ? state.notices.map(noticeCard).join('')
+      : '<div class="empty-box">এখন কোনো নোটিশ নেই।</div>';
+  }
+
+  /* ---------- জীবন্ত কাউন্টডাউন (প্রতি সেকেন্ডে) ---------- */
+  function tick() {
+    var now = Date.now();
+    document.querySelectorAll('.countdown').forEach(function (el) {
+      var start = new Date(el.getAttribute('data-start')).getTime();
+      var end = new Date(el.getAttribute('data-end')).getTime();
+      if (now >= start && now < end) {
+        el.className = 'countdown now';
+        el.textContent = '🔴 এখন চলছে';
+      } else if (now < start) {
+        el.className = 'countdown';
+        var diff = Math.floor((start - now) / 1000);
+        var d = Math.floor(diff / 86400), h = Math.floor((diff % 86400) / 3600),
+            m = Math.floor((diff % 3600) / 60), s = diff % 60;
+        var pad = function (x) { return String(x).padStart(2, '0'); };
+        el.textContent = '⏳ শুরু হতে বাকি: ' + (d ? d + ' দিন ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+      } else {
+        el.className = 'countdown';
+        el.textContent = 'অনুষ্ঠিত হয়েছে';
+      }
+    });
+  }
+
+  /* ---------- ফিল্টার ---------- */
+  function applyFilter() {
+    document.querySelectorAll('[data-sec]').forEach(function (sec) {
+      var key = sec.getAttribute('data-sec');
+      sec.classList.toggle('hide', state.filter !== 'all' && state.filter !== key);
+    });
+    document.querySelectorAll('.filters button').forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-f') === state.filter);
+    });
+  }
+  document.querySelectorAll('.filters button').forEach(function (b) {
+    b.addEventListener('click', function () { state.filter = b.getAttribute('data-f'); applyFilter(); });
+  });
+
+  /* ---------- তথ্য আনা ও আপডেট ---------- */
+  async function load() {
+    if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); return; }
+    try {
+      var s = await sb.from('settings').select('live_enabled,live_title,live_url,live_note').eq('id', 1).maybeSingle();
+      var e = await sb.from('events').select('*').eq('is_published', true).order('starts_at', { ascending: true });
+      var n = await sb.from('notices').select('*').eq('is_published', true)
+        .order('is_pinned', { ascending: false }).order('created_at', { ascending: false });
+      if (e.error) throw e.error;
+      if (n.error) throw n.error;
+      state.settings = (s.data) || {};
+      state.events = e.data || [];
+      state.notices = n.data || [];
+      renderLive();
+      renderEvents();
+      renderNotices();
+      applyFilter();
+      $('lastUpdate').textContent = 'সর্বশেষ আপডেট: ' + new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+      D.hide($('pageAlert'));
+    } catch (err) {
+      D.show($('pageAlert'), 'bad', 'তথ্য লোড করা যায়নি: ' + esc(D.errMsg(err)));
+      $('lastUpdate').textContent = '';
+    }
+  }
+
+  load();
+  setInterval(tick, 1000);          // কাউন্টডাউন প্রতি সেকেন্ডে
+  setInterval(load, 60000);         // নতুন তথ্য প্রতি মিনিটে
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+})();
+</script>
+</body>
+</html>
