@@ -1,6 +1,12 @@
 /* DEEN — shared client.
    এখানে শুধু PUBLIC (publishable/anon) key থাকে। Secret key কখনো এখানে দেবেন না। */
 (function () {
+  /* নিরাপত্তা: অন্য কোনো সাইটের ভেতরে (iframe-এ) এই পেজ খুলতে দেবে না */
+  if (window.top !== window.self) {
+    try { window.top.location = window.self.location; }
+    catch (e) { document.documentElement.style.display = 'none'; }
+  }
+
   var SUPABASE_URL = 'https://wlczeivhwjxielbvjimj.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndsY3plaXZod2p4aWVsYnZqaW1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3MzMwNTYsImV4cCI6MjEwOTMwOTA1Nn0.4ocy5SfMFD68wR-G4Qs1IqbJISQPhY2oTMRYx4uTMRY';
   var WA_NUMBER = '8801332991478';
@@ -117,4 +123,3 @@
   document.documentElement.classList.add('js');
   document.addEventListener('DOMContentLoaded', initSite);
 })();
-
