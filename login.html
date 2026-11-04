@@ -1,1 +1,273 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>শিক্ষার্থী লগইন | DEEN</title>
+<meta name="description" content="DEEN শিক্ষার্থী পোর্টালে লগইন বা অনুমোদিত আবেদনকারীদের নিবন্ধন।">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .auth-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .auth-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:38px 36px;box-shadow:var(--shadow-lg)}
+  .brand-panel{position:relative;color:#fff;border-radius:26px;overflow:hidden;padding:52px 44px;min-height:520px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow-lg);
+    background:radial-gradient(ellipse at 90% 10%,rgba(215,180,106,.25),transparent 50%),linear-gradient(120deg,rgba(3,28,23,.97),rgba(6,43,35,.92)),url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1400&q=80') center/cover}
+  .bp-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4.4vw,50px);line-height:1.1;margin-bottom:14px}
+  .bp-title em{font-style:italic;background:linear-gradient(90deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .bp-list{list-style:none;margin-top:28px;display:grid;gap:14px}
+  .bp-list li{display:flex;gap:14px;align-items:center;color:#f1ead6;font-size:15px}
+  .bp-list span{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(215,180,106,.18);border:1px solid rgba(215,180,106,.35);font-size:19px;flex-shrink:0}
+  .auth-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--green);margin-bottom:6px}
+  .auth-sub{color:var(--muted);font-size:14.5px;margin-bottom:22px;line-height:1.7}
+  .link{color:#99712f;font-weight:700}
+  .link:hover{text-decoration:underline}
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:72px}
+  .pw-toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:#f3f1e8;border:none;border-radius:10px;padding:6px 10px;font-size:12px;color:var(--green);font-weight:700}
+  @media(max-width:920px){.auth-wrap{grid-template-columns:1fr;gap:30px}.brand-panel{min-height:auto;padding:36px 26px}}
+  @media(max-width:520px){.auth-card{padding:28px 20px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links">
+      <a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta active">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container auth-wrap">
+
+    <section class="brand-panel reveal" aria-label="শিক্ষার্থী পোর্টাল">
+      <div>
+        <div class="eyebrow" style="color:var(--gold-2)">STUDENT PORTAL</div>
+        <h1 class="bp-title">Knowledge<br><em>Changes Lives.</em></h1>
+        <div style="font-size:20px;color:#f3e7c8;font-weight:600;margin-bottom:12px">শিক্ষার্থী পোর্টালে স্বাগতম</div>
+        <p style="color:#dfe7e0;line-height:1.9;font-size:15.5px;max-width:460px">আপনার কোর্স, অগ্রগতি, নোটিশ ও সার্টিফিকেট — সবকিছু এক জায়গায়।</p>
+        <ul class="bp-list">
+          <li><span>📚</span> আমার কোর্স ও পাঠ্যসামগ্রী</li>
+          <li><span>💳</span> পেমেন্ট ও ভর্তির অবস্থা</li>
+          <li><span>🔔</span> নোটিশ ও ঘোষণা</li>
+          <li><span>🛡️</span> শুধু আপনার তথ্য, সম্পূর্ণ নিরাপদ</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="auth-card reveal" aria-label="লগইন ও নিবন্ধন">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-login" aria-selected="true" aria-controls="panel-login" data-tab="login">লগইন</button>
+        <button class="tab" role="tab" id="tab-reg" aria-selected="false" aria-controls="panel-reg" data-tab="reg">নিবন্ধন</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form class="panel active" id="panel-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
+        <h2 class="auth-title">স্বাগতম</h2>
+        <p class="auth-sub">নিবন্ধিত ইমেইল ও পাসওয়ার্ড দিয়ে প্রবেশ করুন।</p>
+
+        <div class="field" id="f-lemail">
+          <label for="lEmail">ইমেইল</label>
+          <input id="lEmail" type="email" autocomplete="username" placeholder="name@example.com">
+          <div class="err">সঠিক ইমেইল লিখুন।</div>
+        </div>
+        <div class="field" id="f-lpw">
+          <label for="lPw">পাসওয়ার্ড</label>
+          <div class="pw-wrap">
+            <input id="lPw" type="password" autocomplete="current-password" placeholder="••••••••">
+            <button type="button" class="pw-toggle" data-target="lPw">দেখুন</button>
+          </div>
+          <div class="err">পাসওয়ার্ড লিখুন।</div>
+        </div>
+
+        <button class="btn btn-gold btn-block" type="submit" id="loginBtn">প্রবেশ করুন →</button>
+        <div class="alert" id="loginAlert" role="status"></div>
+        <p class="muted" style="text-align:center;margin-top:20px;font-size:14px">অ্যাকাউন্ট নেই? <a href="#" class="link" data-goto="reg">নিবন্ধন করুন</a></p>
+        <p class="muted" style="text-align:center;margin-top:8px;font-size:14px">ভর্তির আবেদন করেননি? <a href="apply.html" class="link">এখানে আবেদন করুন</a></p>
+      </form>
+
+      <!-- REGISTER -->
+      <form class="panel" id="panel-reg" role="tabpanel" aria-labelledby="tab-reg" novalidate>
+        <h2 class="auth-title">অ্যাকাউন্ট তৈরি</h2>
+        <p class="auth-sub">শুধু অনুমোদিত আবেদনকারীরা নিবন্ধন করতে পারবেন। আবেদনের সময় দেওয়া ইমেইল ও আবেদন নম্বর লিখুন।</p>
+
+        <div class="field" id="f-rcode">
+          <label for="rCode">আবেদন নম্বর</label>
+          <input id="rCode" type="text" autocomplete="off" placeholder="DEEN-2026-XXXXXX" style="text-transform:uppercase">
+          <div class="err">আবেদন নম্বর লিখুন।</div>
+        </div>
+        <div class="field" id="f-remail">
+          <label for="rEmail">ইমেইল (আবেদনের সময় যা দিয়েছিলেন)</label>
+          <input id="rEmail" type="email" autocomplete="email" placeholder="name@example.com">
+          <div class="err">সঠিক ইমেইল লিখুন।</div>
+        </div>
+        <div class="field" id="f-rpw">
+          <label for="rPw">নতুন পাসওয়ার্ড</label>
+          <div class="pw-wrap">
+            <input id="rPw" type="password" autocomplete="new-password" placeholder="কমপক্ষে ৮ অক্ষর">
+            <button type="button" class="pw-toggle" data-target="rPw">দেখুন</button>
+          </div>
+          <div class="err">পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।</div>
+        </div>
+
+        <button class="btn btn-dark btn-block" type="submit" id="regBtn">নিবন্ধন করুন →</button>
+        <div class="alert" id="regAlert" role="status"></div>
+        <p class="muted" style="text-align:center;margin-top:20px;font-size:14px">আগে থেকে অ্যাকাউন্ট আছে? <a href="#" class="link" data-goto="login">লগইন করুন</a></p>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>Dawah Education &amp; E-learning Nexus. Knowledge Changes Lives.</p>
+      </div>
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul><li>📞 01332991478</li><li>📞 01769668093</li></ul>
+      </div>
+      <div class="footer-col">
+        <h3>লিংক</h3>
+        <ul><li><a href="apply.html">ভর্তির আবেদন</a></li><li><a href="Courses.html">কোর্সসমূহ</a></li><li><a href="index.html">হোম</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 DEEN — All Rights Reserved.</div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function showTab(name) {
+    document.querySelectorAll('.tab').forEach(function (t) {
+      t.setAttribute('aria-selected', String(t.getAttribute('data-tab') === name));
+    });
+    $('panel-login').classList.toggle('active', name === 'login');
+    $('panel-reg').classList.toggle('active', name === 'reg');
+  }
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () { showTab(t.getAttribute('data-tab')); });
+  });
+  document.querySelectorAll('[data-goto]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); showTab(a.getAttribute('data-goto')); });
+  });
+  document.querySelectorAll('.pw-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = $(b.getAttribute('data-target'));
+      var show = i.type === 'password';
+      i.type = show ? 'text' : 'password';
+      b.textContent = show ? 'লুকান' : 'দেখুন';
+    });
+  });
+  document.querySelectorAll('input').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+  function check(id, ok) { $(id).classList.toggle('invalid', !ok); return ok; }
+
+  if (!sb) { D.show($('loginAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); return; }
+
+  async function goAfterLogin() {
+    var admin = await D.isAdmin();
+    location.href = admin ? 'admin.html' : 'dashboard.html';
+  }
+
+  D.getSession().then(function (s) { if (s) goAfterLogin(); });
+
+  /* LOGIN */
+  $('panel-login').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    D.hide($('loginAlert'));
+    var email = $('lEmail').value.trim(), pw = $('lPw').value;
+    var ok = [check('f-lemail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)), check('f-lpw', pw.length > 0)].every(Boolean);
+    if (!ok) return;
+    var btn = $('loginBtn'); btn.disabled = true; btn.textContent = 'যাচাই হচ্ছে...';
+    try {
+      var r = await sb.auth.signInWithPassword({ email: email, password: pw });
+      if (r.error) throw r.error;
+      await goAfterLogin();
+    } catch (err) {
+      D.show($('loginAlert'), 'bad', D.esc(D.errMsg(err)));
+      btn.disabled = false; btn.textContent = 'প্রবেশ করুন →';
+    }
+  });
+
+  /* REGISTER: create account, then link the approved application to it */
+  $('panel-reg').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    D.hide($('regAlert'));
+    var code = $('rCode').value.trim().toUpperCase();
+    var email = $('rEmail').value.trim();
+    var pw = $('rPw').value;
+    var ok = [
+      check('f-rcode', code.length >= 8),
+      check('f-remail', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)),
+      check('f-rpw', pw.length >= 8)
+    ].every(Boolean);
+    if (!ok) return;
+
+    var btn = $('regBtn'); btn.disabled = true; btn.textContent = 'নিবন্ধন হচ্ছে...';
+    try {
+      var s = await sb.auth.signUp({ email: email, password: pw });
+      if (s.error) throw s.error;
+      if (!s.data.session) {
+        var si = await sb.auth.signInWithPassword({ email: email, password: pw });
+        if (si.error) throw si.error;
+      }
+      var c = await sb.rpc('claim_application', { p_code: code });
+      if (c.error) throw c.error;
+      D.show($('regAlert'), 'ok', 'নিবন্ধন সফল হয়েছে। ড্যাশবোর্ডে নিয়ে যাওয়া হচ্ছে...');
+      setTimeout(function () { location.href = 'dashboard.html'; }, 900);
+    } catch (err) {
+      D.show($('regAlert'), 'bad', D.esc(D.errMsg(err)));
+      btn.disabled = false; btn.textContent = 'নিবন্ধন করুন →';
+    }
+  });
+})();
+</script>
+</body>
+</html>
 
