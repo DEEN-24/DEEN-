@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>যোগাযোগ | DEEN — Knowledge Changes Lives</title>
+<meta name="description" content="DEEN-এর সঙ্গে যোগাযোগ করুন: WhatsApp, ফোন, ফেসবুক ও ইউটিউব। ভর্তি, পেমেন্ট, কোর্স বা যেকোনো প্রশ্নে আমরা আছি।">
+<meta property="og:title" content="যোগাযোগ | DEEN">
+<meta property="og:description" content="প্রশ্ন থাকলে সরাসরি যোগাযোগ করুন।">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .hero-band{position:relative;overflow:hidden;color:#fff;padding:90px 0 80px;
+    background:radial-gradient(ellipse at 85% 15%,rgba(215,180,106,.22),transparent 50%),
+      linear-gradient(120deg,rgba(3,28,23,.97),rgba(6,43,35,.9)),
+      url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1800&q=80') center/cover}
+  .hero-band::before{content:"";position:absolute;inset:0;opacity:.09;pointer-events:none;background-image:repeating-linear-gradient(45deg,transparent 0 40px,var(--gold) 41px 42px,transparent 43px 84px)}
+  .hero-band .in{position:relative;z-index:2}
+  .hero-band h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,62px);line-height:1.1;margin-bottom:14px}
+  .hero-band h1 em{font-style:italic;background:linear-gradient(90deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-band p{color:#dfe7e0;font-size:16.5px;line-height:1.9;max-width:640px}
+  .crumb{font-size:13px;color:#cfd9d1;margin-bottom:18px}
+  .crumb a{color:var(--gold-2)}
+  .ccard{display:flex;flex-direction:column;gap:12px;padding:30px 26px;transition:transform .45s var(--ease),box-shadow .45s}
+  .ccard:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .cicon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:26px;background:linear-gradient(135deg,var(--green),var(--green-2));color:var(--gold-2)}
+  .ccard h3{color:var(--green);font-size:19px}
+  .ccard p{color:var(--muted);font-size:14.5px;line-height:1.8}
+  .ccard a.pill{margin-top:auto;align-self:flex-start;font-weight:700;color:#99712f;border-bottom:1px solid var(--gold);padding-bottom:3px}
+  .ccard a.pill:hover{color:var(--green)}
+  .form-side{background:linear-gradient(160deg,var(--green-3),var(--green-2));color:#fff;border:none}
+  .form-side h2{color:var(--gold-2)}
+  .form-side .sub{color:#d6e0d8}
+  .form-side li{color:#e6ece7;font-size:15px;line-height:1.8;margin-left:18px}
+  .form-side ul{margin-top:16px}
+  .form-side li::marker{color:var(--gold)}
+  .faq details{border-bottom:1px solid var(--line);padding:18px 4px}
+  .faq details:last-child{border-bottom:none}
+  .faq summary{cursor:pointer;font-weight:700;color:var(--green);font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:22px;color:#a17b36;transition:transform .3s}
+  .faq details[open] summary::after{content:"−"}
+  .faq details p{color:var(--muted);line-height:1.85;margin-top:12px;font-size:15px}
+  .cta-band{position:relative;text-align:center;color:#fff;padding:90px 0;overflow:hidden;
+    background:radial-gradient(circle at 50% 0%,rgba(215,180,106,.25),transparent 60%),linear-gradient(rgba(3,28,23,.94),rgba(3,28,23,.95)),url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=1600&q=80') center/cover}
+  .cta-band h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);color:var(--gold-2);margin-bottom:14px;line-height:1.2}
+  .cta-band p{max-width:640px;margin:0 auto 26px;color:#dfe7e0;line-height:1.9}
+  .field textarea{min-height:120px;resize:vertical}
+  .form-ok{font-size:14px;color:#1b6b43}
+  @media(max-width:860px){.hero-band{padding:60px 0 56px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links">
+      <a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html" class="active">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="container in">
+    <div class="crumb"><a href="index.html">হোম</a> / যোগাযোগ</div>
+    <div class="eyebrow" style="color:var(--gold-2)">GET IN TOUCH</div>
+    <h1>আমাদের সাথে <em>কথা বলুন</em></h1>
+    <p>ভর্তি, পেমেন্ট, কোর্স বা যেকোনো প্রশ্নে আমরা আছি। সবচেয়ে দ্রুত উত্তর পেতে WhatsApp-এ লিখুন।</p>
+  </div>
+</section>
+
+<!-- QUICK CONTACT -->
+<section class="section" style="padding:80px 0">
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">CONTACT OPTIONS</div>
+      <h2 class="title">যেভাবে সুবিধা, সেভাবে যোগাযোগ করুন</h2>
+      <p class="lead">নিচের যেকোনো মাধ্যম বেছে নিন।</p>
+    </div>
+
+    <div class="grid-3" style="margin-top:50px">
+      <article class="card ccard reveal">
+        <div class="cicon">✆</div>
+        <h3>WhatsApp</h3>
+        <p>সবচেয়ে দ্রুত উত্তর। ভর্তি, পেমেন্ট ও কোর্সের তথ্য সরাসরি জানুন।</p>
+        <a class="pill" href="https://wa.me/8801332991478" target="_blank" rel="noopener">মেসেজ পাঠান →</a>
+      </article>
+
+      <article class="card ccard reveal">
+        <div class="cicon">📞</div>
+        <h3>ফোন</h3>
+        <p>সরাসরি কথা বলতে চাইলে নিচের নম্বরে কল করুন।</p>
+        <a class="pill" href="tel:01332991478">01332991478 →</a>
+        <a class="pill" href="tel:01769668093" style="margin-top:4px">01769668093 →</a>
+      </article>
+
+      <article class="card ccard reveal">
+        <div class="cicon">🌐</div>
+        <h3>অনলাইন ও সামাজিক মাধ্যম</h3>
+        <p>আমরা অনলাইনে সবখানে আছি। নতুন কোর্স ও ঘোষণা আগে সেখানে আসে।</p>
+        <a class="pill" href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook →</a>
+        <a class="pill" href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener" style="margin-top:4px">YouTube →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE FORM + INFO -->
+<section class="section" style="padding:20px 0 90px">
+  <div class="container grid-2" style="gap:30px">
+
+    <div class="card form-side reveal">
+      <h2>কেন DEEN-এ যোগাযোগ করবেন?</h2>
+      <p class="sub">আমাদের টিম আপনার প্রশ্নের স্পষ্ট ও সৎ উত্তর দিতে প্রস্তুত।</p>
+      <ul>
+        <li>কোন কোর্স আপনার লক্ষ্যের সঙ্গে মিলবে</li>
+        <li>ভর্তি ফি, মাসিক ও এককালীন পেমেন্টের হিসাব</li>
+        <li>পেমেন্ট দেওয়ার পর অবস্থা জানা</li>
+        <li>ফেরত ও গোপনীয়তা সংক্রান্ত প্রশ্ন</li>
+      </ul>
+      <div style="margin-top:26px" class="row">
+        <a class="btn btn-gold" href="apply.html">ভর্তির আবেদন করুন</a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h2>বার্তা পাঠান</h2>
+      <p class="sub">ফর্ম পূরণ করে পাঠালে WhatsApp খুলবে, সেখান থেকে বার্তাটি পাঠিয়ে দিন।</p>
+      <form id="msgForm" novalidate>
+        <div class="field" id="f-name">
+          <label for="cName">আপনার নাম</label>
+          <input id="cName" type="text" autocomplete="name" placeholder="আপনার নাম">
+          <div class="err">নাম লিখুন (কমপক্ষে ৩ অক্ষর)।</div>
+        </div>
+        <div class="field" id="f-phone">
+          <label for="cPhone">মোবাইল নম্বর</label>
+          <input id="cPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="01XXXXXXXXX">
+          <div class="err">সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।</div>
+        </div>
+        <div class="field" id="f-topic">
+          <label for="cTopic">বিষয়</label>
+          <select id="cTopic">
+            <option value="">একটি বিষয় বাছুন</option>
+            <option>ভর্তি ও আবেদন</option>
+            <option>পেমেন্ট ও যাচাই</option>
+            <option>কোর্স সম্পর্কে তথ্য</option>
+            <option>ফেরত ও ফি</option>
+            <option>অ্যাকাউন্ট ও লগইন</option>
+            <option>অন্যান্য</option>
+          </select>
+          <div class="err">একটি বিষয় বাছুন।</div>
+        </div>
+        <div class="field" id="f-msg">
+          <label for="cMsg">আপনার বার্তা</label>
+          <textarea id="cMsg" placeholder="আপনার প্রশ্ন বা বার্তা লিখুন"></textarea>
+          <div class="err">বার্তা কমপক্ষে ১০ অক্ষরের হতে হবে।</div>
+        </div>
+        <button class="btn btn-dark btn-block" type="submit">WhatsApp-এ পাঠান →</button>
+        <div class="alert" id="formAlert" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="padding:90px 0;background:#f0e9d9">
+  <div class="container">
+    <div class="center reveal">
+      <div class="eyebrow">FREQUENTLY ASKED</div>
+      <h2 class="title">সাধারণ প্রশ্ন ও উত্তর</h2>
+    </div>
+    <div class="card faq reveal" style="margin-top:40px;max-width:860px;margin-left:auto;margin-right:auto">
+      <details>
+        <summary>ভর্তির আবেদন কীভাবে করব?</summary>
+        <p>কোর্স বেছে নিয়ে <a href="apply.html" class="link" style="color:#99712f;font-weight:700">ভর্তির আবেদন</a> পেজে আপনার তথ্য দিন। একটি আবেদন নম্বর পাবেন, যেটি দিয়ে পেমেন্ট করতে হবে।</p>
+      </details>
+      <details>
+        <summary>পেমেন্ট কীভাবে করব?</summary>
+        <p>বিকাশ, নগদ বা ব্যাংকের মাধ্যমে পেমেন্ট করতে পারবেন। পেমেন্টের সময় আবেদন নম্বর রেফারেন্স হিসেবে লিখুন। তারপর আবেদন পেজে Transaction ID (TrxID) জমা দিন।</p>
+      </details>
+      <details>
+        <summary>আমার আবেদনের অবস্থা কীভাবে জানব?</summary>
+        <p>আবেদন পেজে আবেদন নম্বর লিখে অবস্থা দেখতে পারবেন। অনুমোদন হলে নিবন্ধনের লিংকও পাবেন।</p>
+      </details>
+      <details>
+        <summary>অনুমোদনের পর কীভাবে নিবন্ধন করব?</summary>
+        <p>শিক্ষার্থী লগইন পেজে গিয়ে "নিবন্ধন" ট্যাব বেছে নিন। আবেদন নম্বর ও আবেদনের সময় দেওয়া ইমেইল দিয়ে পাসওয়ার্ড ঠিক করে অ্যাকাউন্ট খুলুন।</p>
+      </details>
+      <details>
+        <summary>ফেরত পাওয়ার নিয়ম কী?</summary>
+        <p>বিস্তারিত নিয়ম <a href="refund.html" style="color:#99712f;font-weight:700">ফেরত নীতি</a> পাতায় আছে। যেকোনো প্রশ্নে আমাদের সঙ্গে যোগাযোগ করুন।</p>
+      </details>
+      <details>
+        <summary>আমার তথ্য কি নিরাপদ?</summary>
+        <p>আপনার তথ্য শুধু আপনি ও আমাদের অনুমোদিত অ্যাডমিন দেখতে পারবেন। বিস্তারিত <a href="privacy.html" style="color:#99712f;font-weight:700">গোপনীয়তা নীতি</a> পাতায় আছে।</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="container reveal">
+    <div class="eyebrow" style="color:var(--gold-2)">START TODAY</div>
+    <h2>জ্ঞান অর্জনের যাত্রা শুরু হোক আজই</h2>
+    <p>কোর্স বেছে নিন, আবেদন করুন, আর আমাদের সঙ্গে যাত্রা শুরু করুন।</p>
+    <div class="row" style="justify-content:center">
+      <a href="Courses.html" class="btn btn-gold">কোর্সসমূহ দেখুন</a>
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener" class="btn btn-light">WhatsApp-এ কথা বলুন</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>Dawah Education &amp; E-learning Nexus. বিশুদ্ধ ইসলামী জ্ঞান, আধুনিক শিক্ষা ও প্রযুক্তির সমন্বয়ে একটি বৈশ্বিক জ্ঞানকেন্দ্র।</p>
+        <p style="color:#e2c987;margin-top:12px">Knowledge Changes Lives.</p>
+      </div>
+      <div class="footer-col">
+        <h3>গুরুত্বপূর্ণ লিংক</h3>
+        <ul>
+          <li><a href="index.html">হোম</a></li>
+          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          <li><a href="Courses.html">কোর্সসমূহ</a></li>
+          <li><a href="apply.html">ভর্তির আবেদন</a></li>
+          <li><a href="privacy.html">গোপনীয়তা নীতি</a></li>
+          <li><a href="refund.html">ফেরত নীতি</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul>
+          <li>📞 01332991478</li>
+          <li>📞 01769668093</li>
+          <li>🌐 Online / Everywhere</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 DEEN — Dawah Education &amp; E-learning Nexus. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp-এ যোগাযোগ করুন">✆</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function check(id, ok) { $(id).classList.toggle('invalid', !ok); return ok; }
+  document.querySelectorAll('input,select,textarea').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+
+  $('msgForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = $('cName').value.trim();
+    var phone = $('cPhone').value.trim();
+    var topic = $('cTopic').value;
+    var msg = $('cMsg').value.trim();
+    var ok = [
+      check('f-name', name.length >= 3),
+      check('f-phone', /^01[3-9]\d{8}$/.test(phone)),
+      check('f-topic', topic !== ''),
+      check('f-msg', msg.length >= 10)
+    ].every(Boolean);
+    if (!ok) return;
+
+    var text = 'আসসালামু আলাইকুম, আমি DEEN-এর সঙ্গে যোগাযোগ করতে চাই।\n' +
+      'নাম: ' + name + '\nমোবাইল: ' + phone + '\nবিষয়: ' + topic + '\nবার্তা: ' + msg;
+    window.open('https://wa.me/8801332991478?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    var a = $('formAlert');
+    a.className = 'alert ok show';
+    a.textContent = 'WhatsApp খোলা হয়েছে। বার্তাটি পাঠিয়ে দিন, আমরা শীঘ্রই উত্তর দেবো।';
+  });
+})();
+</script>
+</body>
+</html>
