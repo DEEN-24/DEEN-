@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>শিক্ষার্থী ড্যাশবোর্ড | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links">
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta active" id="navLogin">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+
+    <div class="row-between" style="margin-bottom:24px">
+      <div>
+        <div class="eyebrow">STUDENT DASHBOARD</div>
+        <h1 class="h1" id="welcome">স্বাগতম</h1>
+      </div>
+      <button class="btn btn-light btn-sm" id="logoutBtn" type="button">লগআউট</button>
+    </div>
+
+    <div class="alert" id="pageAlert" role="status"></div>
+
+    <div id="loading" class="empty">তথ্য লোড হচ্ছে...</div>
+
+    <!-- No linked application -->
+    <section class="card reveal hide" id="noApp" aria-labelledby="h-noapp">
+      <h2 id="h-noapp">আপনার অ্যাকাউন্টে কোনো ভর্তি যুক্ত নেই</h2>
+      <p class="sub">আপনি যদি ভর্তির আবেদন করে পেমেন্ট ও অনুমোদন সম্পন্ন করে থাকেন, তাহলে আবেদন নম্বরটি নিচে দিয়ে যুক্ত করুন। না থাকলে আগে আবেদন করুন।</p>
+      <form id="linkForm" class="row" novalidate>
+        <input id="linkCode" type="text" placeholder="DEEN-2026-XXXXXX" autocomplete="off"
+          style="flex:1;min-width:220px;padding:13px 15px;border:1px solid #d8d7ca;border-radius:13px;text-transform:uppercase">
+        <button class="btn btn-gold" type="submit">যুক্ত করুন</button>
+      </form>
+      <div class="alert" id="linkAlert" role="status"></div>
+      <div class="row" style="margin-top:18px">
+        <a class="btn btn-dark btn-sm" href="apply.html">ভর্তির আবেদন করুন</a>
+      </div>
+    </section>
+
+    <!-- Application present -->
+    <div id="appArea" class="hide">
+      <div class="grid-2">
+        <section class="card card-dark reveal" aria-labelledby="h-course">
+          <h2 id="h-course">আমার কোর্স</h2>
+          <p class="sub" id="courseTitle">-</p>
+          <div class="kv" style="background:transparent">
+            <div style="background:rgba(255,255,255,.07);color:#fff"><small style="color:#cfd9d1">আবেদন নম্বর</small><strong id="appCode" style="color:var(--gold-2)">-</strong></div>
+            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">অবস্থা</small><span id="appStatus"></span></div>
+            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">মেয়াদ</small><strong id="appMonths" style="color:#fff">-</strong></div>
+            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">পেমেন্ট ধরন</small><strong id="appType" style="color:#fff">-</strong></div>
+          </div>
+        </section>
+
+        <section class="card reveal" aria-labelledby="h-prof">
+          <h2 id="h-prof">আমার তথ্য</h2>
+          <p class="sub">এই তথ্য আবেদনের সময় দেওয়া হয়েছিল।</p>
+          <div class="kv">
+            <div><small>নাম</small><strong id="pName">-</strong></div>
+            <div><small>মোবাইল</small><strong id="pPhone">-</strong></div>
+            <div style="grid-column:1/-1"><small>ইমেইল</small><strong id="pEmail">-</strong></div>
+          </div>
+          <div class="hr"></div>
+          <div id="statusHint" class="alert info show" style="margin-top:0"></div>
+        </section>
+      </div>
+
+      <section class="card reveal" style="margin-top:24px" aria-labelledby="h-pay">
+        <h2 id="h-pay">পেমেন্ট ইতিহাস</h2>
+        <p class="sub">আপনার জমা দেওয়া পেমেন্ট ও যাচাইয়ের অবস্থা।</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>তারিখ</th><th>মাধ্যম</th><th>TrxID</th><th>পরিমাণ</th><th>অবস্থা</th></tr></thead>
+            <tbody id="payBody"><tr><td colspan="5" class="empty">কোনো পেমেন্ট জমা হয়নি।</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Notices -->
+    <section class="card reveal" style="margin-top:24px" aria-labelledby="h-notice">
+      <h2 id="h-notice">নোটিশ</h2>
+      <p class="sub">সর্বশেষ ঘোষণা ও গুরুত্বপূর্ণ তথ্য।</p>
+      <div id="noticeList"><div class="empty">এখন কোনো নোটিশ নেই।</div></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>Dawah Education &amp; E-learning Nexus. Knowledge Changes Lives.</p>
+      </div>
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul><li>📞 01332991478</li><li>📞 01769668093</li></ul>
+      </div>
+      <div class="footer-col">
+        <h3>লিংক</h3>
+        <ul><li><a href="apply.html">ভর্তির আবেদন</a></li><li><a href="Courses.html">কোর্সসমূহ</a></li><li><a href="index.html">হোম</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 DEEN — All Rights Reserved.</div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); $('loading').classList.add('hide'); return; }
+
+  /* must be signed in */
+  var session = await D.getSession();
+  if (!session) { location.href = 'login.html'; return; }
+  var user = session.user;
+
+  $('logoutBtn').addEventListener('click', async function () {
+    await sb.auth.signOut();
+    location.href = 'login.html';
+  });
+
+  /* admin should use the admin page */
+  if (await D.isAdmin()) {
+    $('welcome').textContent = 'অ্যাডমিন';
+    $('loading').innerHTML = 'আপনি অ্যাডমিন। <a href="admin.html" class="link" style="color:#99712f;font-weight:700">অ্যাডমিন প্যানেলে যান</a>';
+    return;
+  }
+
+  function fmtDate(d) {
+    try { return new Date(d).toLocaleDateString('bn-BD', { year: 'numeric', month: 'short', day: 'numeric' }); }
+    catch (e) { return d; }
+  }
+
+  async function loadApp() {
+    var r = await sb.from('applications').select('*, courses(title, months, monthly_fee)').maybeSingle();
+    if (r.error) throw r.error;
+    return r.data;
+  }
+
+  async function loadPayments() {
+    var r = await sb.from('payments').select('*').order('created_at', { ascending: false });
+    if (r.error) throw r.error;
+    return r.data || [];
+  }
+
+  async function loadNotices() {
+    var r = await sb.from('notices').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(10);
+    if (r.error) throw r.error;
+    return r.data || [];
+  }
+
+  function renderApp(app, payments, settings) {
+    $('loading').classList.add('hide');
+    $('noApp').classList.add('hide');
+    $('appArea').classList.remove('hide');
+
+    var name = app.full_name;
+    $('welcome').textContent = 'স্বাগতম, ' + name;
+    $('courseTitle').textContent = app.courses ? app.courses.title : '-';
+    $('appCode').textContent = app.code;
+    $('appStatus').innerHTML = D.statusBadge(app.status);
+    $('appMonths').textContent = app.courses ? app.courses.months + ' মাস' : '-';
+    $('appType').textContent = app.payment_type === 'onetime' ? 'এককালীন (ছাড়সহ)' : 'মাসিক';
+    $('pName').textContent = app.full_name;
+    $('pPhone').textContent = app.phone;
+    $('pEmail').textContent = app.email;
+
+    var hint = {
+      pending_payment: 'পেমেন্ট এখনো জমা হয়নি। আবেদন পেজে গিয়ে পেমেন্ট তথ্য জমা দিন।',
+      submitted: 'আপনার পেমেন্ট যাচাই চলছে। যাচাই শেষ হলে এখানে অবস্থা আপডেট হবে।',
+      approved: 'ভর্তি অনুমোদিত হয়েছে। এখনো অ্যাকাউন্ট যুক্ত না থাকলে উপরের "যুক্ত করুন" ব্যবহার করুন।',
+      registered: 'আপনার ভর্তি সক্রিয়। স্বাগতম DEEN পরিবারে!',
+      rejected: 'এই আবেদনটি বাতিল হয়েছে।' + (app.admin_note ? ' কারণ: ' + D.esc(app.admin_note) : '') + ' বিস্তারিত জানতে যোগাযোগ করুন।'
+    }[app.status] || '';
+    $('statusHint').innerHTML = hint;
+
+    var body = $('payBody');
+    if (!payments.length) {
+      body.innerHTML = '<tr><td colspan="5" class="empty">কোনো পেমেন্ট জমা হয়নি।</td></tr>';
+    } else {
+      body.innerHTML = payments.map(function (p) {
+        return '<tr>' +
+          '<td>' + D.esc(fmtDate(p.paid_on)) + '</td>' +
+          '<td>' + D.esc(D.PAY_LABEL[p.method] || p.method) + '</td>' +
+          '<td><b>' + D.esc(p.trx_id) + '</b></td>' +
+          '<td>' + D.esc(settings.currency) + D.bn(p.amount) + '</td>' +
+          '<td><span class="badge b-' + (p.status === 'verified' ? 'verified' : p.status === 'rejected' ? 'rejected' : 'submitted') + '">' +
+            (p.status === 'verified' ? 'যাচাইকৃত' : p.status === 'rejected' ? 'বাতিল' : 'যাচাই চলছে') + '</span></td>' +
+          '</tr>';
+      }).join('');
+    }
+  }
+
+  async function loadNotice() {
+    var list = $('noticeList');
+    try {
+      var n = await loadNotices();
+      if (!n.length) return;
+      list.innerHTML = n.map(function (x) {
+        return '<div style="padding:16px 0;border-bottom:1px solid #efece2">' +
+          '<div class="row-between"><strong style="color:var(--green)">' + D.esc(x.title) + '</strong>' +
+          '<span class="muted" style="font-size:13px">' + D.esc(fmtDate(x.created_at)) + '</span></div>' +
+          '<p class="muted" style="margin-top:6px;white-space:pre-wrap">' + D.esc(x.body) + '</p></div>';
+      }).join('');
+    } catch (e) { /* notices are optional; keep placeholder */ }
+  }
+
+  async function init() {
+    try {
+      var settings = await D.getSettings();
+      var app = await loadApp();
+      if (!app) {
+        $('loading').classList.add('hide');
+        $('noApp').classList.remove('hide');
+        $('welcome').textContent = 'স্বাগতম';
+      } else {
+        var payments = await loadPayments();
+        renderApp(app, payments, settings);
+      }
+      loadNotice();
+    } catch (e) {
+      $('loading').classList.add('hide');
+      D.show($('pageAlert'), 'bad', D.esc(D.errMsg(e)));
+    }
+  }
+
+  /* link an approved application to this (already signed-in) account */
+  $('linkForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    D.hide($('linkAlert'));
+    var code = $('linkCode').value.trim().toUpperCase();
+    if (code.length < 8) { D.show($('linkAlert'), 'bad', 'সঠিক আবেদন নম্বর লিখুন।'); return; }
+    try {
+      var r = await sb.rpc('claim_application', { p_code: code });
+      if (r.error) throw r.error;
+      D.show($('linkAlert'), 'ok', 'আবেদন যুক্ত হয়েছে। তথ্য লোড হচ্ছে...');
+      await init();
+    } catch (err) {
+      D.show($('linkAlert'), 'bad', D.esc(D.errMsg(err)));
+    }
+  });
+
+  await init();
+})();
+</script>
+</body>
+</html>
 
