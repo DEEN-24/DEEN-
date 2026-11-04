@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>ইভেন্ট ও নোটিশ ব্যবস্থাপনা | DEEN অ্যাডমিন</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .form-grid .full{grid-column:1/-1}
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  textarea.inp{min-height:110px;resize:vertical}
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .checks{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+  .checks label{display:flex;gap:8px;align-items:center;font-size:14.5px;cursor:pointer}
+  .checks input{width:17px;height:17px;accent-color:var(--green)}
+  .item{display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid #efece2}
+  .item:last-child{border-bottom:none}
+  .thumb{width:110px;height:80px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--green),var(--green-2));display:grid;place-items:center;color:var(--gold-2);font-size:24px}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .item h4{color:var(--green);font-size:16px;margin-bottom:4px}
+  .item .sm{font-size:12.5px;color:var(--muted)}
+  .actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+  .actions .btn{padding:6px 11px;font-size:12.5px}
+  .tag-off{background:#eee;color:#666}
+  .tag-on{background:#e3f4ea;color:#1b6b43}
+  .badge-live{display:inline-flex;align-items:center;gap:6px;background:#e53e2f;color:#fff;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .badge-live i{width:7px;height:7px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+  @media(max-width:760px){.form-grid{grid-template-columns:1fr}.item{grid-template-columns:1fr}.thumb{width:100%;height:150px}.actions{justify-content:flex-start}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>DEEN অ্যাডমিন — ইভেন্ট, নোটিশ ও লাইভ</span>
+    <div class="top-links"><a href="admin.html">অ্যাডমিন প্যানেল</a> <a href="events.html">পাবলিক পেজ</a></div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="admin.html" class="brand" aria-label="অ্যাডমিন প্যানেল">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">ADMIN CONTENT</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="admin.html">অ্যাডমিন প্যানেল</a></li>
+      <li><a href="admin-events.html" class="active">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="events.html">পাবলিক পেজ</a></li>
+      <li><a href="#" id="logoutBtn" class="nav-cta">লগআউট</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="empty">যাচাই হচ্ছে...</div>
+
+    <section class="card hide" id="denied">
+      <h2>অনুমতি নেই</h2>
+      <p class="sub">এই পেজ শুধু সাইট অ্যাডমিন ব্যবহার করতে পারবেন।</p>
+      <a class="btn btn-dark btn-sm" href="login.html">লগইন পেজে যান</a>
+    </section>
+
+    <div id="adminArea" class="hide">
+      <div class="tabbar" role="tablist">
+        <button class="on" data-tab="events">ইভেন্ট</button>
+        <button data-tab="notices">নোটিশ</button>
+        <button data-tab="live">লাইভ সম্প্রচার</button>
+      </div>
+
+      <!-- EVENTS -->
+      <section id="tab-events" class="card">
+        <h2 id="evFormTitle">নতুন ইভেন্ট যোগ করুন</h2>
+        <p class="sub">ইভেন্টের সময় লিখলে ওয়েবসাইটে কাউন্টডাউন নিজে থেকে চলবে।</p>
+        <form id="evForm" novalidate>
+          <input type="hidden" id="evId">
+          <div class="form-grid">
+            <div class="full"><label class="lbl" for="evTitle">শিরোনাম *</label><input class="inp" id="evTitle" type="text" maxlength="200" placeholder="যেমন: কুরআন তিলাওয়াত কর্মশালা"></div>
+            <div>
+              <label class="lbl" for="evCat">ধরন</label>
+              <select class="inp" id="evCat">
+                <option>ইভেন্ট</option><option>কর্মশালা</option><option>লাইভ ক্লাস</option><option>প্রতিযোগিতা</option><option>সেমিনার</option><option>অন্যান্য</option>
+              </select>
+            </div>
+            <div><label class="lbl" for="evLoc">স্থান</label><input class="inp" id="evLoc" type="text" maxlength="120" value="অনলাইন"></div>
+            <div><label class="lbl" for="evStart">শুরুর সময় *</label><input class="inp" id="evStart" type="datetime-local"></div>
+            <div><label class="lbl" for="evEnd">শেষের সময় (ঐচ্ছিক)</label><input class="inp" id="evEnd" type="datetime-local"></div>
+            <div class="full"><label class="lbl" for="evDesc">বিবরণ</label><textarea class="inp" id="evDesc" maxlength="3000" placeholder="ইভেন্ট সম্পর্কে বিস্তারিত"></textarea></div>
+            <div class="full"><label class="lbl" for="evImg">ছবির লিংক (ঐচ্ছিক)</label><input class="inp" id="evImg" type="url" placeholder="https://... (অবশ্যই https দিয়ে শুরু)"><div class="hint">ছবির সরাসরি লিংক দিন। খালি রাখলে ডিফল্ট রঙিন কভার দেখাবে।</div></div>
+            <div><label class="lbl" for="evLink">বাটনের লিংক (ঐচ্ছিক)</label><input class="inp" id="evLink" type="url" placeholder="https://..."></div>
+            <div><label class="lbl" for="evLinkLbl">বাটনের লেখা</label><input class="inp" id="evLinkLbl" type="text" maxlength="60" placeholder="যেমন: রেজিস্ট্রেশন করুন"></div>
+            <div class="full checks">
+              <label><input type="checkbox" id="evPub" checked> ওয়েবসাইটে প্রকাশ করুন</label>
+              <label><input type="checkbox" id="evPin"> বিশেষ হিসেবে উপরে রাখুন</label>
+            </div>
+          </div>
+          <div class="row" style="margin-top:20px">
+            <button class="btn btn-gold" type="submit" id="evSave">সংরক্ষণ করুন</button>
+            <button class="btn btn-light" type="button" id="evCancel">বাতিল</button>
+          </div>
+        </form>
+        <div class="hr"></div>
+        <div class="toolbar"><input class="inp" id="evSearch" type="search" placeholder="শিরোনাম দিয়ে খুঁজুন" style="max-width:340px"></div>
+        <div id="evList"></div>
+      </section>
+
+      <!-- NOTICES -->
+      <section id="tab-notices" class="card hide">
+        <h2 id="ntFormTitle">নতুন নোটিশ যোগ করুন</h2>
+        <p class="sub">পিন করা নোটিশ সবসময় সবার উপরে থাকে। "নতুন" লেবেল ৩ দিন থাকে।</p>
+        <form id="ntForm" novalidate>
+          <input type="hidden" id="ntId">
+          <div class="form-grid">
+            <div class="full"><label class="lbl" for="ntTitle">শিরোনাম *</label><input class="inp" id="ntTitle" type="text" maxlength="200"></div>
+            <div>
+              <label class="lbl" for="ntCat">ধরন</label>
+              <select class="inp" id="ntCat">
+                <option>নোটিশ</option><option>ঘোষণা</option><option>জরুরি</option><option>ভর্তি</option><option>পরীক্ষা</option><option>ইভেন্ট আপডেট</option>
+              </select>
+            </div>
+            <div></div>
+            <div class="full"><label class="lbl" for="ntBody">বিবরণ *</label><textarea class="inp" id="ntBody" maxlength="5000"></textarea></div>
+            <div class="full"><label class="lbl" for="ntImg">ছবির লিংক (ঐচ্ছিক)</label><input class="inp" id="ntImg" type="url" placeholder="https://..."><div class="hint">https দিয়ে শুরু হওয়া সরাসরি ছবির লিংক।</div></div>
+            <div><label class="lbl" for="ntLink">বাটনের লিংক (ঐচ্ছিক)</label><input class="inp" id="ntLink" type="url" placeholder="https://..."></div>
+            <div><label class="lbl" for="ntLinkLbl">বাটনের লেখা</label><input class="inp" id="ntLinkLbl" type="text" maxlength="60" placeholder="যেমন: আরও জানুন"></div>
+            <div class="full checks">
+              <label><input type="checkbox" id="ntPub" checked> ওয়েবসাইটে প্রকাশ করুন</label>
+              <label><input type="checkbox" id="ntPin"> পিন করুন (উপরে রাখুন)</label>
+            </div>
+          </div>
+          <div class="row" style="margin-top:20px">
+            <button class="btn btn-gold" type="submit" id="ntSave">সংরক্ষণ করুন</button>
+            <button class="btn btn-light" type="button" id="ntCancel">বাতিল</button>
+          </div>
+        </form>
+        <div class="hr"></div>
+        <div id="ntList"></div>
+      </section>
+
+      <!-- LIVE -->
+      <section id="tab-live" class="card hide">
+        <h2>লাইভ সম্প্রচার</h2>
+        <p class="sub">চালু করলে ইভেন্ট পেজের উপরে লাল "LIVE NOW" ব্যানার দেখাবে। লাইভ শেষ হলে বন্ধ করে দিন।</p>
+        <div id="liveStatus" style="margin-bottom:18px"></div>
+        <div class="form-grid">
+          <div class="full checks"><label><input type="checkbox" id="lvOn"> লাইভ ব্যানার এখন দেখান</label></div>
+          <div class="full"><label class="lbl" for="lvTitle">লাইভের শিরোনাম</label><input class="inp" id="lvTitle" type="text" maxlength="150" placeholder="যেমন: সরাসরি কুরআন ক্লাস"></div>
+          <div class="full"><label class="lbl" for="lvUrl">লাইভের লিংক *</label><input class="inp" id="lvUrl" type="url" placeholder="https://www.youtube.com/live/..."><div class="hint">YouTube, Facebook বা Zoom-এর লিংক। অবশ্যই https দিয়ে শুরু হবে।</div></div>
+          <div class="full"><label class="lbl" for="lvNote">সংক্ষিপ্ত বার্তা</label><input class="inp" id="lvNote" type="text" maxlength="300" placeholder="যেমন: এখনই যুক্ত হয়ে শিখুন"></div>
+        </div>
+        <div class="row" style="margin-top:20px">
+          <button class="btn btn-gold" type="button" id="lvSave">লাইভ তথ্য সংরক্ষণ</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Admin Content</div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = D.esc;
+  var EVENTS = [], NOTICES = [];
+
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  /* ---------- অ্যাক্সেস ---------- */
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session || !(await D.isAdmin())) { $('denied').classList.remove('hide'); return; }
+  $('adminArea').classList.remove('hide');
+
+  $('logoutBtn').addEventListener('click', async function (e) { e.preventDefault(); await sb.auth.signOut(); location.href = 'login.html'; });
+
+  /* ---------- ট্যাব ---------- */
+  document.querySelectorAll('.tabbar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.tabbar button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      ['events', 'notices', 'live'].forEach(function (t) { $('tab-' + t).classList.toggle('hide', b.getAttribute('data-tab') !== t); });
+    });
+  });
+
+  /* ---------- সাহায্যকারী ---------- */
+  function fmt(d) { try { return new Date(d).toLocaleString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return d; } }
+  function toLocalInput(iso) {
+    if (!iso) return '';
+    var d = new Date(iso), p = function (n) { return String(n).padStart(2, '0'); };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function fromLocalInput(v) { return v ? new Date(v).toISOString() : null; }
+  function httpsOrEmpty(v) {
+    v = (v || '').trim();
+    if (!v) return '';
+    return /^https:\/\/[^\s]+$/i.test(v) ? v : null; // null = অবৈধ
+  }
+  function markInvalid(id, bad) { $(id).style.borderColor = bad ? 'var(--bad)' : ''; }
+  function flash(msg, ok) { D.show($('pageAlert'), ok ? 'ok' : 'bad', msg); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  /* ========== ইভেন্ট ========== */
+  function resetEvent() {
+    $('evForm').reset();
+    $('evId').value = '';
+    $('evLoc').value = 'অনলাইন';
+    $('evPub').checked = true;
+    $('evFormTitle').textContent = 'নতুন ইভেন্ট যোগ করুন';
+    $('evSave').textContent = 'সংরক্ষণ করুন';
+  }
+
+  function renderEvents() {
+    var q = $('evSearch').value.trim().toLowerCase();
+    var list = EVENTS.filter(function (e) { return !q || e.title.toLowerCase().indexOf(q) !== -1; });
+    if (!list.length) { $('evList').innerHTML = '<p class="muted" style="padding:20px 0">কোনো ইভেন্ট নেই।</p>'; return; }
+    $('evList').innerHTML = list.map(function (e) {
+      var thumb = e.image_url ? '<img src="' + esc(e.image_url) + '" alt="">' : '📅';
+      return '<div class="item">' +
+        '<div class="thumb">' + thumb + '</div>' +
+        '<div><h4>' + esc(e.title) + '</h4>' +
+          '<div class="sm">' + esc(e.category) + ' · ' + esc(fmt(e.starts_at)) + ' · ' + esc(e.location) + '</div>' +
+          '<div style="margin-top:6px"><span class="badge ' + (e.is_published ? 'tag-on' : 'tag-off') + '">' + (e.is_published ? 'প্রকাশিত' : 'গোপন') + '</span> ' +
+          (e.is_pinned ? '<span class="chip gold">📌 বিশেষ</span>' : '') + '</div></div>' +
+        '<div class="actions">' +
+          '<button class="btn btn-light" data-ev="edit" data-id="' + e.id + '">সম্পাদনা</button>' +
+          '<button class="btn btn-light" data-ev="pub" data-id="' + e.id + '">' + (e.is_published ? 'গোপন' : 'প্রকাশ') + '</button>' +
+          '<button class="btn btn-light" data-ev="pin" data-id="' + e.id + '">' + (e.is_pinned ? 'পিন খুলুন' : 'পিন করুন') + '</button>' +
+          '<button class="btn btn-danger" data-ev="del" data-id="' + e.id + '">মুছুন</button>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  async function loadEvents() {
+    var r = await sb.from('events').select('*').order('starts_at', { ascending: false });
+    if (r.error) throw r.error;
+    EVENTS = r.data || [];
+    renderEvents();
+  }
+
+  $('evSearch').addEventListener('input', renderEvents);
+  $('evCancel').addEventListener('click', resetEvent);
+
+  $('evForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var title = $('evTitle').value.trim();
+    var start = $('evStart').value;
+    var img = httpsOrEmpty($('evImg').value), link = httpsOrEmpty($('evLink').value);
+    markInvalid('evTitle', title.length < 3);
+    markInvalid('evStart', !start);
+    markInvalid('evImg', img === null);
+    markInvalid('evLink', link === null);
+    if (title.length < 3) return flash('ইভেন্টের শিরোনাম কমপক্ষে ৩ অক্ষর হতে হবে।', false);
+    if (!start) return flash('ইভেন্টের শুরুর সময় দিন।', false);
+    if (img === null) return flash('ছবির লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+    if (link === null) return flash('বাটনের লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+    var end = fromLocalInput($('evEnd').value);
+    if (end && new Date(end) <= new Date(fromLocalInput(start))) return flash('শেষের সময় শুরুর সময়ের পরে হতে হবে।', false);
+
+    var payload = {
+      title: title,
+      description: $('evDesc').value.trim(),
+      category: $('evCat').value,
+      starts_at: fromLocalInput(start),
+      ends_at: end,
+      location: $('evLoc').value.trim() || 'অনলাইন',
+      image_url: img,
+      link_url: link,
+      link_label: $('evLinkLbl').value.trim(),
+      is_published: $('evPub').checked,
+      is_pinned: $('evPin').checked
+    };
+    var id = $('evId').value;
+    var btn = $('evSave'); btn.disabled = true;
+    try {
+      var r = id ? await sb.from('events').update(payload).eq('id', id) : await sb.from('events').insert(payload);
+      if (r.error) throw r.error;
+      flash(id ? 'ইভেন্ট আপডেট হয়েছে।' : 'নতুন ইভেন্ট যোগ হয়েছে।', true);
+      resetEvent();
+      await loadEvents();
+    } catch (err) { flash(D.errMsg(err), false); }
+    finally { btn.disabled = false; }
+  });
+
+  $('evList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-ev]');
+    if (!b) return;
+    var id = b.getAttribute('data-id'), act = b.getAttribute('data-ev');
+    var ev = EVENTS.filter(function (x) { return String(x.id) === id; })[0];
+    if (!ev) return;
+    try {
+      if (act === 'edit') {
+        $('evId').value = ev.id;
+        $('evTitle').value = ev.title;
+        $('evCat').value = ev.category;
+        $('evLoc').value = ev.location;
+        $('evStart').value = toLocalInput(ev.starts_at);
+        $('evEnd').value = toLocalInput(ev.ends_at);
+        $('evDesc').value = ev.description;
+        $('evImg').value = ev.image_url;
+        $('evLink').value = ev.link_url;
+        $('evLinkLbl').value = ev.link_label;
+        $('evPub').checked = ev.is_published;
+        $('evPin').checked = ev.is_pinned;
+        $('evFormTitle').textContent = 'ইভেন্ট সম্পাদনা করুন';
+        $('evSave').textContent = 'আপডেট করুন';
+        window.scrollTo({ top: $('evForm').offsetTop - 90, behavior: 'smooth' });
+        return;
+      }
+      if (act === 'pub') {
+        var r1 = await sb.from('events').update({ is_published: !ev.is_published }).eq('id', id);
+        if (r1.error) throw r1.error;
+      }
+      if (act === 'pin') {
+        var r2 = await sb.from('events').update({ is_pinned: !ev.is_pinned }).eq('id', id);
+        if (r2.error) throw r2.error;
+      }
+      if (act === 'del') {
+        if (!confirm('এই ইভেন্টটি স্থায়ীভাবে মুছে যাবে। নিশ্চিত?')) return;
+        var r3 = await sb.from('events').delete().eq('id', id);
+        if (r3.error) throw r3.error;
+      }
+      await loadEvents();
+    } catch (err) { flash(D.errMsg(err), false); }
+  });
+
+  /* ========== নোটিশ ========== */
+  function resetNotice() {
+    $('ntForm').reset();
+    $('ntId').value = '';
+    $('ntPub').checked = true;
+    $('ntFormTitle').textContent = 'নতুন নোটিশ যোগ করুন';
+    $('ntSave').textContent = 'সংরক্ষণ করুন';
+  }
+
+  function renderNotices() {
+    if (!NOTICES.length) { $('ntList').innerHTML = '<p class="muted" style="padding:20px 0">কোনো নোটিশ নেই।</p>'; return; }
+    $('ntList').innerHTML = NOTICES.map(function (n) {
+      var thumb = n.image_url ? '<img src="' + esc(n.image_url) + '" alt="">' : '📢';
+      return '<div class="item">' +
+        '<div class="thumb">' + thumb + '</div>' +
+        '<div><h4>' + esc(n.title) + '</h4>' +
+          '<div class="sm">' + esc(n.category) + ' · ' + esc(fmt(n.created_at)) + '</div>' +
+          '<div style="margin-top:6px"><span class="badge ' + (n.is_published ? 'tag-on' : 'tag-off') + '">' + (n.is_published ? 'প্রকাশিত' : 'গোপন') + '</span> ' +
+          (n.is_pinned ? '<span class="chip gold">📌 পিন করা</span>' : '') + '</div></div>' +
+        '<div class="actions">' +
+          '<button class="btn btn-light" data-nt="edit" data-id="' + n.id + '">সম্পাদনা</button>' +
+          '<button class="btn btn-light" data-nt="pub" data-id="' + n.id + '">' + (n.is_published ? 'গোপন' : 'প্রকাশ') + '</button>' +
+          '<button class="btn btn-light" data-nt="pin" data-id="' + n.id + '">' + (n.is_pinned ? 'পিন খুলুন' : 'পিন করুন') + '</button>' +
+          '<button class="btn btn-danger" data-nt="del" data-id="' + n.id + '">মুছুন</button>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  async function loadNotices() {
+    var r = await sb.from('notices').select('*').order('created_at', { ascending: false });
+    if (r.error) throw r.error;
+    NOTICES = r.data || [];
+    renderNotices();
+  }
+
+  $('ntCancel').addEventListener('click', resetNotice);
+
+  $('ntForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var title = $('ntTitle').value.trim(), body = $('ntBody').value.trim();
+    var img = httpsOrEmpty($('ntImg').value), link = httpsOrEmpty($('ntLink').value);
+    markInvalid('ntTitle', title.length < 3);
+    markInvalid('ntBody', body.length < 1);
+    markInvalid('ntImg', img === null);
+    markInvalid('ntLink', link === null);
+    if (title.length < 3) return flash('নোটিশের শিরোনাম কমপক্ষে ৩ অক্ষর হতে হবে।', false);
+    if (!body) return flash('নোটিশের বিবরণ লিখুন।', false);
+    if (img === null) return flash('ছবির লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+    if (link === null) return flash('বাটনের লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+
+    var payload = {
+      title: title, body: body,
+      category: $('ntCat').value,
+      image_url: img, link_url: link,
+      link_label: $('ntLinkLbl').value.trim(),
+      is_published: $('ntPub').checked,
+      is_pinned: $('ntPin').checked,
+      updated_at: new Date().toISOString()
+    };
+    var id = $('ntId').value;
+    var btn = $('ntSave'); btn.disabled = true;
+    try {
+      var r = id ? await sb.from('notices').update(payload).eq('id', id) : await sb.from('notices').insert(payload);
+      if (r.error) throw r.error;
+      flash(id ? 'নোটিশ আপডেট হয়েছে।' : 'নতুন নোটিশ প্রকাশিত হয়েছে।', true);
+      resetNotice();
+      await loadNotices();
+    } catch (err) { flash(D.errMsg(err), false); }
+    finally { btn.disabled = false; }
+  });
+
+  $('ntList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-nt]');
+    if (!b) return;
+    var id = b.getAttribute('data-id'), act = b.getAttribute('data-nt');
+    var n = NOTICES.filter(function (x) { return String(x.id) === id; })[0];
+    if (!n) return;
+    try {
+      if (act === 'edit') {
+        $('ntId').value = n.id;
+        $('ntTitle').value = n.title;
+        $('ntCat').value = n.category;
+        $('ntBody').value = n.body;
+        $('ntImg').value = n.image_url;
+        $('ntLink').value = n.link_url;
+        $('ntLinkLbl').value = n.link_label;
+        $('ntPub').checked = n.is_published;
+        $('ntPin').checked = n.is_pinned;
+        $('ntFormTitle').textContent = 'নোটিশ সম্পাদনা করুন';
+        $('ntSave').textContent = 'আপডেট করুন';
+        window.scrollTo({ top: $('ntForm').offsetTop - 90, behavior: 'smooth' });
+        return;
+      }
+      if (act === 'pub') {
+        var r1 = await sb.from('notices').update({ is_published: !n.is_published }).eq('id', id);
+        if (r1.error) throw r1.error;
+      }
+      if (act === 'pin') {
+        var r2 = await sb.from('notices').update({ is_pinned: !n.is_pinned }).eq('id', id);
+        if (r2.error) throw r2.error;
+      }
+      if (act === 'del') {
+        if (!confirm('এই নোটিশটি স্থায়ীভাবে মুছে যাবে। নিশ্চিত?')) return;
+        var r3 = await sb.from('notices').delete().eq('id', id);
+        if (r3.error) throw r3.error;
+      }
+      await loadNotices();
+    } catch (err) { flash(D.errMsg(err), false); }
+  });
+
+  /* ========== লাইভ ========== */
+  async function loadLive() {
+    var r = await sb.from('settings').select('live_enabled,live_title,live_url,live_note').eq('id', 1).single();
+    if (r.error) throw r.error;
+    var s = r.data;
+    $('lvOn').checked = !!s.live_enabled;
+    $('lvTitle').value = s.live_title || '';
+    $('lvUrl').value = s.live_url || '';
+    $('lvNote').value = s.live_note || '';
+    $('liveStatus').innerHTML = s.live_enabled && s.live_url
+      ? '<span class="badge-live"><i></i> লাইভ চালু আছে</span>'
+      : '<span class="badge tag-off">লাইভ বন্ধ আছে</span>';
+  }
+
+  $('lvSave').addEventListener('click', async function () {
+    var url = httpsOrEmpty($('lvUrl').value);
+    markInvalid('lvUrl', url === null);
+    if (url === null) return flash('লাইভের লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+    if ($('lvOn').checked && !url) return flash('লাইভ চালু করতে হলে লিংক দিতে হবে।', false);
+    var btn = $('lvSave'); btn.disabled = true;
+    try {
+      var r = await sb.from('settings').update({
+        live_enabled: $('lvOn').checked,
+        live_title: $('lvTitle').value.trim(),
+        live_url: url,
+        live_note: $('lvNote').value.trim(),
+        updated_at: new Date().toISOString()
+      }).eq('id', 1);
+      if (r.error) throw r.error;
+      flash('লাইভ তথ্য সংরক্ষিত হয়েছে। পাবলিক পেজে এখনই দেখা যাবে।', true);
+      await loadLive();
+    } catch (err) { flash(D.errMsg(err), false); }
+    finally { btn.disabled = false; }
+  });
+
+  /* ---------- শুরু ---------- */
+  try {
+    await Promise.all([loadEvents(), loadNotices(), loadLive()]);
+  } catch (err) {
+    flash('তথ্য লোড করা যায়নি: ' + D.errMsg(err), false);
+  }
+})();
+</script>
+</body>
+</html>
