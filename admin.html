@@ -1,1 +1,416 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>অ্যাডমিন প্যানেল | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .grid-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+  .lbl{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.5px}
+  .inp{width:100%;padding:9px 11px;border:1px solid #d8d7ca;border-radius:10px;font-size:14px;background:#fff}
+  .inp-sm{width:110px}
+  .save-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .notice-item{padding:14px 0;border-bottom:1px solid #efece2}
+  @media(max-width:1000px){.grid-stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>DEEN অ্যাডমিন প্যানেল</span>
+    <div class="top-links"><a href="index.html">ওয়েবসাইট</a></div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">ADMIN CONSOLE</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">ওয়েবসাইট</a></li>
+      <li><a href="dashboard.html">ড্যাশবোর্ড</a></li>
+      <li><a href="#" id="logoutBtn" class="nav-cta">লগআউট</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="empty">যাচাই হচ্ছে...</div>
+
+    <!-- Access denied -->
+    <section class="card hide" id="denied">
+      <h2>অনুমতি নেই</h2>
+      <p class="sub">এই পেজ শুধু সাইট অ্যাডমিন ব্যবহার করতে পারবেন।</p>
+      <a class="btn btn-dark btn-sm" href="login.html">লগইন পেজে যান</a>
+    </section>
+
+    <!-- Admin area -->
+    <div id="adminArea" class="hide">
+      <div class="grid-stats">
+        <div class="stat"><strong id="sTotal">0</strong><span>মোট আবেদন</span></div>
+        <div class="stat"><strong id="sPending">0</strong><span>পেমেন্ট বাকি</span></div>
+        <div class="stat"><strong id="sSubmitted">0</strong><span>যাচাই বাকি</span></div>
+        <div class="stat"><strong id="sApproved">0</strong><span>অনুমোদিত</span></div>
+        <div class="stat"><strong id="sRegistered">0</strong><span>সক্রিয় শিক্ষার্থী</span></div>
+      </div>
+
+      <div class="tabbar" role="tablist">
+        <button class="on" data-tab="apps">আবেদন ও পেমেন্ট</button>
+        <button data-tab="settings">সেটিংস ও পেমেন্ট</button>
+        <button data-tab="courses">কোর্স ও ফি</button>
+        <button data-tab="notices">নোটিশ</button>
+      </div>
+
+      <!-- APPLICATIONS -->
+      <section id="tab-apps">
+        <div class="toolbar">
+          <select id="fStatus" class="inp" style="width:auto">
+            <option value="">সব অবস্থা</option>
+            <option value="pending_payment">পেমেন্ট বাকি</option>
+            <option value="submitted">যাচাই বাকি</option>
+            <option value="approved">অনুমোদিত</option>
+            <option value="registered">সক্রিয়</option>
+            <option value="rejected">বাতিল</option>
+          </select>
+          <input id="fSearch" class="inp" type="search" placeholder="নাম, ফোন, কোড, TrxID দিয়ে খুঁজুন" style="max-width:360px">
+          <button class="btn btn-light btn-sm" id="refreshBtn" type="button">রিফ্রেশ</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>কোড</th><th>শিক্ষার্থী</th><th>কোর্স</th><th>ধরন / প্রদেয়</th><th>পেমেন্ট</th><th>অবস্থা</th><th>কাজ</th></tr>
+            </thead>
+            <tbody id="appBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="tab-settings" class="hide">
+        <div class="card">
+          <h2>সাধারণ সেটিংস</h2>
+          <p class="sub">এখানে বদলালে সঙ্গে সঙ্গে ওয়েবসাইটের ফি ও পেমেন্ট তথ্য বদলে যাবে।</p>
+          <div class="grid-2">
+            <div class="field"><label class="lbl" for="sSet_admission">ভর্তি ফি (৳)</label><input class="inp" id="sSet_admission" type="number" min="0"></div>
+            <div class="field"><label class="lbl" for="sSet_discount">এককালীন ছাড় (%)</label><input class="inp" id="sSet_discount" type="number" min="0" max="90"></div>
+            <div class="field"><label class="lbl" for="sSet_deadline">পেমেন্টের সময়সীমা (দিন)</label><input class="inp" id="sSet_deadline" type="number" min="1"></div>
+            <div class="field"><label class="lbl" for="sSet_currency">মুদ্রা চিহ্ন</label><input class="inp" id="sSet_currency" type="text"></div>
+          </div>
+          <div class="hr"></div>
+          <h2>পেমেন্ট নম্বর</h2>
+          <div class="grid-2">
+            <div class="field"><label class="lbl" for="sSet_bkash">বিকাশ নম্বর</label><input class="inp" id="sSet_bkash" type="text"></div>
+            <div class="field"><label class="lbl" for="sSet_nagad">নগদ নম্বর</label><input class="inp" id="sSet_nagad" type="text"></div>
+          </div>
+          <div class="hr"></div>
+          <h2>ব্যাংক একাউন্ট</h2>
+          <label class="row" style="margin-bottom:14px"><input type="checkbox" id="sSet_bankEnabled"> ব্যাংক পেমেন্ট চালু করুন</label>
+          <div class="grid-2">
+            <div class="field"><label class="lbl" for="sSet_bankName">ব্যাংকের নাম</label><input class="inp" id="sSet_bankName" type="text"></div>
+            <div class="field"><label class="lbl" for="sSet_bankAcName">হিসাবের নাম</label><input class="inp" id="sSet_bankAcName" type="text"></div>
+            <div class="field"><label class="lbl" for="sSet_bankAcNo">হিসাব নম্বর</label><input class="inp" id="sSet_bankAcNo" type="text"></div>
+            <div class="field"><label class="lbl" for="sSet_bankBranch">শাখা</label><input class="inp" id="sSet_bankBranch" type="text"></div>
+          </div>
+          <button class="btn btn-gold" id="saveSettings" type="button">সেটিংস সংরক্ষণ করুন</button>
+          <div class="alert" id="settingsAlert" role="status"></div>
+        </div>
+      </section>
+
+      <!-- COURSES -->
+      <section id="tab-courses" class="hide">
+        <div class="card">
+          <h2>কোর্স ও ফি ব্যবস্থাপনা</h2>
+          <p class="sub">মেয়াদ ও মাসিক ফি বদলালে এককালীন ফি ও মোট ফি স্বয়ংক্রিয়ভাবে হিসাব হবে। "সক্রিয়" বন্ধ করলে কোর্সটি ওয়েবসাইটে ভর্তির জন্য দেখাবে না।</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>কোর্সের নাম</th><th>মেয়াদ (মাস)</th><th>মাসিক ফি (৳)</th><th>এককালীন (ছাড়সহ)</th><th>সক্রিয়</th><th></th></tr></thead>
+              <tbody id="courseBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTICES -->
+      <section id="tab-notices" class="hide">
+        <div class="card">
+          <h2>নতুন নোটিশ</h2>
+          <p class="sub">শিক্ষার্থীদের ড্যাশবোর্ডে প্রকাশিত নোটিশ দেখাবে।</p>
+          <div class="field"><label class="lbl" for="nTitle">শিরোনাম</label><input class="inp" id="nTitle" type="text"></div>
+          <div class="field"><label class="lbl" for="nBody">বিবরণ</label><textarea class="inp" id="nBody" rows="4"></textarea></div>
+          <button class="btn btn-gold" id="addNotice" type="button">প্রকাশ করুন</button>
+          <div class="alert" id="noticeAlert" role="status"></div>
+          <div class="hr"></div>
+          <div id="noticeList"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Admin Console</div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  var S = null;          // settings
+  var COURSES = [];      // courses
+  var APPS = [];         // applications with payments
+
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  /* ---------- access check ---------- */
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session) { $('denied').classList.remove('hide'); return; }
+  if (!(await D.isAdmin())) { $('denied').classList.remove('hide'); return; }
+  $('adminArea').classList.remove('hide');
+
+  $('logoutBtn').addEventListener('click', async function (e) {
+    e.preventDefault(); await sb.auth.signOut(); location.href = 'login.html';
+  });
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('.tabbar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.tabbar button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      ['apps', 'settings', 'courses', 'notices'].forEach(function (t) {
+        $('tab-' + t).classList.toggle('hide', b.getAttribute('data-tab') !== t);
+      });
+    });
+  });
+
+  function fmt(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return d; } }
+  function money(n) { return (S ? S.currency : '৳') + D.bn(n); }
+  function onetime(c) { return Math.round(c.months * c.monthly_fee * (100 - S.discount_percent) / 100); }
+
+  /* ---------- load everything ---------- */
+  async function loadAll() {
+    S = await D.getSettings();
+    var c = await sb.from('courses').select('*').order('sort_order');
+    if (c.error) throw c.error;
+    COURSES = c.data || [];
+    var a = await sb.from('applications').select('*, courses(title, months, monthly_fee), payments(*)').order('created_at', { ascending: false });
+    if (a.error) throw a.error;
+    APPS = a.data || [];
+    renderStats(); renderApps(); renderSettings(); renderCourses(); loadNotices();
+  }
+
+  function renderStats() {
+    var cnt = function (s) { return APPS.filter(function (x) { return x.status === s; }).length; };
+    $('sTotal').textContent = APPS.length;
+    $('sPending').textContent = cnt('pending_payment');
+    $('sSubmitted').textContent = cnt('submitted');
+    $('sApproved').textContent = cnt('approved');
+    $('sRegistered').textContent = cnt('registered');
+  }
+
+  /* ---------- applications ---------- */
+  function renderApps() {
+    var st = $('fStatus').value, q = $('fSearch').value.trim().toLowerCase();
+    var list = APPS.filter(function (a) {
+      if (st && a.status !== st) return false;
+      if (!q) return true;
+      var hay = [a.full_name, a.phone, a.email, a.code].concat((a.payments || []).map(function (p) { return p.trx_id; })).join(' ').toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+    if (!list.length) { $('appBody').innerHTML = '<tr><td colspan="7" class="empty">কোনো আবেদন নেই।</td></tr>'; return; }
+
+    $('appBody').innerHTML = list.map(function (a) {
+      var pays = (a.payments || []).slice().sort(function (x, y) { return new Date(y.created_at) - new Date(x.created_at); });
+      var payHtml = pays.length ? pays.map(function (p) {
+        return '<div style="margin-bottom:8px;font-size:13px"><b>' + D.esc(D.PAY_LABEL[p.method] || p.method) + '</b> · ' +
+          D.esc(p.sender_number) + '<br>TrxID: <b>' + D.esc(p.trx_id) + '</b> · ' + money(p.amount) + ' · ' + fmt(p.paid_on) +
+          '<br><span class="badge b-' + (p.status === 'verified' ? 'verified' : p.status === 'rejected' ? 'rejected' : 'submitted') + '">' +
+          (p.status === 'verified' ? 'যাচাইকৃত' : p.status === 'rejected' ? 'বাতিল' : 'যাচাই বাকি') + '</span></div>';
+      }).join('') : '<span class="muted">জমা নেই</span>';
+
+      var actions = '';
+      if (a.status === 'submitted' || a.status === 'pending_payment') {
+        actions += '<button class="btn btn-dark btn-sm" data-act="approve" data-id="' + a.id + '" style="margin-bottom:6px">অনুমোদন</button> ';
+      }
+      if (a.status !== 'rejected' && a.status !== 'registered') {
+        actions += '<button class="btn btn-danger btn-sm" data-act="reject" data-id="' + a.id + '">বাতিল</button>';
+      }
+      if (!actions) actions = '<span class="muted">—</span>';
+
+      return '<tr>' +
+        '<td><b>' + D.esc(a.code) + '</b><div class="muted" style="font-size:12px">' + fmt(a.created_at) + '</div></td>' +
+        '<td>' + D.esc(a.full_name) + '<div class="muted" style="font-size:13px">' + D.esc(a.phone) + '<br>' + D.esc(a.email) + '</div></td>' +
+        '<td>' + D.esc(a.courses ? a.courses.title : '-') + '</td>' +
+        '<td>' + (a.payment_type === 'onetime' ? 'এককালীন' : 'মাসিক') + '<div><b>' + money(a.amount_due) + '</b></div></td>' +
+        '<td style="min-width:220px">' + payHtml + '</td>' +
+        '<td>' + D.statusBadge(a.status) + (a.admin_note ? '<div class="muted" style="font-size:12px;margin-top:4px">' + D.esc(a.admin_note) + '</div>' : '') + '</td>' +
+        '<td>' + actions + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  $('fStatus').addEventListener('change', renderApps);
+  $('fSearch').addEventListener('input', renderApps);
+  $('refreshBtn').addEventListener('click', function () { loadAll().catch(function (e) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(e))); }); });
+
+  $('appBody').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-act]');
+    if (!b) return;
+    var id = b.getAttribute('data-id'), act = b.getAttribute('data-act');
+    try {
+      if (act === 'approve') {
+        if (!confirm('এই আবেদন অনুমোদন করবেন? জমা পেমেন্টগুলো যাচাইকৃত হিসেবে চিহ্নিত হবে।')) return;
+        var r1 = await sb.from('applications').update({ status: 'approved', approved_at: new Date().toISOString() }).eq('id', id);
+        if (r1.error) throw r1.error;
+        var r2 = await sb.from('payments').update({ status: 'verified' }).eq('application_id', id).eq('status', 'submitted');
+        if (r2.error) throw r2.error;
+        D.show($('pageAlert'), 'ok', 'অনুমোদন সম্পন্ন হয়েছে। শিক্ষার্থী এখন নিবন্ধন করতে পারবেন।');
+      } else if (act === 'reject') {
+        var note = prompt('বাতিলের কারণ লিখুন (শিক্ষার্থী দেখতে পাবে):', '');
+        if (note === null) return;
+        var r3 = await sb.from('applications').update({ status: 'rejected', admin_note: note.trim() }).eq('id', id);
+        if (r3.error) throw r3.error;
+        D.show($('pageAlert'), 'ok', 'আবেদন বাতিল করা হয়েছে।');
+      }
+      await loadAll();
+    } catch (err) {
+      D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err)));
+    }
+  });
+
+  /* ---------- settings ---------- */
+  function renderSettings() {
+    $('sSet_admission').value = S.admission_fee;
+    $('sSet_discount').value = S.discount_percent;
+    $('sSet_deadline').value = S.payment_deadline_days;
+    $('sSet_currency').value = S.currency;
+    $('sSet_bkash').value = S.bkash_number;
+    $('sSet_nagad').value = S.nagad_number;
+    $('sSet_bankEnabled').checked = !!S.bank_enabled;
+    $('sSet_bankName').value = S.bank_name;
+    $('sSet_bankAcName').value = S.bank_account_name;
+    $('sSet_bankAcNo').value = S.bank_account_number;
+    $('sSet_bankBranch').value = S.bank_branch;
+  }
+
+  $('saveSettings').addEventListener('click', async function () {
+    var discount = Number($('sSet_discount').value);
+    if (discount < 0 || discount > 90) { D.show($('settingsAlert'), 'bad', 'ছাড় ০ থেকে ৯০%-এর মধ্যে হতে হবে।'); return; }
+    var payload = {
+      admission_fee: Math.max(0, Math.round(Number($('sSet_admission').value) || 0)),
+      discount_percent: Math.round(discount),
+      payment_deadline_days: Math.max(1, Math.round(Number($('sSet_deadline').value) || 3)),
+      currency: $('sSet_currency').value.trim() || '৳',
+      bkash_number: $('sSet_bkash').value.trim(),
+      nagad_number: $('sSet_nagad').value.trim(),
+      bank_enabled: $('sSet_bankEnabled').checked,
+      bank_name: $('sSet_bankName').value.trim(),
+      bank_account_name: $('sSet_bankAcName').value.trim(),
+      bank_account_number: $('sSet_bankAcNo').value.trim(),
+      bank_branch: $('sSet_bankBranch').value.trim(),
+      updated_at: new Date().toISOString()
+    };
+    try {
+      var r = await sb.from('settings').update(payload).eq('id', 1);
+      if (r.error) throw r.error;
+      D.show($('settingsAlert'), 'ok', 'সেটিংস সংরক্ষিত হয়েছে।');
+      await loadAll();
+    } catch (err) { D.show($('settingsAlert'), 'bad', D.esc(D.errMsg(err))); }
+  });
+
+  /* ---------- courses ---------- */
+  function renderCourses() {
+    $('courseBody').innerHTML = COURSES.map(function (c) {
+      return '<tr data-id="' + c.id + '">' +
+        '<td>' + c.id + '</td>' +
+        '<td><input class="inp" data-f="title" value="' + D.esc(c.title) + '"></td>' +
+        '<td><input class="inp inp-sm" type="number" min="1" data-f="months" value="' + c.months + '"></td>' +
+        '<td><input class="inp inp-sm" type="number" min="0" data-f="monthly_fee" value="' + c.monthly_fee + '"></td>' +
+        '<td><span class="muted">' + money(onetime(c)) + '</span></td>' +
+        '<td><input type="checkbox" data-f="is_active" ' + (c.is_active ? 'checked' : '') + '></td>' +
+        '<td><button class="btn btn-dark btn-sm" data-save="' + c.id + '">সংরক্ষণ</button></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  $('courseBody').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-save]');
+    if (!b) return;
+    var id = Number(b.getAttribute('data-save'));
+    var row = b.closest('tr');
+    var payload = {
+      title: row.querySelector('[data-f="title"]').value.trim(),
+      months: Math.max(1, Math.round(Number(row.querySelector('[data-f="months"]').value) || 1)),
+      monthly_fee: Math.max(0, Math.round(Number(row.querySelector('[data-f="monthly_fee"]').value) || 0)),
+      is_active: row.querySelector('[data-f="is_active"]').checked
+    };
+    if (!payload.title) { D.show($('pageAlert'), 'bad', 'কোর্সের নাম খালি রাখা যাবে না।'); return; }
+    try {
+      var r = await sb.from('courses').update(payload).eq('id', id);
+      if (r.error) throw r.error;
+      D.show($('pageAlert'), 'ok', 'কোর্স "' + D.esc(payload.title) + '" সংরক্ষিত হয়েছে।');
+      await loadAll();
+    } catch (err) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err))); }
+  });
+
+  /* ---------- notices ---------- */
+  async function loadNotices() {
+    var r = await sb.from('notices').select('*').order('created_at', { ascending: false });
+    if (r.error) { $('noticeList').innerHTML = '<p class="muted">নোটিশ লোড হয়নি।</p>'; return; }
+    var list = r.data || [];
+    $('noticeList').innerHTML = list.length ? list.map(function (n) {
+      return '<div class="notice-item"><div class="row-between"><strong>' + D.esc(n.title) + '</strong>' +
+        '<span class="muted" style="font-size:13px">' + fmt(n.created_at) + ' · ' + (n.is_published ? 'প্রকাশিত' : 'গোপন') + '</span></div>' +
+        '<p class="muted" style="margin:6px 0 10px;white-space:pre-wrap">' + D.esc(n.body) + '</p>' +
+        '<div class="row"><button class="btn btn-light btn-sm" data-nt="' + n.id + '" data-pub="' + (n.is_published ? '0' : '1') + '">' + (n.is_published ? 'গোপন করুন' : 'প্রকাশ করুন') + '</button>' +
+        '<button class="btn btn-danger btn-sm" data-nd="' + n.id + '">মুছুন</button></div></div>';
+    }).join('') : '<p class="muted">কোনো নোটিশ নেই।</p>';
+  }
+
+  $('addNotice').addEventListener('click', async function () {
+    var t = $('nTitle').value.trim(), b = $('nBody').value.trim();
+    if (t.length < 3) { D.show($('noticeAlert'), 'bad', 'শিরোনাম লিখুন।'); return; }
+    var r = await sb.from('notices').insert({ title: t, body: b, is_published: true });
+    if (r.error) { D.show($('noticeAlert'), 'bad', D.esc(D.errMsg(r.error))); return; }
+    $('nTitle').value = ''; $('nBody').value = '';
+    D.show($('noticeAlert'), 'ok', 'নোটিশ প্রকাশিত হয়েছে।');
+    loadNotices();
+  });
+
+  $('noticeList').addEventListener('click', async function (e) {
+    var t = e.target.closest('button[data-nt]'), d = e.target.closest('button[data-nd]');
+    if (t) {
+      await sb.from('notices').update({ is_published: t.getAttribute('data-pub') === '1' }).eq('id', t.getAttribute('data-nt'));
+      loadNotices();
+    }
+    if (d && confirm('এই নোটিশ মুছে ফেলবেন?')) {
+      await sb.from('notices').delete().eq('id', d.getAttribute('data-nd'));
+      loadNotices();
+    }
+  });
+
+  try { await loadAll(); }
+  catch (e) { D.show($('pageAlert'), 'bad', 'তথ্য লোড করা যায়নি: ' + D.esc(D.errMsg(e))); }
+})();
+</script>
+</body>
+</html>
 
