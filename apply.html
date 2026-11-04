@@ -1,1 +1,439 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>ভর্তির আবেদন ও পেমেন্ট | DEEN</title>
+<meta name="description" content="DEEN-এ ভর্তির আবেদন করুন। আগে পেমেন্ট, তারপর নিবন্ধন।">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links">
+      <a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="index.html" class="brand" aria-label="DEEN হোম">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">DEEN</div>
+        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
+      </div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">হোম</a></li>
+      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
+      <li><a href="departments.html">বিভাগসমূহ</a></li>
+      <li><a href="quran.html">আল-কুরআন</a></li>
+      <li><a href="hadith.html">হাদীস</a></li>
+      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
+      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="gallery.html">গ্যালারি</a></li>
+      <li><a href="contact.html">যোগাযোগ</a></li>
+      <li><a href="donate.html">সহযোগিতা</a></li>
+      <li><a href="login.html" class="nav-cta">শিক্ষার্থী লগইন</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+    <div class="eyebrow">ADMISSION</div>
+    <h1 class="h1">ভর্তির আবেদন ও পেমেন্ট</h1>
+    <p class="lead">প্রথমে পেমেন্ট করুন, তারপর পেমেন্ট যাচাই হলে নিবন্ধন করে শিক্ষার্থী পোর্টালে প্রবেশ করতে পারবেন।</p>
+
+    <div class="alert" id="pageAlert" role="status" style="margin-top:22px"></div>
+
+    <div class="grid-2" style="margin-top:34px">
+
+      <!-- STEP 1: Application -->
+      <section class="card reveal" id="stepApply" aria-labelledby="h-apply">
+        <h2 id="h-apply">ধাপ ১: কোর্স ও তথ্য</h2>
+        <p class="sub">আপনার তথ্য দিন। একটি আবেদন নম্বর তৈরি হবে, যা পেমেন্টের সময় লিখতে হবে।</p>
+
+        <form id="applyForm" novalidate>
+          <div class="field" id="f-name">
+            <label for="name">পূর্ণ নাম</label>
+            <input id="name" type="text" autocomplete="name" placeholder="আপনার নাম">
+            <div class="err">পূর্ণ নাম লিখুন (কমপক্ষে ৩ অক্ষর)।</div>
+          </div>
+          <div class="field" id="f-phone">
+            <label for="phone">মোবাইল নম্বর</label>
+            <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="01XXXXXXXXX">
+            <div class="err">সঠিক ১১ সংখ্যার মোবাইল নম্বর লিখুন।</div>
+          </div>
+          <div class="field" id="f-email">
+            <label for="email">ইমেইল</label>
+            <input id="email" type="email" autocomplete="email" placeholder="name@example.com">
+            <div class="hint">নিবন্ধনের সময় এই ইমেইলই ব্যবহার করতে হবে।</div>
+            <div class="err">সঠিক ইমেইল লিখুন।</div>
+          </div>
+          <div class="field" id="f-course">
+            <label for="courseSel">কোর্স</label>
+            <select id="courseSel"><option value="">লোড হচ্ছে...</option></select>
+            <div class="err">একটি কোর্স বাছুন।</div>
+          </div>
+          <div class="field">
+            <label>পেমেন্ট পদ্ধতি</label>
+            <div class="opt-grid">
+              <div class="opt"><input type="radio" name="ptype" id="pt-monthly" value="monthly" checked>
+                <label for="pt-monthly"><strong>মাসিক</strong><span>প্রথম মাসের ফি + ভর্তি ফি</span></label></div>
+              <div class="opt"><input type="radio" name="ptype" id="pt-onetime" value="onetime">
+                <label for="pt-onetime"><strong>এককালীন</strong><span>পুরো কোর্স ছাড়সহ</span></label></div>
+            </div>
+          </div>
+
+          <div class="card card-dark" style="padding:22px;margin:6px 0 20px;box-shadow:none" id="sumBox" aria-live="polite">
+            <p class="muted" style="color:#d6e0d8">কোর্স বাছলে ফি দেখাবে।</p>
+          </div>
+
+          <button class="btn btn-gold btn-block" type="submit" id="applyBtn">আবেদন নম্বর নিন →</button>
+        </form>
+      </section>
+
+      <!-- STEP 2: Payment -->
+      <section class="card reveal" id="stepPay" aria-labelledby="h-pay">
+        <h2 id="h-pay">ধাপ ২: পেমেন্ট ও যাচাই</h2>
+        <p class="sub">আবেদন নম্বর পেলে এখানে পেমেন্টের নির্দেশনা ও তথ্য জমা দেওয়ার ফর্ম দেখাবে।</p>
+
+        <div id="payEmpty" class="empty">প্রথমে ধাপ ১ সম্পন্ন করুন, অথবা নিচে আপনার আবেদন নম্বর দিয়ে অবস্থা দেখুন।</div>
+
+        <div id="payBox" class="hide">
+          <div class="kv">
+            <div><small>আবেদন নম্বর</small><strong id="pCode">-</strong></div>
+            <div><small>প্রদেয় মোট টাকা</small><strong id="pAmount">-</strong></div>
+          </div>
+
+          <div class="hr"></div>
+          <p class="muted" style="font-size:14.5px;margin-bottom:10px">নিচের যেকোনো নম্বরে টাকা পাঠান (<b>Send Money</b>), এবং পেমেন্টের রেফারেন্সে আবেদন নম্বরটি লিখুন:</p>
+          <div id="payMethods" class="stack"></div>
+
+          <div class="hr"></div>
+          <h3 style="color:var(--green);margin-bottom:12px;font-size:17px">পেমেন্টের তথ্য জমা দিন</h3>
+          <form id="payForm" novalidate>
+            <div class="field" id="f-pmethod">
+              <label for="pMethod">পেমেন্টের মাধ্যম</label>
+              <select id="pMethod"></select>
+              <div class="err">মাধ্যম বাছুন।</div>
+            </div>
+            <div class="field" id="f-psender">
+              <label for="pSender">যে নম্বর থেকে টাকা পাঠিয়েছেন</label>
+              <input id="pSender" type="tel" inputmode="tel" placeholder="01XXXXXXXXX">
+              <div class="err">সঠিক নম্বর লিখুন।</div>
+            </div>
+            <div class="field" id="f-ptrx">
+              <label for="pTrx">Transaction ID (TrxID)</label>
+              <input id="pTrx" type="text" autocomplete="off" placeholder="যেমন: 8F7K2M9Q1X">
+              <div class="err">সঠিক TrxID লিখুন।</div>
+            </div>
+            <div class="grid-2" style="gap:14px">
+              <div class="field" id="f-pamount">
+                <label for="pAmt">টাকার পরিমাণ</label>
+                <input id="pAmt" type="number" min="1" inputmode="numeric">
+                <div class="err">টাকার পরিমাণ লিখুন।</div>
+              </div>
+              <div class="field" id="f-pdate">
+                <label for="pDate">পেমেন্টের তারিখ</label>
+                <input id="pDate" type="date">
+                <div class="err">সঠিক তারিখ দিন।</div>
+              </div>
+            </div>
+            <button class="btn btn-dark btn-block" type="submit" id="payBtn">পেমেন্ট তথ্য জমা দিন</button>
+          </form>
+          <div class="alert" id="payAlert" role="status"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- STATUS -->
+    <section class="card reveal" style="margin-top:28px" aria-labelledby="h-status">
+      <h2 id="h-status">আবেদনের অবস্থা দেখুন</h2>
+      <p class="sub">আবেদন নম্বর লিখে যেকোনো সময় অবস্থা জেনে নিন।</p>
+      <form id="statusForm" class="row" novalidate>
+        <input id="statusCode" type="text" placeholder="DEEN-2026-XXXXXX" autocomplete="off"
+          style="flex:1;min-width:220px;padding:13px 15px;border:1px solid #d8d7ca;border-radius:13px;text-transform:uppercase">
+        <button class="btn btn-gold" type="submit">অবস্থা দেখুন</button>
+      </form>
+      <div class="alert" id="statusAlert" role="status"></div>
+      <div id="statusCard" class="hide" style="margin-top:18px"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">DEEN</div>
+        <p>Dawah Education &amp; E-learning Nexus. বিশুদ্ধ ইসলামী জ্ঞান, আধুনিক শিক্ষা ও প্রযুক্তির সমন্বয়ে একটি বৈশ্বিক জ্ঞানকেন্দ্র।</p>
+        <p style="color:#e2c987;margin-top:12px">Knowledge Changes Lives.</p>
+      </div>
+      <div class="footer-col">
+        <h3>যোগাযোগ</h3>
+        <ul>
+          <li>📞 01332991478</li>
+          <li>📞 01769668093</li>
+          <li>🌐 Online / Everywhere</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>আমাদের অনুসরণ করুন</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/profile.php?id=61583726953306" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://youtube.com/@dawaheducatione-learningnexus" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 DEEN — Dawah Education &amp; E-learning Nexus. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY_CODE = 'deen_app_code';
+  var settings = null, courses = [];
+  var curDue = 0, curCourse = null;
+
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); return; }
+
+  /* ---------- load settings + courses from database ---------- */
+  try {
+    settings = await D.getSettings();
+    courses = (await D.getCourses()).filter(function (c) { return c.is_active; });
+  } catch (e) {
+    D.show($('pageAlert'), 'bad', 'তথ্য লোড করা যায়নি: ' + D.esc(D.errMsg(e)));
+    return;
+  }
+
+  /* course dropdown */
+  var sel = $('courseSel');
+  sel.innerHTML = '<option value="">একটি কোর্স বাছুন</option>' +
+    courses.map(function (c) { return '<option value="' + c.id + '">' + D.esc(c.title) + '</option>'; }).join('');
+  var pre = new URLSearchParams(location.search).get('course');
+  if (pre && courses.some(function (c) { return String(c.id) === pre; })) sel.value = pre;
+
+  /* payment method dropdown (bank only if enabled) */
+  var methods = [['bkash', 'বিকাশ'], ['nagad', 'নগদ']];
+  if (settings.bank_enabled) methods.push(['bank', 'ব্যাংক']);
+  $('pMethod').innerHTML = '<option value="">বাছুন</option>' +
+    methods.map(function (m) { return '<option value="' + m[0] + '">' + m[1] + '</option>'; }).join('');
+
+  /* ---------- live fee summary (display only; server calculates the real amount) ---------- */
+  function currentType() {
+    var r = document.querySelector('input[name="ptype"]:checked');
+    return r ? r.value : 'monthly';
+  }
+  function renderSummary() {
+    var c = courses.filter(function (x) { return String(x.id) === sel.value; })[0];
+    curCourse = c || null;
+    var box = $('sumBox');
+    if (!c) { box.innerHTML = '<p style="color:#d6e0d8">কোর্স বাছলে ফি দেখাবে।</p>'; curDue = 0; return; }
+    var adm = settings.admission_fee, total = c.months * c.monthly_fee;
+    var onetime = Math.round(total * (100 - settings.discount_percent) / 100);
+    var type = currentType();
+    curDue = (type === 'onetime' ? onetime : c.monthly_fee) + adm;
+    var cur = settings.currency;
+    box.innerHTML =
+      '<p style="color:#f2d99c;font-weight:700;margin-bottom:10px">' + D.esc(c.title) + '</p>' +
+      '<div class="kv" style="grid-template-columns:1fr 1fr">' +
+        '<div><small>মেয়াদ</small><strong>' + c.months + ' মাস</strong></div>' +
+        '<div><small>মাসিক ফি</small><strong>' + D.money(c.monthly_fee, cur) + '</strong></div>' +
+        '<div><small>ভর্তি ফি</small><strong>' + D.money(adm, cur) + '</strong></div>' +
+        '<div><small>' + (type === 'onetime' ? 'এককালীন (' + settings.discount_percent + '% ছাড়)' : 'প্রথম মাসের প্রদেয়') + '</small>' +
+          '<strong>' + D.money(type === 'onetime' ? onetime : c.monthly_fee, cur) + '</strong></div>' +
+      '</div>' +
+      '<div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:10px">' +
+        '<span style="color:#d6e0d8">এখন প্রদেয় (ভর্তি ফিসহ)</span>' +
+        '<span style="font-family:Playfair Display,serif;font-size:28px;color:#f2d99c;font-weight:700">' + D.money(curDue, cur) + '</span>' +
+      '</div>';
+  }
+  sel.addEventListener('change', renderSummary);
+  document.querySelectorAll('input[name="ptype"]').forEach(function (r) { r.addEventListener('change', renderSummary); });
+  renderSummary();
+
+  /* ---------- validation helpers ---------- */
+  function check(fieldId, ok) { $(fieldId).classList.toggle('invalid', !ok); return ok; }
+  document.querySelectorAll('input,select').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+
+  /* ---------- STEP 1: create application ---------- */
+  $('applyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    D.hide($('pageAlert'));
+    var name = $('name').value.trim(), phone = $('phone').value.trim(), email = $('email').value.trim();
+    var ok = [
+      check('f-name', name.length >= 3),
+      check('f-phone', /^01[3-9]\d{8}$/.test(phone)),
+      check('f-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)),
+      check('f-course', sel.value !== '')
+    ].every(Boolean);
+    if (!ok) return;
+
+    var btn = $('applyBtn'); btn.disabled = true; btn.textContent = 'তৈরি হচ্ছে...';
+    try {
+      var r = await sb.rpc('create_application', {
+        p_name: name, p_phone: phone, p_email: email,
+        p_course_id: Number(sel.value), p_payment_type: currentType()
+      });
+      if (r.error) throw r.error;
+      var row = Array.isArray(r.data) ? r.data[0] : r.data;
+      localStorage.setItem(KEY_CODE, row.out_code);
+      D.show($('pageAlert'), 'ok', 'আবেদন নম্বর তৈরি হয়েছে: <b>' + D.esc(row.out_code) + '</b>। এখন নিচের ধাপ ২-এ পেমেন্ট করুন।');
+      await loadPayment(row.out_code);
+      $('stepPay').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (err) {
+      D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err)));
+    } finally {
+      btn.disabled = false; btn.textContent = 'আবেদন নম্বর নিন →';
+    }
+  });
+
+  /* ---------- STEP 2: show payment instructions for a code ---------- */
+  async function fetchStatus(code) {
+    var r = await sb.rpc('get_application_status', { p_code: code });
+    if (r.error) throw r.error;
+    return r.data;
+  }
+
+  function payMethodsHtml(st) {
+    var out = '';
+    if (st.bkash) out += '<div class="copy"><span><b>বিকাশ</b> (Personal)</span><b>' + D.esc(st.bkash) + '</b><button type="button" data-copy="' + D.esc(st.bkash) + '">কপি</button></div>';
+    if (st.nagad) out += '<div class="copy"><span><b>নগদ</b> (Personal)</span><b>' + D.esc(st.nagad) + '</b><button type="button" data-copy="' + D.esc(st.nagad) + '">কপি</button></div>';
+    if (st.bank_enabled) {
+      out += '<div class="copy" style="display:block"><div><b>ব্যাংক:</b> ' + D.esc(st.bank_name) + '</div>' +
+        '<div>হিসাবের নাম: ' + D.esc(st.bank_account_name) + '</div>' +
+        '<div>হিসাব নম্বর: <b>' + D.esc(st.bank_account_number) + '</b></div>' +
+        '<div>শাখা: ' + D.esc(st.bank_branch) + '</div></div>';
+    }
+    out += '<div class="alert info show" style="margin-top:6px">রেফারেন্স হিসেবে লিখুন: <b>' + D.esc(st.code) + '</b></div>';
+    return out;
+  }
+
+  async function loadPayment(code) {
+    var st = await fetchStatus(code);
+    $('payEmpty').classList.add('hide');
+    $('payBox').classList.remove('hide');
+    $('pCode').textContent = st.code;
+    $('pAmount').textContent = D.money(st.amount_due, st.currency);
+    $('pAmt').value = st.amount_due;
+    $('pDate').max = new Date().toISOString().slice(0, 10);
+    $('pDate').value = new Date().toISOString().slice(0, 10);
+    $('payMethods').innerHTML = payMethodsHtml(st);
+    $('payMethods').querySelectorAll('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute('data-copy'));
+        b.textContent = 'কপি হয়েছে';
+        setTimeout(function () { b.textContent = 'কপি'; }, 1500);
+      });
+    });
+    if (st.status === 'submitted') {
+      D.show($('payAlert'), 'info', 'আপনার পেমেন্ট তথ্য জমা হয়েছে। যাচাই শেষ হলে অবস্থা আপডেট হবে।');
+    }
+    renderStatus(st);
+  }
+
+  /* payment submit */
+  $('payForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    D.hide($('payAlert'));
+    var code = (localStorage.getItem(KEY_CODE) || $('pCode').textContent || '').trim();
+    var method = $('pMethod').value;
+    var sender = $('pSender').value.trim();
+    var trx = $('pTrx').value.trim();
+    var amt = Number($('pAmt').value);
+    var date = $('pDate').value;
+    var ok = [
+      check('f-pmethod', method !== ''),
+      check('f-psender', /^01[3-9]\d{8}$/.test(sender)),
+      check('f-ptrx', trx.length >= 6),
+      check('f-pamount', amt > 0),
+      check('f-pdate', date !== '')
+    ].every(Boolean);
+    if (!ok) return;
+
+    var btn = $('payBtn'); btn.disabled = true; btn.textContent = 'জমা হচ্ছে...';
+    try {
+      var r = await sb.rpc('submit_payment', {
+        p_code: code, p_method: method, p_sender: sender, p_trx: trx, p_amount: amt, p_paid_on: date
+      });
+      if (r.error) throw r.error;
+      D.show($('payAlert'), 'ok', 'পেমেন্ট তথ্য জমা হয়েছে। আমাদের টিম যাচাই করে আপনাকে জানাবে। অবস্থা দেখতে নিচে আপনার আবেদন নম্বর দিন।');
+      $('payForm').reset();
+      await loadPayment(code);
+    } catch (err) {
+      D.show($('payAlert'), 'bad', D.esc(D.errMsg(err)));
+    } finally {
+      btn.disabled = false; btn.textContent = 'পেমেন্ট তথ্য জমা দিন';
+    }
+  });
+
+  /* ---------- status check ---------- */
+  function renderStatus(st) {
+    var card = $('statusCard');
+    var hint = '';
+    if (st.status === 'pending_payment') hint = 'পেমেন্ট করে নিচের ফর্মে TrxID জমা দিন।';
+    else if (st.status === 'submitted') hint = 'পেমেন্ট যাচাই চলছে। সাধারণত কিছু সময় লাগে।';
+    else if (st.status === 'approved') hint = 'অভিনন্দন! ভর্তি অনুমোদিত। এখন <a href="login.html"><b>অ্যাকাউন্ট তৈরি করুন</b></a>।';
+    else if (st.status === 'registered') hint = 'আপনার অ্যাকাউন্ট সক্রিয়। <a href="login.html"><b>লগইন করুন</b></a>।';
+    else if (st.status === 'rejected') hint = 'দুঃখিত, আবেদনটি বাতিল হয়েছে।' + (st.admin_note ? ' কারণ: ' + D.esc(st.admin_note) : '') + ' বিস্তারিত জানতে যোগাযোগ করুন।';
+    card.classList.remove('hide');
+    card.innerHTML =
+      '<div class="kv">' +
+        '<div><small>আবেদন নম্বর</small><strong>' + D.esc(st.code) + '</strong></div>' +
+        '<div><small>অবস্থা</small><strong>' + D.statusBadge(st.status) + '</strong></div>' +
+        '<div><small>নাম</small><strong>' + D.esc(st.full_name) + '</strong></div>' +
+        '<div><small>কোর্স</small><strong>' + D.esc(st.course) + '</strong></div>' +
+      '</div>' +
+      '<div class="alert info show" style="margin-top:14px">' + hint + '</div>';
+  }
+
+  $('statusForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var code = $('statusCode').value.trim().toUpperCase();
+    if (code.length < 8) { D.show($('statusAlert'), 'bad', 'সঠিক আবেদন নম্বর লিখুন।'); return; }
+    D.hide($('statusAlert'));
+    try {
+      var st = await fetchStatus(code);
+      localStorage.setItem(KEY_CODE, st.code);
+      renderStatus(st);
+      if (st.status === 'pending_payment' || st.status === 'submitted') await loadPayment(st.code);
+    } catch (err) {
+      D.show($('statusAlert'), 'bad', D.esc(D.errMsg(err)));
+      $('statusCard').classList.add('hide');
+    }
+  });
+
+  /* resume previous application */
+  var saved = localStorage.getItem(KEY_CODE);
+  if (saved) {
+    try { await loadPayment(saved); } catch (e) { localStorage.removeItem(KEY_CODE); }
+  }
+})();
+</script>
+</body>
+</html>
 
