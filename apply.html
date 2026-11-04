@@ -104,6 +104,15 @@
             <p class="muted" style="color:#d6e0d8">কোর্স বাছলে ফি দেখাবে।</p>
           </div>
 
+          <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+            <label>ওয়েবসাইট (ফাঁকা রাখুন)<input id="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <label class="row" style="align-items:flex-start;margin:6px 0 18px;font-size:14px;color:var(--muted);line-height:1.7;cursor:pointer">
+            <input type="checkbox" id="agree" style="margin-top:4px;width:17px;height:17px;accent-color:var(--green);flex-shrink:0">
+            <span>আমি <a href="privacy.html" target="_blank" rel="noopener" class="link">গোপনীয়তা নীতি</a> ও <a href="refund.html" target="_blank" rel="noopener" class="link">ফেরত নীতি</a> পড়েছি এবং মেনে নিচ্ছি।</span>
+          </label>
+
           <button class="btn btn-gold btn-block" type="submit" id="applyBtn">আবেদন নম্বর নিন →</button>
         </form>
       </section>
@@ -201,6 +210,10 @@
         </ul>
       </div>
     </div>
+    <div class="row" style="justify-content:center;gap:22px;margin-bottom:14px;font-size:14px">
+      <a href="privacy.html" style="color:var(--gold-2)">গোপনীয়তা নীতি</a>
+      <a href="refund.html" style="color:var(--gold-2)">ফেরত নীতি</a>
+    </div>
     <div class="footer-bottom">© 2026 DEEN — Dawah Education &amp; E-learning Nexus. All Rights Reserved.</div>
   </div>
 </footer>
@@ -284,6 +297,11 @@
   $('applyForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     D.hide($('pageAlert'));
+    if ($('website').value) return; // honeypot filled: treat as bot
+    if (!$('agree').checked) {
+      D.show($('pageAlert'), 'bad', 'আবেদনের আগে গোপনীয়তা নীতি ও ফেরত নীতি মেনে নিতে টিক দিন।');
+      return;
+    }
     var name = $('name').value.trim(), phone = $('phone').value.trim(), email = $('email').value.trim();
     var ok = [
       check('f-name', name.length >= 3),
@@ -436,4 +454,3 @@
 </script>
 </body>
 </html>
-
