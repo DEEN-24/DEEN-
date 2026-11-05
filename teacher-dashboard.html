@@ -1,714 +1,625 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071f1a">
-<title>Teacher Portal | DEEN</title>
-<meta name="description" content="DEEN Teacher Management and Academic Portal">
-
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>শিক্ষক ড্যাশবোর্ড | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<link rel="stylesheet" href="cms.css">
 <style>
-:root{
---bg:#f4f6f2;
---white:#fff;
---green:#082c23;
---green2:#104638;
---gold:#c9a65c;
---gold-light:#f2e4bd;
---text:#253a31;
---muted:#78877e;
---border:#e5eae4;
---red:#c64c4c;
---shadow:0 8px 28px #092a2010;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-font-family:'Hind Siliguri',sans-serif;
-background:var(--bg);color:var(--text);
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
-.app{min-height:100vh}
-.topbar{
-height:72px;background:var(--green);
-display:flex;align-items:center;justify-content:space-between;
-padding:0 25px;color:white;position:sticky;top:0;z-index:100;
-border-bottom:1px solid #c9a65c55;
-}
-.brand{display:flex;align-items:center;gap:11px}
-.brand img{
-height:45px;width:45px;border-radius:50%;
-object-fit:contain;background:white;padding:3px;
-}
-.brand h1{
-font:700 22px 'Playfair Display',serif;
-color:var(--gold-light);letter-spacing:2px;
-}
-.brand small{display:block;font-size:9px;color:#d4dfd7}
-.top-right{display:flex;align-items:center;gap:15px}
-.top-status{font-size:12px;color:#d8e5dc}
-.top-avatar{
-height:38px;width:38px;border-radius:50%;
-background:var(--gold);color:var(--green);
-display:grid;place-items:center;font-weight:700;
-}
-.layout{display:flex;min-height:calc(100vh - 72px)}
-.sidebar{
-width:255px;background:#092b23;color:white;
-padding:22px 14px;flex-shrink:0;
-}
-.profile{
-padding:17px 13px;margin-bottom:20px;
-border:1px solid #ffffff1b;border-radius:9px;
-background:#ffffff08;
-}
-.profile-avatar{
-height:53px;width:53px;border-radius:50%;
-background:var(--gold);color:var(--green);
-display:grid;place-items:center;font-size:22px;
-font-weight:700;margin-bottom:12px;
-}
-.profile h3{font-size:17px;color:white}
-.profile p{font-size:11px;color:#b5c9bd}
-.role{
-display:inline-block;margin-top:8px;
-padding:4px 10px;background:#d7b46a22;
-border:1px solid #d7b46a66;color:var(--gold-light);
-border-radius:20px;font-size:10px;
-}
-.menu-label{
-font-size:10px;color:#8fa89a;
-letter-spacing:1.5px;padding:13px 12px 7px;
-}
-.nav-btn{
-width:100%;display:flex;align-items:center;
-gap:12px;text-align:left;padding:12px;
-margin:3px 0;border:0;border-radius:6px;
-background:transparent;color:#cbd9d0;
-font-size:14px;transition:.2s;
-}
-.nav-btn .ico{width:22px;text-align:center;font-size:17px}
-.nav-btn:hover,.nav-btn.active{
-background:#ffffff13;color:var(--gold-light);
-border-left:3px solid var(--gold);
-}
-.sidebar-bottom{
-margin-top:30px;border-top:1px solid #ffffff20;
-padding-top:15px;font-size:11px;color:#9db0a3;
-line-height:1.9;
-}
-.main{flex:1;min-width:0;padding:27px}
-.mobile-menu{
-display:none;background:var(--green);
-color:white;border:0;padding:9px 13px;border-radius:5px;
-}
-.page{display:none}
-.page.active{display:block}
-.page-heading{
-display:flex;justify-content:space-between;
-align-items:center;gap:15px;margin-bottom:25px;
-}
-.page-heading h2{
-font-size:27px;color:var(--green);font-weight:700;
-}
-.page-heading p{font-size:13px;color:var(--muted)}
-.date-label{
-background:white;padding:10px 15px;
-border:1px solid var(--border);border-radius:6px;
-font-size:12px;color:var(--muted);
-}
-.welcome{
-background:linear-gradient(120deg,#082c23,#155543);
-padding:28px;border-radius:11px;color:white;
-position:relative;overflow:hidden;
-margin-bottom:23px;
-}
-.welcome:after{
-content:"DEEN";position:absolute;
-right:18px;bottom:-22px;
-font:700 90px 'Playfair Display',serif;
-color:#ffffff0b;
-}
-.welcome h2{font-size:25px;color:var(--gold-light)}
-.welcome p{font-size:13px;color:#d4e1d8;margin-top:8px}
-.welcome .mini{font-size:11px;color:#d6bb7e;margin-top:15px}
-.stats{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:15px;margin-bottom:24px;
-}
-.stat{
-background:white;padding:19px;border-radius:9px;
-border:1px solid var(--border);box-shadow:var(--shadow);
-}
-.stat .icon{font-size:22px}
-.stat strong{
-display:block;font:700 27px 'Playfair Display',serif;
-color:var(--green);margin:8px 0 2px;
-}
-.stat span{font-size:12px;color:var(--muted)}
-.grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
-.panel{
-background:white;padding:21px;border:1px solid var(--border);
-border-radius:9px;box-shadow:var(--shadow);
-margin-bottom:18px;min-width:0;
-}
-.panel-title{
-display:flex;align-items:center;
-justify-content:space-between;gap:10px;
-margin-bottom:18px;
-}
-.panel-title h3{font-size:17px;color:var(--green)}
-.panel-title small{color:var(--muted);font-size:11px}
-.notice{
-padding:12px;border-radius:6px;
-background:#faf6e9;border-left:3px solid var(--gold);
-margin:10px 0;
-}
-.notice strong{font-size:13px;display:block}
-.notice p{font-size:12px;color:var(--muted);margin-top:4px}
-.activity{
-display:flex;gap:12px;padding:12px 0;
-border-bottom:1px solid var(--border);
-}
-.activity:last-child{border:0}
-.activity-icon{
-width:35px;height:35px;flex-shrink:0;
-border-radius:7px;background:#edf3ee;
-display:grid;place-items:center;
-}
-.activity p{font-size:13px}
-.activity small{font-size:11px;color:var(--muted)}
-.btn{
-border:0;padding:10px 16px;border-radius:5px;
-background:var(--green);color:white;
-font-size:13px;display:inline-block;
-}
-.btn:hover{background:var(--green2)}
-.btn.gold{background:var(--gold);color:#142c22}
-.btn.light{background:#edf2ed;color:var(--green)}
-.btn.danger{background:#f9e9e9;color:var(--red)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.form-grid{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
-.field{margin-bottom:14px}
-.field label{
-display:block;font-size:13px;
-font-weight:600;color:var(--text);margin-bottom:7px;
-}
-.field input,.field textarea,.field select{
-width:100%;padding:11px 12px;
-border:1px solid #dfe5de;border-radius:5px;
-background:white;outline:none;color:var(--text);
-font-size:13px;
-}
-.field input:focus,.field textarea:focus,
-.field select:focus{border-color:var(--gold)}
-.field textarea{min-height:105px;resize:vertical}
-.field small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.full{grid-column:1/-1}
-.file-box{
-border:1px dashed #c9a65c;
-background:#fcfaf4;border-radius:7px;
-padding:18px;text-align:center;
-}
-.file-box input{font-size:12px;max-width:100%}
-.file-box p{font-size:12px;color:var(--muted);margin-top:8px}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th,td{
-padding:12px;text-align:left;
-border-bottom:1px solid var(--border);
-font-size:12px;
-}
-th{color:#64756b;background:#f7f9f6}
-.status{
-display:inline-block;padding:4px 9px;
-border-radius:20px;font-size:10px;
-background:#e8f4e9;color:#287442;
-}
-.status.pending{background:#fff4dc;color:#986e1c}
-.status.off{background:#f9e9e9;color:#b34444}
-.id-card{
-background:linear-gradient(120deg,#092b23,#175744);
-color:white;padding:25px;border-radius:10px;
-}
-.id-card h2{font:700 24px 'Playfair Display',serif;color:var(--gold-light)}
-.id-card p{font-size:12px;color:#d2e0d6;margin-top:7px}
-.id-card .id{font-size:20px;color:var(--gold-light);margin-top:20px}
-.chat-layout{display:grid;grid-template-columns:190px 1fr;gap:15px}
-.chat-users{border-right:1px solid var(--border);padding-right:10px}
-.chat-user{
-padding:11px;border-radius:5px;
-background:#f4f7f3;font-size:12px;margin-bottom:7px;
-}
-.chat-area{
-height:320px;background:#f6f8f5;
-border-radius:7px;padding:15px;overflow:auto;
-}
-.chat-msg{
-background:white;padding:10px 13px;
-border-radius:8px;margin-bottom:10px;
-max-width:85%;font-size:12px;
-}
-.chat-msg.mine{
-margin-left:auto;background:#e4f0e7;
-}
-.chat-compose{display:flex;gap:8px;margin-top:12px}
-.chat-compose input{
-flex:1;min-width:0;padding:11px;
-border:1px solid var(--border);border-radius:5px;
-}
-.warning{
-background:#fff7e6;border:1px solid #ecd9a9;
-padding:14px;border-radius:6px;
-font-size:12px;line-height:1.8;color:#795c25;
-margin-bottom:17px;
-}
-.settings-list{
-display:flex;justify-content:space-between;
-align-items:center;gap:15px;padding:15px 0;
-border-bottom:1px solid var(--border);
-}
-.settings-list p{font-size:13px;font-weight:600}
-.settings-list small{font-size:11px;color:var(--muted)}
-.footer{
-text-align:center;padding:20px;
-font-size:11px;color:var(--muted);
-}
-.hidden{display:none!important}
-@media(max-width:1050px){
-.stats{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:760px){
-.topbar{height:65px;padding:0 13px}
-.brand img{height:40px;width:40px}
-.brand h1{font-size:20px}
-.top-status{display:none}
-.layout{display:block}
-.sidebar{
-display:none;position:fixed;top:65px;left:0;
-height:calc(100vh - 65px);overflow-y:auto;
-width:270px;z-index:99;
-box-shadow:10px 0 30px #0003;
-}
-.sidebar.open{display:block}
-.main{padding:17px 12px}
-.mobile-menu{display:block}
-.page-heading{align-items:flex-start;flex-wrap:wrap}
-.page-heading h2{font-size:23px}
-.grid-2{grid-template-columns:1fr}
-.form-grid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.stats{gap:9px}
-.stat{padding:13px}
-.stat strong{font-size:23px}
-.stat span{font-size:10px}
-.welcome{padding:22px}
-.welcome h2{font-size:21px}
-.chat-layout{grid-template-columns:1fr}
-.chat-users{border:0;display:flex;gap:7px;overflow:auto}
-.chat-user{white-space:nowrap}
-.date-label{font-size:10px}
-}
+  .dash{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
+  .side{position:sticky;top:110px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow-sm)}
+  .side .who{display:flex;gap:12px;align-items:center;padding:8px 6px 16px;border-bottom:1px solid #efece2;margin-bottom:12px}
+  .avatar{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--green),var(--green-2));display:grid;place-items:center;color:var(--gold-2);font-family:'Playfair Display',serif;font-size:22px;overflow:hidden;flex-shrink:0}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .side .who b{color:var(--green);display:block;line-height:1.3}
+  .side .who small{color:var(--muted)}
+  .nav-s{display:flex;flex-direction:column;gap:4px}
+  .nav-s button{text-align:left;border:none;background:transparent;padding:11px 14px;border-radius:12px;color:var(--ink);font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:.25s}
+  .nav-s button:hover{background:#f5f2e8}
+  .nav-s button.on{background:var(--green);color:var(--gold-2)}
+  .count{background:var(--gold);color:var(--green);border-radius:999px;font-size:12px;padding:2px 8px;font-weight:700}
+  .panel-s{display:none;animation:fadeUp .5s var(--ease) both}
+  .panel-s.on{display:block}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;box-shadow:var(--shadow-sm)}
+  .stat strong{display:block;font-family:'Playfair Display',serif;font-size:32px;color:var(--green);line-height:1.1}
+  .stat span{font-size:13.5px;color:var(--muted)}
+  .hero-card{background:linear-gradient(120deg,var(--green-3),var(--green-2));color:#fff;border-radius:24px;padding:30px;box-shadow:var(--shadow-lg);margin-bottom:22px;position:relative;overflow:hidden}
+  .hero-card h1{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,32px);color:var(--gold-2);margin:6px 0 6px}
+  .hero-card p{color:#dfe7e0}
+  .ann{background:#fbf7ec;border:1px solid #ecdcae;color:#6b4e10;border-radius:16px;padding:16px 18px;margin-bottom:22px;line-height:1.8}
+  .list-item{padding:16px 0;border-bottom:1px solid #efece2}
+  .list-item:last-child{border-bottom:none}
+  .list-item h4{color:var(--green);font-size:16px;margin-bottom:4px}
+  .list-item .sm{font-size:13px;color:var(--muted);line-height:1.7}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;margin-right:6px}
+  .p-sub{background:#e6eefb;color:#1d4a80}
+  .p-rev{background:#e3f4ea;color:#1b6b43}
+  .p-new{background:#fbf0d9;color:#7a5410}
+  /* chat */
+  .chat{display:grid;grid-template-columns:260px 1fr;height:600px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;box-shadow:var(--shadow-sm)}
+  .contacts{border-right:1px solid #efece2;overflow-y:auto;background:#fcfbf7}
+  .contacts button{width:100%;text-align:left;border:none;background:transparent;padding:14px 16px;border-bottom:1px solid #f1eee4;display:flex;align-items:center;gap:10px;color:var(--ink);font-size:14.5px}
+  .contacts button:hover{background:#f5f2e8}
+  .contacts button.on{background:#f1f6f3;color:var(--green);font-weight:700}
+  .cdot{width:10px;height:10px;border-radius:50%;background:#4ade80;flex-shrink:0}
+  .conv{display:flex;flex-direction:column;min-width:0}
+  .conv-head{padding:14px 18px;border-bottom:1px solid #efece2;font-weight:700;color:var(--green)}
+  .msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(#fff,#fbfaf5)}
+  .bub{max-width:76%;padding:10px 14px;border-radius:16px;line-height:1.7;font-size:14.5px;word-break:break-word;animation:fadeUp .35s var(--ease) both}
+  .bub.me{align-self:flex-end;background:var(--green);color:#fff;border-bottom-right-radius:4px}
+  .bub.them{align-self:flex-start;background:#f3f1e8;color:var(--ink);border-bottom-left-radius:4px}
+  .bub .who{font-size:12px;font-weight:700;opacity:.75;margin-bottom:3px}
+  .bub .time{font-size:11px;opacity:.6;margin-top:4px}
+  .bub a.file{display:inline-block;margin-top:6px;color:inherit;font-weight:700;text-decoration:underline}
+  .composer{display:flex;gap:10px;padding:12px;border-top:1px solid #efece2;align-items:center;flex-wrap:wrap}
+  .composer input[type=text]{flex:1;min-width:180px;padding:12px 14px;border:1px solid #d8d7ca;border-radius:999px;font-size:14.5px;outline:none}
+  .composer input[type=text]:focus{border-color:var(--gold)}
+  .composer label.attach{border:1px dashed #cfc39c;border-radius:999px;padding:10px 14px;font-size:13px;cursor:pointer;color:#6b4e10}
+  .composer input[type=file]{display:none}
+  .fname{font-size:12.5px;color:var(--muted)}
+  .empty-s{color:var(--muted);text-align:center;padding:30px}
+  @media(max-width:920px){
+    .dash{grid-template-columns:1fr}
+    .side{position:static}
+    .nav-s{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+    .nav-s button{white-space:nowrap}
+    .chat{grid-template-columns:1fr;height:auto}
+    .contacts{max-height:200px;border-right:none;border-bottom:1px solid #efece2}
+    .msgs{height:340px}
+  }
+  @media(max-width:620px){.stats{grid-template-columns:1fr 1fr}.bub{max-width:90%}}
 </style>
 </head>
+<body data-active="">
 
-<body>
-<div class="app">
+<div id="shellTop"></div>
 
-<header class="topbar">
-<div class="brand">
-<img src="images/logo.jpg" alt="DEEN Logo">
-<div>
-<h1>DEEN</h1>
-<small>TEACHER MANAGEMENT PORTAL</small>
-</div>
-</div>
-<div class="top-right">
-<span class="top-status">● Institutional Portal</span>
-<div class="top-avatar">D</div>
-</div>
-</header>
+<main class="page" style="padding-top:36px">
+  <div class="container">
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="empty-s">লোড হচ্ছে...</div>
 
-<div class="layout">
+    <div id="app" class="hide dash">
+      <aside class="side">
+        <div class="who">
+          <div class="avatar" id="avatar">✦</div>
+          <div><b id="whoName">—</b><small id="whoRole">—</small></div>
+        </div>
+        <nav class="nav-s" id="nav" aria-label="ড্যাশবোর্ড মেনু">
+          <button data-s="home" class="on">সারসংক্ষেপ</button>
+          <button data-s="profile">প্রোফাইল ও সিভি</button>
+          <button data-s="reports">প্রাতিষ্ঠানিক রিপোর্ট <span class="count" id="cRep">0</span></button>
+          <button data-s="attendance">ক্লাস হাজিরা</button>
+          <button data-s="chat">বার্তা ও যোগাযোগ <span class="count" id="cChat" style="display:none">•</span></button>
+          <button data-s="surveys">জরিপ <span class="count" id="cSurv">0</span></button>
+          <button data-s="evals">আমার মূল্যায়ন</button>
+          <button id="logout" type="button" style="color:#8e2f25">লগআউট</button>
+        </nav>
+      </aside>
 
-<aside class="sidebar" id="sidebar">
-<div class="profile">
-<div class="profile-avatar">T</div>
-<h3>Teacher Portal</h3>
-<p>Academic & Faculty Management</p>
-<span class="role">TEACHER / ADMIN INTERFACE</span>
-</div>
+      <section>
+        <!-- সারসংক্ষেপ -->
+        <div class="panel-s on" id="s-home">
+          <div class="hero-card">
+            <div class="eyebrow" style="color:var(--gold-2)">WELCOME</div>
+            <h1 id="hName">স্বাগতম</h1>
+            <p id="hSub"></p>
+          </div>
+          <div class="ann hide" id="annBox"></div>
+          <div class="stats">
+            <div class="stat"><strong id="stRep">0</strong><span>জমা দেওয়া রিপোর্ট</span></div>
+            <div class="stat"><strong id="stAtt">0</strong><span>হাজিরা রেকর্ড</span></div>
+            <div class="stat"><strong id="stSurv">0</strong><span>খোলা জরিপ</span></div>
+          </div>
+          <div class="card" style="padding:26px">
+            <h2 style="color:var(--green);font-size:20px;margin-bottom:6px">দ্রুত কাজ</h2>
+            <p class="sub" style="color:var(--muted);font-size:14px;margin-bottom:16px">সরাসরি যে কাজটি করতে চান, সেখানে যান।</p>
+            <div class="row">
+              <button class="btn btn-dark btn-sm" data-go="reports">রিপোর্ট জমা দিন</button>
+              <button class="btn btn-dark btn-sm" data-go="attendance">হাজিরা জমা দিন</button>
+              <button class="btn btn-dark btn-sm" data-go="chat">বার্তা পাঠান</button>
+            </div>
+          </div>
+        </div>
 
-<div class="menu-label">MAIN MENU</div>
-<button class="nav-btn active" data-page="dashboard"><span class="ico">▦</span> ড্যাশবোর্ড</button>
-<button class="nav-btn" data-page="registration"><span class="ico">✚</span> শিক্ষক নিবন্ধন</button>
-<button class="nav-btn" data-page="cv"><span class="ico">▤</span> CV ও ডকুমেন্ট</button>
-<button class="nav-btn" data-page="attendance"><span class="ico">◷</span> হাজিরা ব্যবস্থাপনা</button>
-<button class="nav-btn" data-page="reports"><span class="ico">▥</span> একাডেমিক রিপোর্ট</button>
+        <!-- প্রোফাইল ও সিভি -->
+        <div class="panel-s" id="s-profile">
+          <div class="card" style="margin-bottom:22px">
+            <h2>আমার প্রোফাইল</h2>
+            <p class="sub">এই তথ্য প্রতিষ্ঠানের সহকর্মীরা দেখতে পাবে। ফোন ও ঠিকানা শুধু আপনি ও অ্যাডমিন দেখবেন।</p>
+            <form id="profForm" novalidate>
+              <div class="fgrid">
+                <div class="field" id="f-subj"><label class="flbl" for="pSubj">বিষয়</label><input class="form-inp" id="pSubj" maxlength="120"></div>
+                <div class="field" id="f-phone"><label class="flbl" for="pPhone">মোবাইল (ব্যক্তিগত)</label><input class="form-inp" id="pPhone" placeholder="01XXXXXXXXX"></div>
+                <div class="field full" id="f-photo"><label class="flbl" for="pPhoto">ছবির লিংক (https://)</label><input class="form-inp" id="pPhoto" type="url"></div>
+                <div class="field full" id="f-addr"><label class="flbl" for="pAddr">ঠিকানা (ব্যক্তিগত)</label><input class="form-inp" id="pAddr" maxlength="300"></div>
+                <div class="field full" id="f-bio"><label class="flbl" for="pBio">সংক্ষিপ্ত পরিচিতি</label><textarea class="form-inp" id="pBio" maxlength="1500"></textarea></div>
+              </div>
+              <button class="btn btn-gold" type="submit" id="profBtn" style="margin-top:16px">প্রোফাইল সংরক্ষণ</button>
+              <div class="alert" id="profAlert" role="status"></div>
+            </form>
+          </div>
 
-<div class="menu-label">COMMUNICATION</div>
-<button class="nav-btn" data-page="chat"><span class="ico">✉</span> জরুরি চ্যাট</button>
-<button class="nav-btn" data-page="notices"><span class="ico">♧</span> নোটিশ ও বিজ্ঞপ্তি</button>
+          <div class="card">
+            <h2>আমার সিভি</h2>
+            <p class="sub">PDF, DOC বা DOCX ফাইল, সর্বোচ্চ ৫ মেগাবাইট। নতুন সিভি দিলে আগেরটি বদলে যাবে। সিভি শুধু আপনি ও অ্যাডমিন দেখতে পারবেন।</p>
+            <div class="row" style="margin-bottom:14px">
+              <label class="btn btn-light btn-sm" style="cursor:pointer">ফাইল বাছুন<input type="file" id="cvFile" accept=".pdf,.doc,.docx" style="display:none"></label>
+              <button class="btn btn-dark btn-sm" type="button" id="cvUp">আপলোড করুন</button>
+              <button class="btn btn-light btn-sm" type="button" id="cvView">আমার সিভি দেখুন</button>
+            </div>
+            <div class="fname" id="cvName">কোনো সিভি আপলোড হয়নি।</div>
+            <div class="alert" id="cvAlert" role="status"></div>
+          </div>
+        </div>
 
-<div class="menu-label">ACCOUNT & CONTROL</div>
-<button class="nav-btn" data-page="identity"><span class="ico">▣</span> শিক্ষক আইডি</button>
-<button class="nav-btn" data-page="settings"><span class="ico">⚙</span> সেটিংস</button>
-<button class="nav-btn" data-page="admin"><span class="ico">♜</span> অ্যাডমিন কন্ট্রোল</button>
+        <!-- রিপোর্ট -->
+        <div class="panel-s" id="s-reports">
+          <div class="card" style="margin-bottom:22px">
+            <h2>নতুন রিপোর্ট</h2>
+            <p class="sub">প্রাতিষ্ঠানিক কার্যক্রমের রিপোর্ট লিখে জমা দিন। জমা দেওয়ার পর সম্পাদনা করা যাবে না।</p>
+            <form id="repForm" novalidate>
+              <div class="fgrid">
+                <div class="field" id="f-rtype"><label class="flbl" for="rType">রিপোর্টের ধরন</label><select class="form-inp" id="rType"></select></div>
+                <div class="field" id="f-rdate"><label class="flbl" for="rDate">তারিখ</label><input class="form-inp" id="rDate" type="date"></div>
+                <div class="field full" id="f-rtitle"><label class="flbl" for="rTitle">শিরোনাম</label><input class="form-inp" id="rTitle" maxlength="200"></div>
+                <div class="field full" id="f-rbody"><label class="flbl" for="rBody">বিস্তারিত</label><textarea class="form-inp" id="rBody" maxlength="5000" style="min-height:150px"></textarea></div>
+              </div>
+              <button class="btn btn-gold" type="submit" id="repBtn" style="margin-top:14px">রিপোর্ট জমা দিন</button>
+              <div class="alert" id="repAlert" role="status"></div>
+            </form>
+          </div>
+          <div class="card"><h2>আমার রিপোর্টসমূহ</h2><div id="repList" style="margin-top:12px"></div></div>
+        </div>
 
-<div class="sidebar-bottom">
-DEEN — Dawah Education & E-learning Nexus<br>
-Knowledge Changes Lives.<br>
-Established August 2024
-</div>
-</aside>
+        <!-- হাজিরা -->
+        <div class="panel-s" id="s-attendance">
+          <div class="card" style="margin-bottom:22px">
+            <h2>ক্লাস হাজিরা জমা</h2>
+            <p class="sub">ক্লাসের নাম, তারিখ ও মোট/উপস্থিত/অনুপস্থিত সংখ্যা লিখুন।</p>
+            <form id="attForm" novalidate>
+              <div class="fgrid">
+                <div class="field full" id="f-cls"><label class="flbl" for="aCls">ক্লাস / ব্যাচের নাম</label><input class="form-inp" id="aCls" maxlength="150"></div>
+                <div class="field" id="f-adate"><label class="flbl" for="aDate">তারিখ</label><input class="form-inp" id="aDate" type="date"></div>
+                <div class="field" id="f-atot"><label class="flbl" for="aTot">মোট শিক্ষার্থী</label><input class="form-inp" id="aTot" type="number" min="0"></div>
+                <div class="field" id="f-apres"><label class="flbl" for="aPres">উপস্থিত</label><input class="form-inp" id="aPres" type="number" min="0"></div>
+                <div class="field" id="f-aabs"><label class="flbl" for="aAbs">অনুপস্থিত</label><input class="form-inp" id="aAbs" type="number" min="0"></div>
+                <div class="field full" id="f-anote"><label class="flbl" for="aNote">মন্তব্য (ঐচ্ছিক)</label><input class="form-inp" id="aNote" maxlength="500"></div>
+              </div>
+              <button class="btn btn-gold" type="submit" id="attBtn" style="margin-top:14px">হাজিরা জমা দিন</button>
+              <div class="alert" id="attAlert" role="status"></div>
+            </form>
+          </div>
+          <div class="card"><h2>আমার হাজিরা রেকর্ড</h2><div id="attList" style="margin-top:12px"></div></div>
+        </div>
 
-<main class="main">
+        <!-- বার্তা -->
+        <div class="panel-s" id="s-chat">
+          <div class="chat">
+            <div class="contacts" id="contacts"></div>
+            <div class="conv">
+              <div class="conv-head" id="convHead">কথোপকথন বাছুন</div>
+              <div class="msgs" id="msgs"></div>
+              <form class="composer" id="composer">
+                <input type="text" id="msgText" maxlength="2000" placeholder="বার্তা লিখুন..." autocomplete="off">
+                <label class="attach">📎 ফাইল<input type="file" id="msgFile"></label>
+                <span class="fname" id="msgFileName"></span>
+                <button class="btn btn-dark btn-sm" type="submit" id="sendBtn">পাঠান</button>
+              </form>
+              <div class="alert" id="chatAlert" role="status" style="margin:0 14px 12px"></div>
+            </div>
+          </div>
+        </div>
 
-<div style="margin-bottom:17px">
-<button class="mobile-menu" id="mobileMenu">☰ Menu</button>
-</div>
+        <!-- জরিপ -->
+        <div class="panel-s" id="s-surveys"><div id="survList"></div></div>
 
-<!-- DASHBOARD -->
-<section class="page active" id="dashboard">
-<div class="page-heading">
-<div>
-<h2>Teacher Dashboard</h2>
-<p>শিক্ষক ব্যবস্থাপনা পোর্টালে স্বাগতম।</p>
-</div>
-<div class="date-label">INSTITUTIONAL PORTAL</div>
-</div>
-
-<div class="welcome">
-<h2>Welcome to DEEN Teacher Portal</h2>
-<p>জ্ঞান, দায়িত্বশীলতা ও পেশাদারিত্বের সঙ্গে শিক্ষা কার্যক্রম পরিচালনায় আপনাকে স্বাগতম।</p>
-<div class="mini">KNOWLEDGE CHANGES LIVES.</div>
-</div>
-
-<div class="stats">
-<div class="stat"><div class="icon">👨‍🏫</div><strong>—</strong><span>মোট শিক্ষক</span></div>
-<div class="stat"><div class="icon">◷</div><strong>—</strong><span>আজকের হাজিরা</span></div>
-<div class="stat"><div class="icon">▤</div><strong>—</strong><span>জমাকৃত রিপোর্ট</span></div>
-<div class="stat"><div class="icon">✉</div><strong>—</strong><span>নতুন বার্তা</span></div>
-</div>
-
-<div class="grid-2">
-<div class="panel">
-<div class="panel-title">
-<h3>প্রাতিষ্ঠানিক নির্দেশনা</h3>
-<small>ADMIN NOTICE</small>
-</div>
-<div class="notice">
-<strong>স্বাগতম DEEN Teacher Portal-এ</strong>
-<p>এখানে শিক্ষক নিবন্ধন, হাজিরা, CV, প্রতিবেদন ও যোগাযোগের ইন্টারফেস রয়েছে।</p>
-</div>
-<div class="notice">
-<strong>তথ্য নিরাপত্তা নীতিমালা</strong>
-<p>প্রত্যেক শিক্ষক নিজের ব্যক্তিগত অ্যাকাউন্টের তথ্য গোপন রাখবেন।</p>
-</div>
-<div class="notice">
-<strong>একাডেমিক দায়িত্ব</strong>
-<p>নির্ধারিত সময় অনুযায়ী ক্লাস, শিক্ষার্থী মূল্যায়ন ও রিপোর্ট জমা দিতে হবে।</p>
-</div>
-</div>
-
-<div class="panel">
-<div class="panel-title"><h3>দ্রুত কার্যক্রম</h3></div>
-<div class="activity"><div class="activity-icon">✚</div><div><p>শিক্ষক নিবন্ধন</p><small>নতুন শিক্ষক আবেদন ফরম</small></div></div>
-<div class="activity"><div class="activity-icon">📄</div><div><p>CV জমা</p><small>ব্যক্তিগত ডকুমেন্ট</small></div></div>
-<div class="activity"><div class="activity-icon">◷</div><div><p>হাজিরা</p><small>উপস্থিতির তথ্য</small></div></div>
-<div class="activity"><div class="activity-icon">✉</div><div><p>জরুরি যোগাযোগ</p><small>প্রাতিষ্ঠানিক যোগাযোগ</small></div></div>
-</div>
-</div>
-</section>
-
-<!-- REGISTRATION -->
-<section class="page" id="registration">
-<div class="page-heading">
-<div><h2>Teacher Registration</h2><p>শিক্ষক ও শিক্ষিকা নিবন্ধন আবেদন</p></div>
-</div>
-<div class="warning">নিবন্ধন ফরমটি বর্তমানে Frontend Demo। সাবমিট করলে কোনো তথ্য সার্ভারে সংরক্ষিত হবে না। Backend সংযুক্ত হওয়ার পর প্রকৃত আবেদন চালু হবে।</div>
-<div class="panel">
-<div class="panel-title"><h3>ব্যক্তিগত তথ্য</h3><small>SECTION 01</small></div>
-<form class="demo-form">
-<div class="form-grid">
-<div class="field"><label>পূর্ণ নাম *</label><input required placeholder="আপনার পূর্ণ নাম"></div>
-<div class="field"><label>লিঙ্গ *</label><select required><option value="">নির্বাচন করুন</option><option>পুরুষ</option><option>নারী</option></select></div>
-<div class="field"><label>মোবাইল নম্বর *</label><input required type="tel" placeholder="01XXXXXXXXX"></div>
-<div class="field"><label>ইমেইল ঠিকানা *</label><input required type="email" placeholder="example@email.com"></div>
-<div class="field"><label>জন্মতারিখ</label><input type="date"></div>
-<div class="field"><label>বর্তমান ঠিকানা</label><input placeholder="ঠিকানা লিখুন"></div>
-<div class="field"><label>শিক্ষাগত যোগ্যতা *</label><input required placeholder="সর্বোচ্চ শিক্ষাগত যোগ্যতা"></div>
-<div class="field"><label>অভিজ্ঞতা</label><input placeholder="শিক্ষকতার অভিজ্ঞতা"></div>
-<div class="field"><label>আবেদনকৃত বিভাগ *</label>
-<select required><option value="">বিভাগ নির্বাচন</option>
-<option>Academic & Curriculum</option>
-<option>Dawah & Outreach</option>
-<option>E-learning & Technology</option>
-<option>Research & Quality Control</option>
-<option>Administration & Strategy</option>
-<option>History & Culture</option>
-</select></div>
-<div class="field"><label>পছন্দের দায়িত্ব</label><input placeholder="যে দায়িত্বে আগ্রহী"></div>
-<div class="field full"><label>নিজের সম্পর্কে সংক্ষিপ্ত পরিচিতি</label><textarea placeholder="আপনার দক্ষতা, অভিজ্ঞতা ও আগ্রহ"></textarea></div>
-</div>
-<button class="btn" type="submit">আবেদন জমা দিন →</button>
-</form>
-</div>
-</section>
-
-<!-- CV -->
-<section class="page" id="cv">
-<div class="page-heading">
-<div><h2>CV & Documents</h2><p>শিক্ষাগত ও পেশাগত ডকুমেন্ট জমা</p></div>
-</div>
-<div class="warning">ফাইল নির্বাচন করার সুবিধা দেখানো হচ্ছে। Backend Storage যুক্ত না হওয়া পর্যন্ত ফাইল আপলোড বা সংরক্ষণ হবে না।</div>
-<div class="panel">
-<div class="panel-title"><h3>Curriculum Vitae Submission</h3><small>DOCUMENT CENTER</small></div>
-<form class="demo-form">
-<div class="form-grid">
-<div class="field"><label>শিক্ষকের নাম *</label><input required placeholder="পূর্ণ নাম"></div>
-<div class="field"><label>মোবাইল / আবেদন নম্বর *</label><input required placeholder="পরিচিতি নম্বর"></div>
-<div class="field full"><label>সম্পূর্ণ CV (PDF) *</label>
-<div class="file-box"><input type="file" accept=".pdf" required><p>PDF ফরম্যাটে CV নির্বাচন করুন।</p></div></div>
-<div class="field"><label>শিক্ষাগত সনদ</label><input type="file" accept=".pdf,.jpg,.jpeg,.png"></div>
-<div class="field"><label>অভিজ্ঞতার সনদ</label><input type="file" accept=".pdf,.jpg,.jpeg,.png"></div>
-<div class="field"><label>জাতীয় পরিচয়পত্র (প্রয়োজনে)</label><input type="file" accept=".pdf,.jpg,.jpeg,.png"></div>
-<div class="field"><label>পাসপোর্ট সাইজ ছবি</label><input type="file" accept="image/*"></div>
-<div class="field full"><label>অতিরিক্ত তথ্য</label><textarea placeholder="ডকুমেন্ট সম্পর্কিত তথ্য"></textarea></div>
-</div>
-<button class="btn" type="submit">ডকুমেন্ট জমা দিন</button>
-</form>
-</div>
-</section>
-
-<!-- ATTENDANCE -->
-<section class="page" id="attendance">
-<div class="page-heading">
-<div><h2>Attendance Management</h2><p>শিক্ষক-শিক্ষিকাদের হাজিরা ব্যবস্থাপনা</p></div>
-</div>
-<div class="warning">এখানে হাজিরার ইন্টারফেস রয়েছে। প্রকৃত হাজিরা রেকর্ড ও সময় যাচাইয়ের জন্য সার্ভার-ভিত্তিক ব্যবস্থা প্রয়োজন।</div>
-<div class="panel">
-<div class="panel-title"><h3>নিজের হাজিরা</h3><small>PERSONAL ATTENDANCE</small></div>
-<div class="form-grid">
-<div class="field"><label>শিক্ষক আইডি</label><input placeholder="Backend থেকে পাওয়া ID"></div>
-<div class="field"><label>তারিখ</label><input type="date"></div>
-<div class="field"><label>হাজিরার ধরন</label>
-<select><option>নির্বাচন করুন</option><option>উপস্থিত</option><option>অনুপস্থিত</option><option>ছুটি</option><option>দেরিতে উপস্থিত</option></select></div>
-<div class="field"><label>সময়</label><input type="time"></div>
-<div class="field full"><label>মন্তব্য</label><textarea placeholder="প্রয়োজনীয় মন্তব্য"></textarea></div>
-</div>
-<button class="btn" onclick="demoNotice()">হাজিরা জমা দিন</button>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>হাজিরা রেকর্ড</h3><small>ATTENDANCE HISTORY</small></div>
-<div class="table-wrap"><table>
-<thead><tr><th>তারিখ</th><th>সময়</th><th>অবস্থা</th><th>মন্তব্য</th></tr></thead>
-<tbody><tr><td colspan="4">Backend সংযুক্ত হলে ব্যক্তিগত হাজিরার রেকর্ড এখানে দেখা যাবে।</td></tr></tbody>
-</table></div>
-</div>
-</section>
-
-<!-- REPORTS -->
-<section class="page" id="reports">
-<div class="page-heading">
-<div><h2>Academic Reports</h2><p>দৈনিক, সাপ্তাহিক ও মাসিক প্রতিবেদন</p></div>
-</div>
-<div class="warning">রিপোর্টগুলো ব্যক্তিগত শিক্ষক অ্যাকাউন্টের সঙ্গে যুক্ত করার জন্য নিরাপদ Database প্রয়োজন।</div>
-<div class="panel">
-<div class="panel-title"><h3>নতুন প্রতিবেদন জমা</h3><small>REPORT SUBMISSION</small></div>
-<form class="demo-form">
-<div class="form-grid">
-<div class="field"><label>শিক্ষকের নাম *</label><input required placeholder="নাম"></div>
-<div class="field"><label>শিক্ষক আইডি</label><input placeholder="Assigned Teacher ID"></div>
-<div class="field"><label>বিভাগ *</label><select required><option value="">বিভাগ নির্বাচন</option><option>Academic & Curriculum</option><option>Dawah & Outreach</option><option>E-learning & Technology</option><option>Research & Quality Control</option><option>Administration & Strategy</option><option>History & Culture</option></select></div>
-<div class="field"><label>প্রতিবেদনের ধরন</label><select><option>দৈনিক</option><option>সাপ্তাহিক</option><option>মাসিক</option><option>বিশেষ প্রতিবেদন</option></select></div>
-<div class="field"><label>প্রতিবেদনের তারিখ</label><input type="date"></div>
-<div class="field"><label>কোর্স / ক্লাস</label><input placeholder="কোর্সের নাম"></div>
-<div class="field"><label>মোট ক্লাস</label><input type="number" min="0"></div>
-<div class="field"><label>উপস্থিত শিক্ষার্থী</label><input type="number" min="0"></div>
-<div class="field full"><label>কার্যক্রমের বিস্তারিত *</label><textarea required placeholder="আজকের কার্যক্রম ও অগ্রগতি লিখুন"></textarea></div>
-<div class="field full"><label>পরবর্তী পরিকল্পনা ও সমস্যা</label><textarea placeholder="প্রয়োজনীয় তথ্য"></textarea></div>
-</div>
-<button class="btn" type="submit">প্রতিবেদন জমা দিন</button>
-</form>
-</div>
-</section>
-
-<!-- CHAT -->
-<section class="page" id="chat">
-<div class="page-heading">
-<div><h2>Private Communication</h2><p>জরুরি প্রাতিষ্ঠানিক যোগাযোগ</p></div>
-</div>
-<div class="warning">এটি শুধু চ্যাট UI-এর নমুনা। এখানে পাঠানো বার্তা অন্য অ্যাকাউন্টে যাবে না বা সংরক্ষিত হবে না। প্রকৃত ব্যক্তিগত চ্যাটের জন্য authenticated real-time backend প্রয়োজন।</div>
-<div class="panel">
-<div class="panel-title"><h3>DEEN Communication Center</h3><small>PRIVATE CHAT INTERFACE</small></div>
-<div class="chat-layout">
-<div class="chat-users">
-<div class="chat-user">🟢 Admin Office</div>
-<div class="chat-user">🟢 Academic Head</div>
-<div class="chat-user">🟢 Department Head</div>
-</div>
-<div>
-<div class="chat-area" id="chatArea">
-<div class="chat-msg">DEEN-এর জরুরি যোগাযোগ কেন্দ্রে স্বাগতম।<br><small>System message</small></div>
-</div>
-<div class="chat-compose">
-<input id="chatInput" placeholder="বার্তা লিখুন...">
-<button class="btn" onclick="sendDemoMessage()">➤</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- NOTICES -->
-<section class="page" id="notices">
-<div class="page-heading">
-<div><h2>Notices & Notifications</h2><p>প্রাতিষ্ঠানিক নোটিশ ও ঘোষণা</p></div>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>সর্বশেষ বিজ্ঞপ্তি</h3></div>
-<div class="notice"><strong>DEEN Teacher Portal</strong><p>শিক্ষক পোর্টালের প্রাথমিক ইন্টারফেস প্রস্তুত করা হয়েছে।</p></div>
-<div class="notice"><strong>একাডেমিক কার্যক্রম</strong><p>সকল শিক্ষককে নিজ নিজ বিভাগের দায়িত্ব ও কার্যক্রম সম্পর্কে অবগত থাকতে হবে।</p></div>
-<div class="notice"><strong>তথ্য নিরাপত্তা</strong><p>অনুমোদন ছাড়া কোনো শিক্ষার্থীর বা শিক্ষকের ব্যক্তিগত তথ্য শেয়ার করা যাবে না।</p></div>
-</div>
-</section>
-
-<!-- IDENTITY -->
-<section class="page" id="identity">
-<div class="page-heading">
-<div><h2>Teacher Identity Card</h2><p>স্বতন্ত্র শিক্ষক পরিচিতি</p></div>
-</div>
-<div class="warning">Teacher ID অ্যাডমিন অনুমোদন ও Backend থেকে স্বয়ংক্রিয়ভাবে তৈরি হবে। এই পেজে কোনো বাস্তব ID তৈরি করা হচ্ছে না।</div>
-<div class="id-card">
-<h2>DEEN</h2>
-<p>DAWAH EDUCATION & E-LEARNING NEXUS</p>
-<p>OFFICIAL FACULTY IDENTITY</p>
-<div class="id">DEEN-T-XXXXXXXX</div>
-<p>Teacher Name: Awaiting Registration</p>
-<p>Department: Awaiting Assignment</p>
-<p>Account Status: Pending Verification</p>
-</div>
-</section>
-
-<!-- SETTINGS -->
-<section class="page" id="settings">
-<div class="page-heading">
-<div><h2>Account & System Settings</h2><p>অ্যাকাউন্ট ও সিস্টেম ব্যবস্থাপনা</p></div>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>অ্যাকাউন্ট সেটিংস</h3></div>
-<div class="settings-list"><div><p>প্রোফাইল ব্যবস্থাপনা</p><small>ব্যক্তিগত তথ্য সংশোধন</small></div><span>›</span></div>
-<div class="settings-list"><div><p>পাসওয়ার্ড পরিবর্তন</p><small>নিরাপদ লগইন ব্যবস্থাপনা</small></div><span>›</span></div>
-<div class="settings-list"><div><p>নোটিফিকেশন সেটিংস</p><small>জরুরি বার্তার পছন্দ</small></div><span>›</span></div>
-<div class="settings-list"><div><p>গোপনীয়তা</p><small>ব্যক্তিগত তথ্যের অনুমতি</small></div><span>›</span></div>
-<div class="settings-list"><div><p>সেশন ও ডিভাইস</p><small>লগইন ডিভাইস নিয়ন্ত্রণ</small></div><span>›</span></div>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>সিস্টেম নিরাপত্তা</h3></div>
-<p style="font-size:13px;line-height:2;color:var(--muted)">
-বাস্তব সিস্টেমে প্রতিটি অ্যাকাউন্টের জন্য আলাদা Authentication,
-Role-Based Access Control, Database Security Rules,
-নিরাপদ File Storage এবং Activity Logs সংযুক্ত করা হবে।
-</p>
-</div>
-</section>
-
-<!-- ADMIN -->
-<section class="page" id="admin">
-<div class="page-heading">
-<div><h2>Administration Control Center</h2><p>প্রতিষ্ঠানের প্রশাসনিক নিয়ন্ত্রণ</p></div>
-<span class="status pending">ADMIN ONLY – BACKEND REQUIRED</span>
-</div>
-<div class="warning">
-এই পেজে Admin Interface-এর নমুনা দেখানো হয়েছে। শুধু লুকানো মেনু বা JavaScript দিয়ে Admin Security নিশ্চিত হয় না। প্রকৃত অ্যাডমিন ক্ষমতা সার্ভারে যাচাই করতে হবে।
-</div>
-<div class="stats">
-<div class="stat"><div class="icon">👨‍🏫</div><strong>—</strong><span>নিবন্ধিত শিক্ষক</span></div>
-<div class="stat"><div class="icon">⏳</div><strong>—</strong><span>অনুমোদনের অপেক্ষায়</span></div>
-<div class="stat"><div class="icon">📄</div><strong>—</strong><span>রিপোর্ট জমা</span></div>
-<div class="stat"><div class="icon">⚙</div><strong>—</strong><span>সিস্টেম সেটিংস</span></div>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>শিক্ষক অনুমোদন ব্যবস্থাপনা</h3><small>FACULTY CONTROL</small></div>
-<div class="table-wrap"><table>
-<thead><tr><th>Teacher ID</th><th>নাম</th><th>বিভাগ</th><th>অবস্থা</th><th>অ্যাকশন</th></tr></thead>
-<tbody><tr><td colspan="5">Backend যুক্ত হলে শিক্ষক আবেদন ও অনুমোদনের তালিকা এখানে আসবে।</td></tr></tbody>
-</table></div>
-</div>
-<div class="panel">
-<div class="panel-title"><h3>Admin Operating System</h3></div>
-<div class="settings-list"><div><p>Teacher Account Management</p><small>অ্যাকাউন্ট তৈরি, স্থগিত ও অনুমোদন</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>Department Management</p><small>বিভাগ ও বিভাগীয় প্রধান নিয়ন্ত্রণ</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>Attendance Administration</p><small>হাজিরা পর্যালোচনা ও সংশোধন</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>CV & Document Review</p><small>শিক্ষকদের ডকুমেন্ট যাচাই</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>Reports & Analytics</p><small>সকল একাডেমিক রিপোর্ট</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>Permissions & Security</p><small>Role এবং Database Access Rules</small></div><span>⚙</span></div>
-<div class="settings-list"><div><p>System Activity Logs</p><small>প্রশাসনিক কার্যক্রমের ইতিহাস</small></div><span>⚙</span></div>
-</div>
-</section>
-
-<div class="footer">
-© 2026 DEEN — Dawah Education & E-learning Nexus.<br>
-Knowledge Changes Lives.
-</div>
-
+        <!-- মূল্যায়ন -->
+        <div class="panel-s" id="s-evals"><div class="card"><h2>আমার মূল্যায়ন</h2><p class="sub">প্রতিষ্ঠান কর্তৃক প্রকাশিত মূল্যায়ন ও পরামর্শ।</p><div id="evalList" style="margin-top:12px"></div></div></div>
+      </section>
+    </div>
+  </div>
 </main>
-</div>
-</div>
 
+<div id="shellBottom"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="cms.js"></script>
+<script src="deen.js"></script>
 <script>
-const navButtons=document.querySelectorAll('.nav-btn');
-const pages=document.querySelectorAll('.page');
-const sidebar=document.getElementById('sidebar');
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
 
-navButtons.forEach(button=>{
-button.addEventListener('click',()=>{
-const target=button.dataset.page;
-navButtons.forEach(b=>b.classList.remove('active'));
-button.classList.add('active');
-pages.forEach(page=>{
-page.classList.toggle('active',page.id===target);
-});
-sidebar.classList.remove('open');
-window.scrollTo({top:0,behavior:'smooth'});
-});
-});
+  /* ---------- প্রবেশ যাচাই ---------- */
+  var session = await D.getSession();
+  if (!session) { location.href = 'teachers.html'; return; }
+  if (await D.isAdmin()) { location.href = 'admin-teachers.html'; return; }
+  var uid = session.user.id;
 
-document.getElementById('mobileMenu').addEventListener('click',()=>{
-sidebar.classList.toggle('open');
-});
+  var meRes = await sb.from('teachers').select('*').eq('user_id', uid).maybeSingle();
+  if (meRes.error || !meRes.data) { await sb.auth.signOut(); location.href = 'teachers.html'; return; }
+  var me = meRes.data;
+  var privRes = await sb.from('teacher_private').select('*').eq('teacher_id', me.id).maybeSingle();
+  var priv = privRes.data || {};
+  var ps = { portal_open: true, chat_enabled: true, reports_enabled: true, attendance_enabled: true, surveys_enabled: true, announcement: '', report_types: 'দৈনিক,সাপ্তাহিক,মাসিক,ইভেন্ট,অন্যান্য' };
+  var psRes = await sb.from('portal_settings').select('*').eq('id', 1).maybeSingle();
+  if (psRes.data) ps = psRes.data;
 
-function demoNotice(){
-alert('এটি একটি ডিজাইন প্রিভিউ। প্রকৃত তথ্য জমা দেওয়ার জন্য নিরাপদ Backend সংযুক্ত করতে হবে।');
-}
+  $('loading').classList.add('hide');
+  $('app').classList.remove('hide');
+  $('logout').addEventListener('click', async function () { await sb.auth.signOut(); location.href = 'teachers.html'; });
 
-document.querySelectorAll('.demo-form').forEach(form=>{
-form.addEventListener('submit',function(e){
-e.preventDefault();
-alert('ফরমের ডিজাইন প্রস্তুত। এটি এখনো সার্ভারে তথ্য বা ফাইল সংরক্ষণ করছে না। Backend সংযোগের পর প্রকৃত আবেদন গ্রহণ করা হবে।');
-});
-});
+  /* ---------- নেভিগেশন ---------- */
+  var SECTIONS = ['home', 'profile', 'reports', 'attendance', 'chat', 'surveys', 'evals'];
+  function go(s) {
+    if (SECTIONS.indexOf(s) === -1) s = 'home';
+    document.querySelectorAll('#nav button[data-s]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-s') === s); });
+    SECTIONS.forEach(function (k) { $('s-' + k).classList.toggle('on', k === s); });
+    if (s === 'chat') scrollMsgs();
+    history.replaceState(null, '', '#' + s);
+  }
+  document.getElementById('nav').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-s]'); if (b) go(b.getAttribute('data-s'));
+  });
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { go(b.getAttribute('data-go')); });
+  });
 
-function sendDemoMessage(){
-const input=document.getElementById('chatInput');
-const area=document.getElementById('chatArea');
-const value=input.value.trim();
-if(!value)return;
-const message=document.createElement('div');
-message.className='chat-msg mine';
-message.textContent=value+' (প্রিভিউ)';
-area.appendChild(message);
-input.value='';
-area.scrollTop=area.scrollHeight;
-}
+  function flash(id, type, msg) { D.show($(id), type, msg); }
+  function fmtDate(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } }
+  function fmtTime(d) { try { return new Date(d).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function initials(n) { return (n || '?').trim().charAt(0); }
+  function check(id, ok) { $(id).classList.toggle('invalid', !ok); return ok; }
+  document.querySelectorAll('input,select,textarea').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+
+  /* ---------- হেডার ও সারসংক্ষেপ ---------- */
+  $('whoName').textContent = me.full_name;
+  $('whoRole').textContent = (me.designation || me.role_type || '') + (me.subject ? ' · ' + me.subject : '');
+  $('hName').textContent = 'স্বাগতম, ' + me.full_name;
+  $('hSub').textContent = [me.designation, me.subject].filter(Boolean).join(' · ') || 'DEEN শিক্ষক ও স্টাফ পোর্টাল';
+  function setAvatar() {
+    var av = $('avatar');
+    if (/^https:\/\//i.test(me.photo_url || '')) av.innerHTML = '<img src="' + esc(me.photo_url) + '" alt="">';
+    else av.textContent = initials(me.full_name);
+  }
+  setAvatar();
+
+  if (ps.announcement) { $('annBox').textContent = '📢 ' + ps.announcement; $('annBox').classList.remove('hide'); }
+  if (!ps.portal_open) {
+    flash('pageAlert', 'info', 'পোর্টাল বর্তমানে সাময়িকভাবে বন্ধ আছে। শুধু দেখা যাবে; নতুন জমা দেওয়া যাবে না।');
+  }
+
+  /* ---------- প্রোফাইল ---------- */
+  $('pSubj').value = me.subject || '';
+  $('pPhone').value = priv.phone || '';
+  $('pPhoto').value = me.photo_url || '';
+  $('pAddr').value = priv.address || '';
+  $('pBio').value = me.bio || '';
+  $('cvName').textContent = priv.cv_path ? 'আপলোড করা আছে: ' + priv.cv_path.split('/').pop() : 'কোনো সিভি আপলোড হয়নি।';
+
+  $('profForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('profAlert'));
+    if (!ps.portal_open) return flash('profAlert', 'info', 'পোর্টাল বন্ধ থাকায় এখন সংরক্ষণ করা যাবে না।');
+    var ph = $('pPhone').value.trim(), ph2 = $('pPhoto').value.trim();
+    var ok = [check('f-phone', ph === '' || /^01[3-9]\d{8}$/.test(ph)), check('f-photo', ph2 === '' || /^https:\/\/\S+$/i.test(ph2))].every(Boolean);
+    if (!ok) return flash('profAlert', 'bad', 'ফোন নম্বর বা ছবির লিংক সঠিক নয়।');
+    var b = $('profBtn'); b.disabled = true;
+    try {
+      var r = await sb.rpc('update_my_profile', {
+        p_subject: $('pSubj').value.trim(), p_bio: $('pBio').value.trim(), p_photo_url: ph2,
+        p_phone: ph, p_address: $('pAddr').value.trim()
+      });
+      if (r.error) throw r.error;
+      me.subject = $('pSubj').value.trim(); me.bio = $('pBio').value.trim(); me.photo_url = ph2;
+      setAvatar();
+      flash('profAlert', 'ok', 'প্রোফাইল সংরক্ষিত হয়েছে।');
+    } catch (err) { flash('profAlert', 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  /* সিভি আপলোড ও দেখা */
+  function safeName(n) { return String(n).replace(/[^A-Za-z0-9._-]/g, '_').slice(0, 80); }
+  $('cvUp').addEventListener('click', async function () {
+    var f = $('cvFile').files[0];
+    if (!f) return flash('cvAlert', 'bad', 'প্রথমে একটি ফাইল বাছুন।');
+    if (!/\.(pdf|docx?)$/i.test(f.name)) return flash('cvAlert', 'bad', 'শুধু PDF, DOC বা DOCX ফাইল দিন।');
+    if (f.size > 5 * 1024 * 1024) return flash('cvAlert', 'bad', 'ফাইলটি ৫ মেগাবাইটের বেশি হবে না।');
+    if (!ps.portal_open) return flash('cvAlert', 'info', 'পোর্টাল বন্ধ থাকায় এখন আপলোড করা যাবে না।');
+    var path = 'cv/' + uid + '/' + Date.now() + '-' + safeName(f.name);
+    var b = $('cvUp'); b.disabled = true; b.textContent = 'আপলোড হচ্ছে...';
+    try {
+      var up = await sb.storage.from('teacher-files').upload(path, f, { upsert: false, contentType: f.type || undefined });
+      if (up.error) throw up.error;
+      var r = await sb.rpc('set_my_cv', { p_path: path });
+      if (r.error) throw r.error;
+      priv.cv_path = path;
+      $('cvName').textContent = 'আপলোড করা আছে: ' + f.name;
+      flash('cvAlert', 'ok', 'সিভি সফলভাবে আপলোড হয়েছে।');
+    } catch (err) { flash('cvAlert', 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; b.textContent = 'আপলোড করুন'; }
+  });
+
+  $('cvView').addEventListener('click', async function () {
+    if (!priv.cv_path) return flash('cvAlert', 'info', 'এখনো কোনো সিভি আপলোড হয়নি।');
+    var s = await sb.storage.from('teacher-files').createSignedUrl(priv.cv_path, 300);
+    if (s.error) return flash('cvAlert', 'bad', D.esc(D.errMsg(s.error)));
+    window.open(s.data.signedUrl, '_blank', 'noopener');
+  });
+
+  /* ---------- রিপোর্ট ---------- */
+  var types = String(ps.report_types || '').split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+  $('rType').innerHTML = types.map(function (t) { return '<option>' + esc(t) + '</option>'; }).join('');
+  $('rDate').value = new Date().toISOString().slice(0, 10);
+  var reports = [];
+
+  async function loadReports() {
+    var r = await sb.from('teacher_reports').select('*').eq('teacher_id', me.id).order('created_at', { ascending: false });
+    reports = r.data || [];
+    $('cRep').textContent = reports.length; $('stRep').textContent = reports.length;
+    $('repList').innerHTML = reports.length ? reports.map(function (x) {
+      return '<div class="list-item"><div><span class="pill ' + (x.status === 'reviewed' ? 'p-rev' : 'p-sub') + '">' +
+        (x.status === 'reviewed' ? 'পর্যালোচিত' : 'জমা হয়েছে') + '</span><span class="muted" style="font-size:12.5px">' + esc(x.report_type) + ' · ' + fmtDate(x.report_date) + '</span></div>' +
+        '<h4 style="margin-top:6px">' + esc(x.title) + '</h4><div class="sm" style="white-space:pre-wrap">' + esc(x.body) + '</div>' +
+        (x.admin_note ? '<div class="sm" style="margin-top:8px;color:#6b4e10">প্রতিষ্ঠানের মন্তব্য: ' + esc(x.admin_note) + '</div>' : '') + '</div>';
+    }).join('') : '<div class="empty-s">এখনো কোনো রিপোর্ট জমা দেননি।</div>';
+  }
+
+  $('repForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('repAlert'));
+    if (!ps.reports_enabled || !ps.portal_open) return flash('repAlert', 'info', 'রিপোর্ট জমা এখন বন্ধ আছে।');
+    var title = $('rTitle').value.trim(), body = $('rBody').value.trim();
+    var ok = [check('f-rtitle', title.length >= 3), check('f-rbody', body.length >= 5), check('f-rdate', !!$('rDate').value)].every(Boolean);
+    if (!ok) return flash('repAlert', 'bad', 'শিরোনাম, বিস্তারিত ও তারিখ সঠিকভাবে দিন।');
+    var b = $('repBtn'); b.disabled = true;
+    try {
+      var r = await sb.from('teacher_reports').insert({ teacher_id: me.id, report_type: $('rType').value, report_date: $('rDate').value, title: title, body: body });
+      if (r.error) throw r.error;
+      $('rTitle').value = ''; $('rBody').value = '';
+      flash('repAlert', 'ok', 'রিপোর্ট জমা হয়েছে।');
+      await loadReports();
+    } catch (err) { flash('repAlert', 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  /* ---------- হাজিরা ---------- */
+  $('aDate').value = new Date().toISOString().slice(0, 10);
+  var atts = [];
+  async function loadAtt() {
+    var r = await sb.from('teacher_attendance').select('*').eq('teacher_id', me.id).order('class_date', { ascending: false });
+    atts = r.data || [];
+    $('stAtt').textContent = atts.length;
+    $('attList').innerHTML = atts.length ? atts.map(function (x) {
+      var pct = x.total_students ? Math.round(x.present_count * 100 / x.total_students) : 0;
+      return '<div class="list-item"><h4>' + esc(x.class_name) + '</h4><div class="sm">' + fmtDate(x.class_date) +
+        ' · মোট ' + x.total_students + ' · উপস্থিত ' + x.present_count + ' · অনুপস্থিত ' + x.absent_count +
+        ' · হাজিরা ' + pct + '%</div>' + (x.note ? '<div class="sm">' + esc(x.note) + '</div>' : '') + '</div>';
+    }).join('') : '<div class="empty-s">এখনো কোনো হাজিরা জমা দেননি।</div>';
+  }
+  $('attForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('attAlert'));
+    if (!ps.attendance_enabled || !ps.portal_open) return flash('attAlert', 'info', 'হাজিরা জমা এখন বন্ধ আছে।');
+    var cls = $('aCls').value.trim(), tot = Number($('aTot').value), pre = Number($('aPres').value), abs = Number($('aAbs').value);
+    var ok = [
+      check('f-cls', cls.length >= 2), check('f-adate', !!$('aDate').value),
+      check('f-atot', tot >= 0 && $('aTot').value !== ''), check('f-apres', pre >= 0 && $('aPres').value !== ''),
+      check('f-aabs', abs >= 0 && $('aAbs').value !== '')
+    ].every(Boolean);
+    if (!ok) return flash('attAlert', 'bad', 'ক্লাসের নাম, তারিখ ও সংখ্যাগুলো সঠিকভাবে দিন।');
+    if (pre + abs > tot) return flash('attAlert', 'bad', 'উপস্থিত + অনুপস্থিত, মোট শিক্ষার্থীর সংখ্যার বেশি হতে পারবে না।');
+    var b = $('attBtn'); b.disabled = true;
+    try {
+      var r = await sb.from('teacher_attendance').insert({ teacher_id: me.id, class_name: cls, class_date: $('aDate').value,
+        total_students: tot, present_count: pre, absent_count: abs, note: $('aNote').value.trim() });
+      if (r.error) throw r.error;
+      $('aCls').value = ''; $('aTot').value = ''; $('aPres').value = ''; $('aAbs').value = ''; $('aNote').value = '';
+      flash('attAlert', 'ok', 'হাজিরা জমা হয়েছে।');
+      await loadAtt();
+    } catch (err) { flash('attAlert', 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  /* ---------- বার্তা ---------- */
+  var adminUid = null;
+  var contacts = [];
+  var conv = { type: 'group' };
+  var seen = {};
+  var msgs = [];
+
+  async function loadContacts() {
+    var t = await sb.from('teachers').select('id,full_name,designation,user_id,is_active').eq('is_active', true).not('user_id', 'is', null).order('full_name');
+    var list = (t.data || []).filter(function (x) { return x.user_id !== uid; });
+    var a = await sb.rpc('admin_user_id');
+    adminUid = (!a.error && a.data) ? a.data : null;
+    contacts = list.map(function (x) { return { uid: x.user_id, name: x.full_name, sub: x.designation || '' }; });
+    if (adminUid) contacts.unshift({ uid: adminUid, name: 'প্রতিষ্ঠান প্রশাসন', sub: 'অ্যাডমিন', admin: true });
+    renderContacts();
+  }
+
+  function renderContacts() {
+    var g = '<button data-c="group" class="' + (conv.type === 'group' ? 'on' : '') + '">👥 সবাই (গ্রুপ আলোচনা)</button>';
+    var rest = contacts.map(function (c) {
+      var on = conv.type === 'direct' && conv.uid === c.uid;
+      return '<button data-c="' + esc(c.uid) + '" class="' + (on ? 'on' : '') + '"><span class="cdot"></span>' +
+        '<span><b>' + esc(c.name) + '</b><br><small style="color:var(--muted)">' + esc(c.sub) + '</small></span></button>';
+    }).join('');
+    $('contacts').innerHTML = g + rest;
+  }
+
+  function convKey() { return conv.type === 'group' ? 'group' : conv.uid; }
+  function belongs(m) {
+    if (conv.type === 'group') return m.channel === 'group';
+    return m.channel === 'direct' && ((m.sender_id === uid && m.recipient_id === conv.uid) || (m.sender_id === conv.uid && m.recipient_id === uid));
+  }
+
+  async function loadConv() {
+    var q = sb.from('messages').select('*').order('created_at', { ascending: true }).limit(300);
+    if (conv.type === 'group') q = q.eq('channel', 'group');
+    else q = q.eq('channel', 'direct').or('and(sender_id.eq.' + uid + ',recipient_id.eq.' + conv.uid + '),and(sender_id.eq.' + conv.uid + ',recipient_id.eq.' + uid + ')');
+    var r = await q;
+    msgs = r.data || [];
+    seen = {};
+    msgs.forEach(function (m) { seen[m.id] = true; });
+    var c = conv.type === 'group' ? null : contacts.filter(function (x) { return x.uid === conv.uid; })[0];
+    $('convHead').textContent = conv.type === 'group' ? 'সবাই (গ্রুপ আলোচনা)' : (c ? c.name : 'বার্তা');
+    renderMsgs();
+  }
+
+  function nameOf(id) {
+    if (id === uid) return 'আমি';
+    var c = contacts.filter(function (x) { return x.uid === id; })[0];
+    return c ? c.name : 'সহকর্মী';
+  }
+
+  function renderMsgs() {
+    if (!msgs.length) { $('msgs').innerHTML = '<div class="empty-s">এখনো কোনো বার্তা নেই। প্রথম বার্তাটি পাঠান।</div>'; return; }
+    $('msgs').innerHTML = msgs.map(function (m) {
+      var mine = m.sender_id === uid;
+      return '<div class="bub ' + (mine ? 'me' : 'them') + '">' +
+        (conv.type === 'group' && !mine ? '<div class="who">' + esc(nameOf(m.sender_id)) + '</div>' : '') +
+        (m.body ? '<div>' + esc(m.body) + '</div>' : '') +
+        (m.attachment_path ? '<a class="file" href="#" data-file="' + esc(m.attachment_path) + '">📎 ' + esc(m.attachment_name || 'ফাইল') + '</a>' : '') +
+        '<div class="time">' + esc(fmtTime(m.created_at)) + '</div></div>';
+    }).join('');
+    scrollMsgs();
+  }
+  function scrollMsgs() { var el = $('msgs'); if (el) el.scrollTop = el.scrollHeight; }
+
+  $('contacts').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-c]'); if (!b) return;
+    var k = b.getAttribute('data-c');
+    conv = k === 'group' ? { type: 'group' } : { type: 'direct', uid: k };
+    renderContacts();
+    await loadConv();
+  });
+
+  $('msgs').addEventListener('click', async function (e) {
+    var a = e.target.closest('a[data-file]'); if (!a) return;
+    e.preventDefault();
+    var s = await sb.storage.from('teacher-files').createSignedUrl(a.getAttribute('data-file'), 300);
+    if (s.error) return flash('chatAlert', 'bad', D.esc(D.errMsg(s.error)));
+    window.open(s.data.signedUrl, '_blank', 'noopener');
+  });
+
+  $('msgFile').addEventListener('change', function () {
+    var f = this.files[0];
+    $('msgFileName').textContent = f ? f.name : '';
+  });
+
+  $('composer').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('chatAlert'));
+    if (!ps.chat_enabled || !ps.portal_open) return flash('chatAlert', 'info', 'বার্তা পাঠানো এখন বন্ধ আছে।');
+    var text = $('msgText').value.trim(), file = $('msgFile').files[0];
+    if (!text && !file) return;
+    if (conv.type === 'direct' && !conv.uid) return flash('chatAlert', 'bad', 'প্রথমে একজন সহকর্মীকে বাছুন।');
+    if (file && file.size > 10 * 1024 * 1024) return flash('chatAlert', 'bad', 'ফাইল ১০ মেগাবাইটের বেশি হবে না।');
+    var btn = $('sendBtn'); btn.disabled = true;
+    try {
+      var row = { channel: conv.type === 'group' ? 'group' : 'direct', sender_id: uid,
+        recipient_id: conv.type === 'group' ? null : conv.uid, body: text, attachment_path: '', attachment_name: '' };
+      if (file) {
+        var path = 'shared/' + uid + '/' + Date.now() + '-' + safeName(file.name);
+        var up = await sb.storage.from('teacher-files').upload(path, file, { upsert: false });
+        if (up.error) throw up.error;
+        row.attachment_path = path; row.attachment_name = file.name;
+      }
+      var r = await sb.from('messages').insert(row).select().single();
+      if (r.error) throw r.error;
+      if (!seen[r.data.id]) { seen[r.data.id] = true; msgs.push(r.data); renderMsgs(); }
+      $('msgText').value = ''; $('msgFile').value = ''; $('msgFileName').textContent = '';
+    } catch (err) { flash('chatAlert', 'bad', D.esc(D.errMsg(err))); }
+    finally { btn.disabled = false; }
+  });
+
+  /* লাইভ: নতুন বার্তা রিয়েল-টাইমে */
+  sb.channel('teacher-chat').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, function (payload) {
+    var m = payload.new;
+    if (!m || seen[m.id] || !belongs(m)) return;
+    seen[m.id] = true;
+    msgs.push(m);
+    renderMsgs();
+    if (m.sender_id !== uid) {
+      var n = $('cChat'); n.style.display = 'inline-block'; n.textContent = '•';
+    }
+  }).subscribe();
+
+  $('nav').addEventListener('click', function (e) {
+    if (e.target.closest('button[data-s="chat"]')) { $('cChat').style.display = 'none'; }
+  });
+
+  /* ---------- জরিপ ---------- */
+  var surveys = [];
+  async function loadSurveys() {
+    var s = await sb.from('surveys').select('*').eq('is_open', true).order('created_at', { ascending: false });
+    surveys = s.data || [];
+    var r = await sb.from('survey_responses').select('survey_id').eq('teacher_id', me.id);
+    var done = {}; (r.data || []).forEach(function (x) { done[x.survey_id] = true; });
+    $('cSurv').textContent = surveys.filter(function (x) { return !done[x.id]; }).length;
+    $('stSurv').textContent = $('cSurv').textContent;
+    $('survList').innerHTML = surveys.length ? surveys.map(function (sv) {
+      var qs = Array.isArray(sv.questions) ? sv.questions : [];
+      var answered = !!done[sv.id];
+      var form = answered ? '<div class="alert ok show">আপনি এই জরিপে ইতিমধ্যে অংশ নিয়েছেন। ধন্যবাদ!</div>' :
+        '<form data-sv="' + sv.id + '" novalidate>' + qs.map(function (q, i) {
+          var id = 'q_' + sv.id + '_' + i, label = '<label class="flbl" for="' + id + '">' + (i + 1) + '. ' + esc(q.text || '') + '</label>';
+          if (q.type === 'rating') return '<div class="field">' + label + '<select class="form-inp" id="' + id + '" data-q="' + esc(q.id || ('q' + i)) + '"><option value="">বাছুন</option>' +
+            [1, 2, 3, 4, 5].map(function (n) { return '<option value="' + n + '">' + n + '</option>'; }).join('') + '</select></div>';
+          if (q.type === 'choice') return '<div class="field">' + label + '<select class="form-inp" id="' + id + '" data-q="' + esc(q.id || ('q' + i)) + '"><option value="">বাছুন</option>' +
+            (Array.isArray(q.options) ? q.options : []).map(function (o) { return '<option>' + esc(o) + '</option>'; }).join('') + '</select></div>';
+          return '<div class="field">' + label + '<textarea class="form-inp" id="' + id + '" data-q="' + esc(q.id || ('q' + i)) + '" maxlength="1000"></textarea></div>';
+        }).join('') + '<button class="btn btn-gold" type="submit" style="margin-top:8px">জমা দিন</button><div class="alert" role="status"></div></form>';
+      return '<div class="card" style="margin-bottom:20px"><h2>' + esc(sv.title) + '</h2>' +
+        (sv.description ? '<p class="sub">' + esc(sv.description) + '</p>' : '') + form + '</div>';
+    }).join('') : '<div class="card"><div class="empty-s">এখন কোনো খোলা জরিপ নেই।</div></div>';
+  }
+
+  $('survList').addEventListener('submit', async function (e) {
+    var f = e.target.closest('form[data-sv]'); if (!f) return;
+    e.preventDefault();
+    var alertEl = f.querySelector('.alert');
+    if (!ps.surveys_enabled || !ps.portal_open) { D.show(alertEl, 'info', 'জরিপ জমা এখন বন্ধ আছে।'); return; }
+    var answers = {}, missing = false;
+    f.querySelectorAll('[data-q]').forEach(function (el) {
+      var v = el.value.trim();
+      if (!v) missing = true;
+      answers[el.getAttribute('data-q')] = v;
+    });
+    if (missing) { D.show(alertEl, 'bad', 'সব প্রশ্নের উত্তর দিন।'); return; }
+    try {
+      var r = await sb.from('survey_responses').insert({ survey_id: Number(f.getAttribute('data-sv')), teacher_id: me.id, answers: answers });
+      if (r.error) throw r.error;
+      await loadSurveys();
+    } catch (err) { D.show(alertEl, 'bad', D.esc(D.errMsg(err))); }
+  });
+
+  /* ---------- মূল্যায়ন ---------- */
+  async function loadEvals() {
+    var r = await sb.from('teacher_evaluations').select('*').eq('teacher_id', me.id).order('created_at', { ascending: false });
+    var list = r.data || [];
+    $('evalList').innerHTML = list.length ? list.map(function (x) {
+      return '<div class="list-item"><h4>' + esc(x.period) + ' — স্কোর ' + x.score + '/১০</h4>' +
+        (x.strengths ? '<div class="sm"><b>শক্তির দিক:</b> ' + esc(x.strengths) + '</div>' : '') +
+        (x.improvements ? '<div class="sm"><b>উন্নয়নের পরামর্শ:</b> ' + esc(x.improvements) + '</div>' : '') + '</div>';
+    }).join('') : '<div class="empty-s">এখনো কোনো প্রকাশিত মূল্যায়ন নেই।</div>';
+  }
+
+  /* ---------- শুরু ---------- */
+  await Promise.all([loadReports(), loadAtt(), loadContacts(), loadSurveys(), loadEvals()]);
+  await loadConv();
+  var initial = (location.hash || '').replace('#', '');
+  go(SECTIONS.indexOf(initial) !== -1 ? initial : 'home');
+})();
 </script>
 </body>
 </html>
