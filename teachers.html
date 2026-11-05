@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>শিক্ষক ও স্টাফ পোর্টাল | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<link rel="stylesheet" href="cms.css">
+<style>
+  .tp-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .tp-panel{position:relative;color:#fff;border-radius:26px;overflow:hidden;padding:52px 44px;min-height:520px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow-lg);
+    background:radial-gradient(ellipse at 90% 10%,rgba(215,180,106,.25),transparent 50%),linear-gradient(120deg,rgba(3,28,23,.97),rgba(6,43,35,.92)),url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=80') center/cover}
+  .tp-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4.4vw,50px);line-height:1.1;margin-bottom:14px}
+  .tp-title em{font-style:italic;background:linear-gradient(90deg,var(--gold-2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tp-list{list-style:none;margin-top:28px;display:grid;gap:14px}
+  .tp-list li{display:flex;gap:14px;align-items:center;color:#f1ead6;font-size:15px}
+  .tp-list span{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(215,180,106,.18);border:1px solid rgba(215,180,106,.35);font-size:19px;flex-shrink:0}
+  .tp-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:38px 36px;box-shadow:var(--shadow-lg)}
+  .link{color:#99712f;font-weight:700}
+  .link:hover{text-decoration:underline}
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:72px}
+  .pw-toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:#f3f1e8;border:none;border-radius:10px;padding:6px 10px;font-size:12px;color:var(--green);font-weight:700}
+  @media(max-width:920px){.tp-wrap{grid-template-columns:1fr;gap:30px}.tp-panel{min-height:auto;padding:36px 26px}}
+  @media(max-width:520px){.tp-card{padding:28px 20px}}
+</style>
+</head>
+<body data-active="">
+
+<div id="shellTop"></div>
+
+<main class="page">
+  <div class="container tp-wrap">
+    <section class="tp-panel reveal">
+      <div>
+        <div class="eyebrow" style="color:var(--gold-2)">TEACHERS &amp; STAFF PORTAL</div>
+        <h1 class="tp-title">শিক্ষক ও স্টাফ <em>পোর্টাল</em></h1>
+        <p style="color:#dfe7e0;line-height:1.9;font-size:15.5px;max-width:460px">আপনার প্রোফাইল, সিভি, রিপোর্ট, ক্লাস হাজিরা, জরিপ ও সহকর্মীদের সঙ্গে বার্তা — সবকিছু এক জায়গায়, নিরাপদে।</p>
+        <ul class="tp-list">
+          <li><span>👤</span> ব্যক্তিগত প্রোফাইল ও সিভি</li>
+          <li><span>📝</span> প্রাতিষ্ঠানিক রিপোর্ট জমা</li>
+          <li><span>✅</span> ক্লাস হাজিরা ও জরিপ</li>
+          <li><span>💬</span> সহকর্মীদের সঙ্গে সরাসরি বার্তা</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="tp-card reveal" aria-label="লগইন ও সক্রিয়করণ">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-login" aria-selected="true" data-tab="login">লগইন</button>
+        <button class="tab" role="tab" id="tab-act" aria-selected="false" data-tab="act">প্রথমবার অ্যাকাউন্ট খুলুন</button>
+      </div>
+
+      <form class="panel active" id="panel-login" novalidate>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--green);font-size:28px;margin-bottom:6px">স্বাগতম</h2>
+        <p class="muted" style="margin-bottom:22px;line-height:1.7">প্রতিষ্ঠানের দেওয়া ইমেইল ও আপনার পাসওয়ার্ড দিয়ে প্রবেশ করুন।</p>
+        <div class="field" id="f-le"><label class="lbl" for="le">ইমেইল</label><input class="form-inp" id="le" type="email" autocomplete="username"><div class="err">সঠিক ইমেইল লিখুন।</div></div>
+        <div class="field" id="f-lp"><label class="lbl" for="lp">পাসওয়ার্ড</label>
+          <div class="pw-wrap"><input class="form-inp" id="lp" type="password" autocomplete="current-password"><button type="button" class="pw-toggle" data-t="lp">দেখুন</button></div>
+          <div class="err">পাসওয়ার্ড লিখুন।</div></div>
+        <button class="btn btn-gold btn-block" type="submit" id="lBtn">প্রবেশ করুন →</button>
+        <div class="alert" id="lAlert" role="status"></div>
+      </form>
+
+      <form class="panel" id="panel-act" novalidate>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--green);font-size:26px;margin-bottom:6px">অ্যাকাউন্ট সক্রিয় করুন</h2>
+        <p class="muted" style="margin-bottom:22px;line-height:1.7">প্রতিষ্ঠানের অ্যাডমিন যে ইমেইলটি আপনার নামে যোগ করেছেন, শুধু সেটি দিয়েই অ্যাকাউন্ট খোলা যাবে।</p>
+        <div class="field" id="f-ae"><label class="lbl" for="ae">প্রতিষ্ঠানের দেওয়া ইমেইল</label><input class="form-inp" id="ae" type="email" autocomplete="email"><div class="err">সঠিক ইমেইল লিখুন।</div></div>
+        <div class="field" id="f-ap"><label class="lbl" for="ap">নতুন পাসওয়ার্ড</label>
+          <div class="pw-wrap"><input class="form-inp" id="ap" type="password" autocomplete="new-password" placeholder="কমপক্ষে ৮ অক্ষর"><button type="button" class="pw-toggle" data-t="ap">দেখুন</button></div>
+          <div class="err">পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।</div></div>
+        <button class="btn btn-dark btn-block" type="submit" id="aBtn">অ্যাকাউন্ট সক্রিয় করুন →</button>
+        <div class="alert" id="aAlert" role="status"></div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<div id="shellBottom"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="cms.js"></script>
+<script src="deen.js"></script>
+<script>
+(function () {
+  var D = window.DEEN, sb = D.client, $ = function (id) { return document.getElementById(id); };
+
+  function showTab(n) {
+    document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t.getAttribute('data-tab') === n)); });
+    $('panel-login').classList.toggle('active', n === 'login');
+    $('panel-act').classList.toggle('active', n === 'act');
+  }
+  document.querySelectorAll('.tab').forEach(function (t) { t.addEventListener('click', function () { showTab(t.getAttribute('data-tab')); }); });
+  document.querySelectorAll('.pw-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = $(b.getAttribute('data-t')), s = i.type === 'password';
+      i.type = s ? 'text' : 'password'; b.textContent = s ? 'লুকান' : 'দেখুন';
+    });
+  });
+  function check(id, ok) { $(id).classList.toggle('invalid', !ok); return ok; }
+  document.querySelectorAll('input').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!sb) { D.show($('lAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); return; }
+
+  /* প্রবেশের পর কোথায় যাবে */
+  async function routeAfterLogin() {
+    if (await D.isAdmin()) { location.href = 'admin-teachers.html'; return; }
+    var r = await sb.from('teachers').select('id').maybeSingle();
+    if (r.data) { location.href = 'teacher-dashboard.html'; return; }
+    await sb.auth.signOut();
+    D.show($('lAlert'), 'bad', 'এই অ্যাকাউন্টে কোনো শিক্ষক/স্টাফ প্রোফাইল যুক্ত নেই। প্রথমবার হলে "প্রথমবার অ্যাকাউন্ট খুলুন" ট্যাব ব্যবহার করুন।');
+  }
+  D.getSession().then(function (s) { if (s) routeAfterLogin(); });
+
+  $('panel-login').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('lAlert'));
+    var em = $('le').value.trim(), pw = $('lp').value;
+    var ok = [check('f-le', EMAIL.test(em)), check('f-lp', pw.length > 0)].every(Boolean);
+    if (!ok) return;
+    var b = $('lBtn'); b.disabled = true; b.textContent = 'যাচাই হচ্ছে...';
+    try {
+      var r = await sb.auth.signInWithPassword({ email: em, password: pw });
+      if (r.error) throw r.error;
+      await routeAfterLogin();
+    } catch (err) {
+      D.show($('lAlert'), 'bad', D.esc(D.errMsg(err)));
+    } finally { b.disabled = false; b.textContent = 'প্রবেশ করুন →'; }
+  });
+
+  $('panel-act').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('aAlert'));
+    var em = $('ae').value.trim(), pw = $('ap').value;
+    var ok = [check('f-ae', EMAIL.test(em)), check('f-ap', pw.length >= 8)].every(Boolean);
+    if (!ok) return;
+    var b = $('aBtn'); b.disabled = true; b.textContent = 'সক্রিয় হচ্ছে...';
+    try {
+      var s = await sb.auth.signUp({ email: em, password: pw });
+      if (s.error) throw s.error;
+      if (!s.data.session) {
+        var si = await sb.auth.signInWithPassword({ email: em, password: pw });
+        if (si.error) throw si.error;
+      }
+      var c = await sb.rpc('claim_teacher');
+      if (c.error) throw c.error;
+      D.show($('aAlert'), 'ok', 'অ্যাকাউন্ট সক্রিয় হয়েছে। পোর্টালে নিয়ে যাওয়া হচ্ছে...');
+      setTimeout(function () { location.href = 'teacher-dashboard.html'; }, 900);
+    } catch (err) {
+      D.show($('aAlert'), 'bad', D.esc(D.errMsg(err)));
+    } finally { b.disabled = false; b.textContent = 'অ্যাকাউন্ট সক্রিয় করুন →'; }
+  });
+})();
+</script>
+</body>
+</html>
