@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>পেজ ব্যবস্থাপনা | DEEN অ্যাডমিন</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<link rel="stylesheet" href="cms.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  textarea.inp{min-height:110px;resize:vertical}
+  .inp[disabled]{background:#f1efe6;color:#666}
+  .chk{display:flex;gap:8px;align-items:center;font-size:14.5px;cursor:pointer;padding-top:8px}
+  .chk input{width:17px;height:17px;accent-color:var(--green)}
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .frm .full{grid-column:1/-1}
+  .item{display:grid;grid-template-columns:96px 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid #efece2}
+  .item:last-child{border-bottom:none}
+  .thumb{width:96px;height:72px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--green),var(--green-2));display:grid;place-items:center;color:var(--gold-2);font-size:22px}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .item h4{color:var(--green);font-size:16px;margin-bottom:4px;line-height:1.4}
+  .item .sm{font-size:12.5px;color:var(--muted);line-height:1.6}
+  .actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+  .actions .btn{padding:6px 11px;font-size:12.5px}
+  .pill-on{background:#e3f4ea;color:#1b6b43}
+  .pill-off{background:#eee;color:#666}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;margin-right:4px}
+  .tabbar button{white-space:nowrap}
+  @media(max-width:760px){.frm{grid-template-columns:1fr}.item{grid-template-columns:1fr}.thumb{width:100%;height:150px}.actions{justify-content:flex-start}}
+</style>
+</head>
+<body data-active="">
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>DEEN অ্যাডমিন — পেজ ও বিষয়বস্তু ব্যবস্থাপনা</span>
+    <div class="top-links"><a href="admin.html">অ্যাডমিন প্যানেল</a> <a href="index.html">ওয়েবসাইট</a></div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="admin.html" class="brand" aria-label="অ্যাডমিন">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div><div class="brand-name">DEEN</div><div class="brand-sub">ADMIN CONTENT</div></div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="admin.html">অ্যাডমিন প্যানেল</a></li>
+      <li><a href="admin-pages.html" class="active">পেজ ব্যবস্থাপনা</a></li>
+      <li><a href="admin-events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="#" id="logoutBtn" class="nav-cta">লগআউট</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="empty">যাচাই হচ্ছে...</div>
+
+    <section class="card hide" id="denied">
+      <h2>অনুমতি নেই</h2>
+      <p class="sub">এই পেজ শুধু সাইট অ্যাডমিন ব্যবহার করতে পারবেন।</p>
+      <a class="btn btn-dark btn-sm" href="login.html">লগইন পেজে যান</a>
+    </section>
+
+    <div id="app" class="hide">
+      <div class="tabbar" id="tabs" role="tablist"></div>
+
+      <section class="card">
+        <h2 id="secTitle">—</h2>
+        <p class="sub" id="secSub"></p>
+
+        <div id="formWrap">
+          <form id="form" novalidate>
+            <div class="frm" id="fields"></div>
+            <div class="row" style="margin-top:20px">
+              <button class="btn btn-gold" type="submit" id="saveBtn">সংরক্ষণ করুন</button>
+              <button class="btn btn-light" type="button" id="cancelBtn">বাতিল</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hr"></div>
+        <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+          <input class="inp" id="search" type="search" placeholder="খুঁজুন..." style="max-width:340px">
+        </div>
+        <div id="list"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Admin Content</div></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client;
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = D.esc;
+
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session || !(await D.isAdmin())) { $('denied').classList.remove('hide'); return; }
+  $('app').classList.remove('hide');
+  $('logoutBtn').addEventListener('click', async function (e) { e.preventDefault(); await sb.auth.signOut(); location.href = 'login.html'; });
+
+  /* ================= কনফিগারেশন: কোন পেজ/টেবিল কীভাবে সম্পাদিত হবে ================= */
+  var T = {
+    site: {
+      name: 'পেজ সেটিংস', table: 'site_pages', pk: 'slug', main: 'title', sub: ['subtitle'],
+      intro: 'প্রতিটি পেজের শিরোনাম, পরিচিতি ও ছবি বদলান। পেজ বন্ধ করলে সেখানে "শীঘ্রই আসছে" বার্তা দেখাবে।',
+      order: [['slug', true]], noCreate: true, noDelete: true, pub: 'is_visible',
+      fields: [
+        { k: 'title', l: 'শিরোনাম', t: 'text', max: 150, req: true },
+        { k: 'subtitle', l: 'উপশিরোনাম', t: 'text', max: 400, full: true },
+        { k: 'intro', l: 'পরিচিতি লেখা', t: 'textarea', max: 3000, full: true },
+        { k: 'hero_image', l: 'হিরো ছবির লিংক (https://)', t: 'url', full: true },
+        { k: 'coming_soon_text', l: 'পেজ বন্ধ থাকলে যে বার্তা দেখাবে', t: 'textarea', max: 300, full: true },
+        { k: 'is_visible', l: 'পেজ ওয়েবসাইটে দেখান', t: 'bool', full: true }
+      ]
+    },
+    quran: {
+      name: 'কুরআন আয়াত', table: 'quran_items', pk: 'id', main: 'arabic', sub: ['reference', 'translation'],
+      intro: 'আল-কুরআন পেজের নির্বাচিত আয়াতসমূহ। ছোট ক্রম নম্বর আগে দেখাবে।',
+      order: [['sort_order', true], ['created_at', true]], pub: 'is_published',
+      fields: [
+        { k: 'arabic', l: 'আরবি আয়াত *', t: 'textarea', max: 2000, req: true, full: true },
+        { k: 'translation', l: 'বাংলা অনুবাদ', t: 'textarea', max: 2000, full: true },
+        { k: 'reference', l: 'সূত্র (যেমন: সূরা বাকারা ২:১৫৫)', t: 'text', max: 120 },
+        { k: 'sort_order', l: 'ক্রম (ছোট সংখ্যা আগে)', t: 'number', def: 0 },
+        { k: 'note', l: 'শিক্ষণীয় বিষয়', t: 'textarea', max: 1000, full: true },
+        { k: 'is_published', l: 'ওয়েবসাইটে প্রকাশ করুন', t: 'bool', full: true }
+      ]
+    },
+    hadith: {
+      name: 'হাদীস', table: 'hadith_items', pk: 'id', main: 'translation', sub: ['source', 'narrator'],
+      intro: 'হাদীস পেজের নির্বাচিত হাদীসসমূহ। উৎস ও বর্ণনাকারীর তথ্য প্রামাণ্যভাবে দিন।',
+      order: [['sort_order', true], ['created_at', true]], pub: 'is_published',
+      fields: [
+        { k: 'arabic', l: 'আরবি মূল পাঠ (ঐচ্ছিক)', t: 'textarea', max: 3000, full: true },
+        { k: 'translation', l: 'বাংলা অনুবাদ *', t: 'textarea', max: 3000, req: true, full: true },
+        { k: 'source', l: 'উৎস গ্রন্থ (যেমন: সহীহ বুখারী)', t: 'text', max: 150 },
+        { k: 'narrator', l: 'বর্ণনাকারী', t: 'text', max: 150 },
+        { k: 'sort_order', l: 'ক্রম', t: 'number', def: 0 },
+        { k: 'note', l: 'শিক্ষণীয় বিষয়', t: 'textarea', max: 1000, full: true },
+        { k: 'is_published', l: 'ওয়েবসাইটে প্রকাশ করুন', t: 'bool', full: true }
+      ]
+    },
+    articles: {
+      name: 'ব্লগ লেখা', table: 'articles', pk: 'id', main: 'title', sub: ['category', 'author'], cover: 'cover_url',
+      intro: 'ব্লগ ও প্রকাশনার লেখা লিখুন, সম্পাদনা করুন বা প্রকাশ/গোপন করুন। পিন করা লেখা সবার উপরে থাকে।',
+      order: [['created_at', false]], desc: true, pub: 'is_published', pin: 'is_pinned',
+      fields: [
+        { k: 'title', l: 'শিরোনাম *', t: 'text', max: 200, req: true, full: true },
+        { k: 'category', l: 'বিষয় (যেমন: প্রবন্ধ, ঘোষণা)', t: 'text', max: 40 },
+        { k: 'author', l: 'লেখক', t: 'text', max: 80 },
+        { k: 'excerpt', l: 'সংক্ষিপ্ত সারাংশ', t: 'textarea', max: 400, full: true },
+        { k: 'body', l: 'পূর্ণ লেখা', t: 'textarea', max: 20000, full: true },
+        { k: 'cover_url', l: 'কভার ছবির লিংক (https://)', t: 'url', full: true },
+        { k: 'is_pinned', l: 'উপরে পিন করুন', t: 'bool' },
+        { k: 'is_published', l: 'ওয়েবসাইটে প্রকাশ করুন', t: 'bool' }
+      ]
+    },
+    gallery: {
+      name: 'গ্যালারি ছবি', table: 'gallery_items', pk: 'id', main: 'caption', sub: ['category', 'title'], cover: 'image_url',
+      intro: 'গ্যালারির ছবি যোগ, সম্পাদনা ও সাজান। ছবির লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।',
+      order: [['sort_order', true], ['created_at', false]], pub: 'is_published',
+      fields: [
+        { k: 'image_url', l: 'ছবির লিংক (https://) *', t: 'url', req: true, full: true },
+        { k: 'title', l: 'শিরোনাম', t: 'text', max: 150 },
+        { k: 'category', l: 'বিভাগ (যেমন: ক্লাস, অনুষ্ঠান)', t: 'text', max: 40 },
+        { k: 'caption', l: 'বর্ণনা', t: 'textarea', max: 300, full: true },
+        { k: 'sort_order', l: 'ক্রম', t: 'number', def: 0 },
+        { k: 'is_published', l: 'ওয়েবসাইটে প্রকাশ করুন', t: 'bool', full: true }
+      ]
+    },
+    purposes: {
+      name: 'সহযোগিতার উদ্দেশ্য', table: 'donation_purposes', pk: 'id', main: 'title', sub: ['goal_amount'],
+      intro: 'সহযোগিতা পেজে দেখানো উদ্দেশ্যসমূহ। লক্ষ্যমাত্রা খালি বা ০ রাখলে দেখাবে না।',
+      order: [['sort_order', true], ['created_at', true]], pub: 'is_published',
+      fields: [
+        { k: 'title', l: 'উদ্দেশ্যের শিরোনাম *', t: 'text', max: 150, req: true, full: true },
+        { k: 'description', l: 'বিবরণ', t: 'textarea', max: 1000, full: true },
+        { k: 'goal_amount', l: 'লক্ষ্যমাত্রা (৳)', t: 'number', def: 0 },
+        { k: 'sort_order', l: 'ক্রম', t: 'number', def: 0 },
+        { k: 'is_published', l: 'ওয়েবসাইটে প্রকাশ করুন', t: 'bool', full: true }
+      ]
+    },
+    donations: {
+      name: 'সহযোগিতার তথ্য (যাচাই)', table: 'donations', pk: 'id', main: 'donor_name', sub: ['phone', 'amount', 'method', 'trx_id'], status: true,
+      intro: 'জমা হওয়া সহযোগিতার তথ্য। বিকাশ/নগদ স্টেটমেন্টের সঙ্গে মিলিয়ে অবস্থা "যাচাইকৃত" বা "বাতিল" করুন। তথ্য মুছে ফেলা যাবে না।',
+      order: [['created_at', false]], desc: true, noCreate: true, noDelete: true,
+      fields: [
+        { k: 'donor_name', l: 'দাতার নাম', t: 'text', ro: true },
+        { k: 'phone', l: 'মোবাইল', t: 'text', ro: true },
+        { k: 'amount', l: 'পরিমাণ (৳)', t: 'text', ro: true },
+        { k: 'method', l: 'মাধ্যম', t: 'text', ro: true },
+        { k: 'trx_id', l: 'TrxID', t: 'text', ro: true, full: true },
+        { k: 'status', l: 'অবস্থা', t: 'select', opts: [['submitted', 'যাচাই চলছে'], ['verified', 'যাচাইকৃত'], ['rejected', 'বাতিল']], full: true }
+      ]
+    }
+  };
+  var TAB_ORDER = [['site', 'পেজ সেটিংস'], ['quran', 'কুরআন'], ['hadith', 'হাদীস'], ['articles', 'ব্লগ'], ['gallery', 'গ্যালারি'], ['purposes', 'সহযোগিতা উদ্দেশ্য'], ['donations', 'সহযোগিতার তথ্য']];
+
+  var CUR = null, ROWS = [], EDIT = null;
+  var STATUS_LABEL = { submitted: 'যাচাই চলছে', verified: 'যাচাইকৃত', rejected: 'বাতিল' };
+
+  function flash(msg, ok) { D.show($('pageAlert'), ok ? 'ok' : 'bad', msg); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  function fmt(d) { try { return new Date(d).toLocaleString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function safeHttps(v) { return v && /^https:\/\/\S+$/i.test(v); }
+
+  /* ---------- ট্যাব ---------- */
+  $('tabs').innerHTML = TAB_ORDER.map(function (t) {
+    return '<button type="button" data-k="' + t[0] + '">' + t[1] + '</button>';
+  }).join('');
+  $('tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-k]'); if (!b) return;
+    go(b.getAttribute('data-k'));
+  });
+
+  function go(key) {
+    CUR = T[key]; EDIT = null;
+    document.querySelectorAll('#tabs button').forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-k') === key); });
+    $('secTitle').textContent = CUR.name;
+    $('secSub').textContent = CUR.intro || '';
+    $('search').value = '';
+    buildForm();
+    $('formWrap').classList.toggle('hide', !!CUR.noCreate && !EDIT);
+    loadRows();
+  }
+
+  /* ---------- ফর্ম তৈরি ---------- */
+  function buildForm() {
+    $('fields').innerHTML = CUR.fields.map(function (f) {
+      var id = 'f_' + f.k, dis = f.ro ? ' disabled' : '', cls = f.full ? ' full' : '';
+      if (f.t === 'bool') {
+        return '<div class="' + cls.trim() + '"><label class="chk"><input type="checkbox" id="' + id + '"' + dis + '> ' + esc(f.l) + '</label></div>';
+      }
+      if (f.t === 'select') {
+        return '<div class="' + cls.trim() + '"><label class="lbl" for="' + id + '">' + esc(f.l) + '</label>' +
+          '<select class="inp" id="' + id + '"' + dis + '>' + f.opts.map(function (o) {
+            return '<option value="' + o[0] + '">' + esc(o[1]) + '</option>';
+          }).join('') + '</select></div>';
+      }
+      if (f.t === 'textarea') {
+        return '<div class="' + cls.trim() + '"><label class="lbl" for="' + id + '">' + esc(f.l) + '</label>' +
+          '<textarea class="inp" id="' + id + '"' + dis + '></textarea></div>';
+      }
+      var type = f.t === 'url' ? 'url' : (f.t === 'number' ? 'number' : 'text');
+      return '<div class="' + cls.trim() + '"><label class="lbl" for="' + id + '">' + esc(f.l) + '</label>' +
+        '<input class="inp" type="' + type + '" id="' + id + '"' + dis + '></div>';
+    }).join('');
+  }
+
+  function fillForm(row) {
+    CUR.fields.forEach(function (f) {
+      var el = $('f_' + f.k); if (!el) return;
+      var v = row[f.k];
+      if (f.t === 'bool') el.checked = !!v;
+      else el.value = (v === null || v === undefined) ? '' : v;
+    });
+  }
+
+  function resetForm() {
+    EDIT = null;
+    buildForm();
+    $('formWrap').classList.toggle('hide', !!CUR.noCreate);
+    $('saveBtn').textContent = 'সংরক্ষণ করুন';
+  }
+
+  /* ---------- ফর্ম থেকে তথ্য নেওয়া ও যাচাই ---------- */
+  function readForm() {
+    var out = {}, errs = [];
+    CUR.fields.forEach(function (f) {
+      if (f.ro) return;
+      var el = $('f_' + f.k), v;
+      if (f.t === 'bool') v = el.checked;
+      else if (f.t === 'number') {
+        v = el.value === '' ? (f.def !== undefined ? f.def : 0) : Math.round(Number(el.value));
+        if (isNaN(v)) { errs.push(f.l + ' সঠিক সংখ্যা হতে হবে'); v = 0; }
+      } else {
+        v = el.value.trim();
+        if (f.req && !v) errs.push(f.l.replace(' *', '') + ' লিখুন');
+        if (f.max && v.length > f.max) errs.push(f.l.replace(' *', '') + ' ' + f.max + ' অক্ষরের বেশি হবে না');
+        if (f.t === 'url' && v && !safeHttps(v)) errs.push(f.l.replace(' *', '') + ' অবশ্যই https:// দিয়ে শুরু হতে হবে');
+      }
+      out[f.k] = v;
+    });
+    if (CUR.table === 'site_pages') out.updated_at = new Date().toISOString();
+    return { out: out, errs: errs };
+  }
+
+  /* ---------- সংরক্ষণ ---------- */
+  $('form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var res = readForm();
+    if (res.errs.length) { flash(res.errs[0], false); return; }
+    var btn = $('saveBtn'); btn.disabled = true;
+    try {
+      var r;
+      if (EDIT) {
+        var q = sb.from(CUR.table).update(res.out);
+        r = await (CUR.pk === 'slug' ? q.eq('slug', EDIT.slug) : q.eq(CUR.pk, EDIT[CUR.pk]));
+      } else {
+        if (CUR.noCreate) { flash('এখানে নতুন তথ্য যোগ করা যায় না।', false); return; }
+        r = await sb.from(CUR.table).insert(res.out);
+      }
+      if (r.error) throw r.error;
+      flash('তথ্য সফলভাবে সংরক্ষিত হয়েছে। ওয়েবসাইটে এখনই দেখা যাবে।', true);
+      resetForm();
+      await loadRows();
+    } catch (err) { flash(D.errMsg(err), false); }
+    finally { btn.disabled = false; }
+  });
+
+  $('cancelBtn').addEventListener('click', resetForm);
+
+  /* ---------- তালিকা ---------- */
+  async function loadRows() {
+    var q = sb.from(CUR.table).select('*');
+    CUR.order.forEach(function (o) { q = q.order(o[0], { ascending: o[1] }); });
+    var r = await q;
+    if (r.error) { flash('তথ্য লোড করা যায়নি: ' + D.errMsg(r.error), false); ROWS = []; }
+    else ROWS = r.data || [];
+    renderList();
+  }
+
+  function renderList() {
+    var q = $('search').value.trim().toLowerCase();
+    var list = ROWS.map(function (row, i) { return { row: row, i: i }; }).filter(function (x) {
+      if (!q) return true;
+      return CUR.fields.concat([]).some(function (f) { return String(x.row[f.k] || '').toLowerCase().indexOf(q) !== -1; });
+    });
+    if (!list.length) { $('list').innerHTML = '<p class="muted" style="padding:20px 0">কোনো তথ্য নেই।</p>'; return; }
+
+    $('list').innerHTML = list.map(function (x) {
+      var row = x.row, i = x.i;
+      var mainText = String(row[CUR.main] == null ? '' : row[CUR.main]);
+      if (mainText.length > 90) mainText = mainText.slice(0, 90) + '…';
+      var thumbSrc = CUR.cover ? row[CUR.cover] : '';
+      var thumb = /^https:\/\//i.test(thumbSrc || '') ? '<img src="' + esc(thumbSrc) + '" alt="">' : '✦';
+
+      var subs = CUR.sub.map(function (k) {
+        var v = row[k];
+        if (v === null || v === undefined || v === '') return '';
+        if (k === 'goal_amount') return 'লক্ষ্য: ৳' + Number(v).toLocaleString('en-US');
+        if (k === 'amount') return '৳' + Number(v).toLocaleString('en-US');
+        return esc(String(v).slice(0, 60));
+      }).filter(Boolean).join(' · ');
+
+      var badges = '';
+      if (CUR.pub) badges += '<span class="pill ' + (row[CUR.pub] ? 'pill-on' : 'pill-off') + '">' + (row[CUR.pub] ? 'প্রকাশিত' : 'গোপন') + '</span>';
+      if (CUR.pin && row[CUR.pin]) badges += '<span class="pill" style="background:var(--gold);color:var(--green)">📌 পিন</span>';
+      if (CUR.status) badges += '<span class="pill ' + (row.status === 'verified' ? 'pill-on' : row.status === 'rejected' ? 'pill-off' : '') + '" style="' + (row.status === 'submitted' ? 'background:#fbf0d9;color:#7a5410' : '') + '">' + esc(STATUS_LABEL[row.status] || row.status) + '</span>';
+      if (row.created_at) badges += '<span class="muted" style="font-size:12px">' + esc(fmt(row.created_at)) + '</span>';
+
+      var acts = '<button class="btn btn-light" data-act="edit" data-i="' + i + '">সম্পাদনা</button>';
+      if (CUR.pub) acts += '<button class="btn btn-light" data-act="toggle" data-i="' + i + '">' + (row[CUR.pub] ? 'গোপন' : 'প্রকাশ') + '</button>';
+      if (CUR.pin) acts += '<button class="btn btn-light" data-act="pin" data-i="' + i + '">' + (row[CUR.pin] ? 'পিন খুলুন' : 'পিন করুন') + '</button>';
+      if (!CUR.noDelete) acts += '<button class="btn btn-danger" data-act="del" data-i="' + i + '">মুছুন</button>';
+
+      return '<div class="item"><div class="thumb">' + thumb + '</div>' +
+        '<div><h4>' + esc(mainText || '(শিরোনাম নেই)') + '</h4>' +
+        (subs ? '<div class="sm">' + subs + '</div>' : '') +
+        '<div style="margin-top:6px">' + badges + '</div></div>' +
+        '<div class="actions">' + acts + '</div></div>';
+    }).join('');
+  }
+
+  $('search').addEventListener('input', renderList);
+
+  /* ---------- তালিকার কাজ ---------- */
+  $('list').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act'), row = ROWS[Number(b.getAttribute('data-i'))];
+    if (!row) return;
+    var filter = function (q) { return CUR.pk === 'slug' ? q.eq('slug', row.slug) : q.eq(CUR.pk, row[CUR.pk]); };
+    try {
+      if (act === 'edit') {
+        EDIT = row;
+        fillForm(row);
+        $('formWrap').classList.remove('hide');
+        $('saveBtn').textContent = 'আপডেট করুন';
+        window.scrollTo({ top: $('form').offsetTop - 90, behavior: 'smooth' });
+        return;
+      }
+      if (act === 'toggle') {
+        var u = {}; u[CUR.pub] = !row[CUR.pub];
+        var r1 = await filter(sb.from(CUR.table).update(u));
+        if (r1.error) throw r1.error;
+      }
+      if (act === 'pin') {
+        var u2 = {}; u2[CUR.pin] = !row[CUR.pin];
+        var r2 = await filter(sb.from(CUR.table).update(u2));
+        if (r2.error) throw r2.error;
+      }
+      if (act === 'del') {
+        if (!confirm('এই তথ্যটি স্থায়ীভাবে মুছে যাবে। নিশ্চিত?')) return;
+        var r3 = await filter(sb.from(CUR.table).delete());
+        if (r3.error) throw r3.error;
+      }
+      await loadRows();
+    } catch (err) { flash(D.errMsg(err), false); }
+  });
+
+  /* ---------- শুরু ---------- */
+  go('site');
+})();
+</script>
+</body>
+</html>
