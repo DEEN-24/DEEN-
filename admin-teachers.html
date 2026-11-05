@@ -1,1 +1,614 @@
 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>শিক্ষক ও স্টাফ ব্যবস্থাপনা | DEEN অ্যাডমিন</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<link rel="stylesheet" href="cms.css">
+<style>
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  textarea.inp{min-height:100px;resize:vertical}
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .frm .full{grid-column:1/-1}
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .chk{display:flex;gap:8px;align-items:center;font-size:14.5px;cursor:pointer;padding-top:8px}
+  .chk input{width:17px;height:17px;accent-color:var(--green)}
+  .row-i{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #efece2;flex-wrap:wrap}
+  .row-i:last-child{border-bottom:none}
+  .av{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,var(--green),var(--green-2));display:grid;place-items:center;color:var(--gold-2);font-family:'Playfair Display',serif;font-size:21px;overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover}
+  .grow{flex:1;min-width:200px}
+  .grow h4{color:var(--green);font-size:16px;margin-bottom:3px}
+  .sm{font-size:12.5px;color:var(--muted);line-height:1.6}
+  .acts{display:flex;gap:6px;flex-wrap:wrap}
+  .acts .btn{padding:6px 11px;font-size:12.5px}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;margin-right:4px}
+  .p-on{background:#e3f4ea;color:#1b6b43}
+  .p-off{background:#eee;color:#666}
+  .p-sub{background:#e6eefb;color:#1d4a80}
+  .p-rev{background:#e3f4ea;color:#1b6b43}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .toolbar .inp{max-width:320px}
+  .detail{border:1px solid var(--line);border-radius:22px;background:#fff;padding:26px;margin-top:20px;box-shadow:var(--shadow-sm);animation:fadeUp .5s var(--ease) both}
+  .sec-t{font-family:'Playfair Display',serif;color:var(--green);font-size:20px;margin:22px 0 10px;padding-bottom:8px;border-bottom:1px solid #efece2}
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tbl th,.tbl td{padding:9px 10px;border-bottom:1px solid #efece2;text-align:left;vertical-align:top}
+  .tbl th{background:#f7f5ee;color:var(--green)}
+  .pre{white-space:pre-wrap;font-size:13.5px;line-height:1.7}
+  @media(max-width:760px){.frm{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-active="">
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>DEEN অ্যাডমিন — শিক্ষক ও স্টাফ নিয়ন্ত্রণ</span>
+    <div class="top-links"><a href="admin.html">অ্যাডমিন প্যানেল</a> <a href="admin-pages.html">পেজ ব্যবস্থাপনা</a></div>
+  </div>
+</div>
+
+<header id="siteHeader">
+  <div class="container navbar">
+    <a href="admin.html" class="brand" aria-label="অ্যাডমিন">
+      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
+      <div><div class="brand-name">DEEN</div><div class="brand-sub">ADMIN · TEACHERS</div></div>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="admin.html">অ্যাডমিন প্যানেল</a></li>
+      <li><a href="admin-teachers.html" class="active">শিক্ষক ও স্টাফ</a></li>
+      <li><a href="admin-pages.html">পেজ ব্যবস্থাপনা</a></li>
+      <li><a href="admin-events.html">ইভেন্ট ও নোটিশ</a></li>
+      <li><a href="#" id="logoutBtn" class="nav-cta">লগআউট</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container">
+    <div class="topline"></div>
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="empty">যাচাই হচ্ছে...</div>
+    <section class="card hide" id="denied"><h2>অনুমতি নেই</h2><p class="sub">এই পেজ শুধু সাইট অ্যাডমিন ব্যবহার করতে পারবেন।</p><a class="btn btn-dark btn-sm" href="login.html">লগইন পেজে যান</a></section>
+
+    <div id="app" class="hide">
+      <div class="tabbar" id="tabs"></div>
+
+      <!-- ১. শিক্ষক ও স্টাফ -->
+      <section class="card" id="t-people">
+        <h2 id="pFormTitle">নতুন শিক্ষক/স্টাফ যোগ করুন</h2>
+        <p class="sub">এখানে যোগ করা ইমেইল দিয়েই ওই ব্যক্তি নিজে অ্যাকাউন্ট খুলতে পারবেন (শিক্ষক পোর্টালের "প্রথমবার অ্যাকাউন্ট খুলুন")।</p>
+        <form id="pForm" novalidate>
+          <input type="hidden" id="pId">
+          <div class="frm">
+            <div><label class="lbl" for="pName">পূর্ণ নাম *</label><input class="inp" id="pName" maxlength="120"></div>
+            <div><label class="lbl" for="pRole">ধরন</label><select class="inp" id="pRole"><option>শিক্ষক</option><option>শিক্ষিকা</option><option>স্টাফ</option><option>প্রশাসনিক</option></select></div>
+            <div><label class="lbl" for="pDesig">পদবি</label><input class="inp" id="pDesig" maxlength="120" placeholder="যেমন: সিনিয়র শিক্ষক"></div>
+            <div><label class="lbl" for="pSubj">বিষয়</label><input class="inp" id="pSubj" maxlength="120"></div>
+            <div><label class="lbl" for="pEmail">লগইন ইমেইল *</label><input class="inp" id="pEmail" type="email"></div>
+            <div><label class="lbl" for="pPhone">মোবাইল</label><input class="inp" id="pPhone" placeholder="01XXXXXXXXX"></div>
+            <div><label class="lbl" for="pJoin">যোগদানের তারিখ</label><input class="inp" id="pJoin" type="date"></div>
+            <div><label class="lbl" for="pPhoto">ছবির লিংক (https://)</label><input class="inp" id="pPhoto" type="url"></div>
+            <div class="full"><label class="lbl" for="pAddr">ঠিকানা (ব্যক্তিগত)</label><input class="inp" id="pAddr" maxlength="300"></div>
+            <div class="full"><label class="lbl" for="pBio">পরিচিতি (সহকর্মীরা দেখবে)</label><textarea class="inp" id="pBio" maxlength="1500"></textarea></div>
+            <div class="full"><label class="lbl" for="pNotes">অ্যাডমিন নোট (শুধু আপনি দেখবেন)</label><textarea class="inp" id="pNotes" maxlength="2000"></textarea></div>
+            <div class="full"><label class="chk"><input type="checkbox" id="pActive" checked> সক্রিয় (পোর্টালে প্রবেশ করতে পারবেন)</label></div>
+          </div>
+          <div class="acts" style="margin-top:18px"><button class="btn btn-gold" type="submit" id="pSave">সংরক্ষণ করুন</button><button class="btn btn-light" type="button" id="pCancel">বাতিল</button></div>
+        </form>
+        <div class="hr"></div>
+        <div class="toolbar"><input class="inp" id="pSearch" type="search" placeholder="নাম, বিষয় বা ইমেইল দিয়ে খুঁজুন"></div>
+        <div id="pList"></div>
+        <div id="pDetail"></div>
+      </section>
+
+      <!-- ২. রিপোর্ট -->
+      <section class="card hide" id="t-reports">
+        <h2>প্রাতিষ্ঠানিক রিপোর্ট</h2>
+        <p class="sub">সব শিক্ষক/স্টাফের জমা রিপোর্ট। পর্যালোচনা করে মন্তব্য লিখুন ও "পর্যালোচিত" চিহ্নিত করুন।</p>
+        <div class="toolbar"><select class="inp" id="rFilter"><option value="">সব রিপোর্ট</option><option value="submitted">জমা হয়েছে</option><option value="reviewed">পর্যালোচিত</option></select></div>
+        <div id="rList"></div>
+      </section>
+
+      <!-- ৩. হাজিরা -->
+      <section class="card hide" id="t-att">
+        <h2>ক্লাস হাজিরা</h2>
+        <p class="sub">সব শিক্ষকের জমা হাজিরা রেকর্ড।</p>
+        <div class="toolbar"><input class="inp" id="aSearch" type="search" placeholder="ক্লাস বা শিক্ষকের নাম দিয়ে খুঁজুন"></div>
+        <div id="aList"></div>
+      </section>
+
+      <!-- ৪. মূল্যায়ন -->
+      <section class="card hide" id="t-eval">
+        <h2>মানোন্নয়ন ও মূল্যায়ন</h2>
+        <p class="sub">প্রতিটি শিক্ষক/স্টাফের জন্য মূল্যায়ন লিখুন। "প্রকাশ" চালু করলে শুধু সেই শিক্ষক নিজের মূল্যায়ন দেখবেন।</p>
+        <form id="eForm" novalidate>
+          <div class="frm">
+            <div><label class="lbl" for="eTeacher">শিক্ষক/স্টাফ *</label><select class="inp" id="eTeacher"></select></div>
+            <div><label class="lbl" for="ePeriod">সময়কাল (যেমন: নভেম্বর ২০২৬)</label><input class="inp" id="ePeriod" maxlength="60"></div>
+            <div><label class="lbl" for="eScore">স্কোর (১–১০) *</label><input class="inp" id="eScore" type="number" min="1" max="10"></div>
+            <div class="full"><label class="lbl" for="eStr">শক্তির দিক</label><textarea class="inp" id="eStr" maxlength="2000"></textarea></div>
+            <div class="full"><label class="lbl" for="eImp">উন্নয়নের পরামর্শ</label><textarea class="inp" id="eImp" maxlength="2000"></textarea></div>
+            <div class="full"><label class="chk"><input type="checkbox" id="ePub"> শিক্ষককে দেখান (প্রকাশ করুন)</label></div>
+          </div>
+          <div class="acts" style="margin-top:16px"><button class="btn btn-gold" type="submit" id="eSave">মূল্যায়ন সংরক্ষণ</button></div>
+        </form>
+        <div class="hr"></div>
+        <div id="eList"></div>
+      </section>
+
+      <!-- ৫. জরিপ -->
+      <section class="card hide" id="t-surv">
+        <h2>জরিপ ব্যবস্থাপনা</h2>
+        <p class="sub">নতুন জরিপ তৈরি করুন। প্রশ্ন প্রতি লাইনে লিখুন। ধরন: <b>|rating</b> (১–৫), <b>|text</b> (লেখা), অথবা <b>|choice:অপশন১;অপশন২</b>।</p>
+        <form id="sForm" novalidate>
+          <div class="frm">
+            <div class="full"><label class="lbl" for="sTitle">জরিপের শিরোনাম *</label><input class="inp" id="sTitle" maxlength="200"></div>
+            <div class="full"><label class="lbl" for="sDesc">বিবরণ</label><textarea class="inp" id="sDesc" maxlength="1500"></textarea></div>
+            <div class="full"><label class="lbl" for="sQs">প্রশ্নসমূহ *</label><textarea class="inp" id="sQs" style="min-height:160px" placeholder="পাঠদানের মান কেমন?|rating&#10;আপনার পরামর্শ কী?|text&#10;কোন বিষয়ে প্রশিক্ষণ দরকার?|choice:কম্পিউটার;প্রযুক্তি;ভাষা"></textarea></div>
+          </div>
+          <div class="acts" style="margin-top:16px"><button class="btn btn-gold" type="submit" id="sSave">জরিপ তৈরি করুন</button></div>
+        </form>
+        <div class="hr"></div>
+        <div id="sList"></div>
+        <div id="sResp"></div>
+      </section>
+
+      <!-- ৬. বার্তা নিরীক্ষা -->
+      <section class="card hide" id="t-chat">
+        <h2>বার্তা ও যোগাযোগ (নিরীক্ষা)</h2>
+        <p class="sub">সব শিক্ষকের বার্তা এখানে দেখা যাবে। প্রয়োজনে অবাঞ্ছিত বার্তা মুছে ফেলতে পারবেন।</p>
+        <div class="acts" style="margin-bottom:14px"><button class="btn btn-light btn-sm" id="cRefresh" type="button">রিফ্রেশ</button></div>
+        <div id="cList"></div>
+      </section>
+
+      <!-- ৭. সেটিংস -->
+      <section class="card hide" id="t-set">
+        <h2>পোর্টাল সেটিংস</h2>
+        <p class="sub">এখানে বদলালে শিক্ষক পোর্টালে সঙ্গে সঙ্গে প্রভাব পড়বে।</p>
+        <div class="frm">
+          <div class="full"><label class="chk"><input type="checkbox" id="sPortal"> পোর্টাল চালু (বন্ধ থাকলে শিক্ষকরা শুধু দেখতে পারবেন)</label></div>
+          <div class="full"><label class="chk"><input type="checkbox" id="sChat"> বার্তা ও যোগাযোগ চালু</label></div>
+          <div class="full"><label class="chk"><input type="checkbox" id="sRep"> রিপোর্ট জমা চালু</label></div>
+          <div class="full"><label class="chk"><input type="checkbox" id="sAtt"> হাজিরা জমা চালু</label></div>
+          <div class="full"><label class="chk"><input type="checkbox" id="sSurv"> জরিপে অংশগ্রহণ চালু</label></div>
+          <div class="full"><label class="lbl" for="sAnn">সবার জন্য ঘোষণা (পোর্টালের উপরে দেখাবে)</label><textarea class="inp" id="sAnn" maxlength="500"></textarea></div>
+          <div class="full"><label class="lbl" for="sTypes">রিপোর্টের ধরন (কমা দিয়ে আলাদা করুন)</label><input class="inp" id="sTypes" maxlength="400"></div>
+        </div>
+        <div class="acts" style="margin-top:16px"><button class="btn btn-gold" type="button" id="setSave">সেটিংস সংরক্ষণ</button></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Teachers Admin</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session || !(await D.isAdmin())) { $('denied').classList.remove('hide'); return; }
+  $('app').classList.remove('hide');
+  $('logoutBtn').addEventListener('click', async function (e) { e.preventDefault(); await sb.auth.signOut(); location.href = 'login.html'; });
+  var adminId = session.user.id;
+
+  var PEOPLE = [], REPORTS = [], ATT = [], EVALS = [], SURVEYS = [], MSGS = [];
+  var editingId = null;
+
+  function flash(t, ok) { D.show($('pageAlert'), ok ? 'ok' : 'bad', t); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  function fmtDate(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } }
+  function fmtDT(d) { try { return new Date(d).toLocaleString('bn-BD', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function nameOf(id) { var p = PEOPLE.filter(function (x) { return x.id === id; })[0]; return p ? p.full_name : '—'; }
+  function userNameOf(uidv) {
+    if (uidv === adminId) return 'প্রশাসন';
+    var p = PEOPLE.filter(function (x) { return x.user_id === uidv; })[0];
+    return p ? p.full_name : 'অজানা ব্যবহারকারী';
+  }
+
+  /* ---------- ট্যাব ---------- */
+  var TABS = [['t-people', 'শিক্ষক ও স্টাফ'], ['t-reports', 'রিপোর্ট'], ['t-att', 'হাজিরা'], ['t-eval', 'মূল্যায়ন'], ['t-surv', 'জরিপ'], ['t-chat', 'বার্তা নিরীক্ষা'], ['t-set', 'সেটিংস']];
+  $('tabs').innerHTML = TABS.map(function (t) { return '<button type="button" data-t="' + t[0] + '">' + t[1] + '</button>'; }).join('');
+  function showTab(id) {
+    TABS.forEach(function (t) { $(t[0]).classList.toggle('hide', t[0] !== id); });
+    document.querySelectorAll('#tabs button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-t') === id); });
+    history.replaceState(null, '', '#' + id);
+  }
+  $('tabs').addEventListener('click', function (e) { var b = e.target.closest('button[data-t]'); if (b) showTab(b.getAttribute('data-t')); });
+
+  /* =================== ১. শিক্ষক ও স্টাফ =================== */
+  async function loadPeople() {
+    var r = await sb.from('teachers').select('*, teacher_private(*)').order('full_name');
+    if (r.error) throw r.error;
+    PEOPLE = (r.data || []).map(function (t) {
+      var p = Array.isArray(t.teacher_private) ? (t.teacher_private[0] || {}) : (t.teacher_private || {});
+      return Object.assign({}, t, { email: p.email || '', phone: p.phone || '', address: p.address || '', cv_path: p.cv_path || '', admin_notes: p.admin_notes || '' });
+    });
+    renderPeople();
+    fillTeacherSelect();
+  }
+
+  function renderPeople() {
+    var q = $('pSearch').value.trim().toLowerCase();
+    var list = PEOPLE.filter(function (p) {
+      return !q || [p.full_name, p.subject, p.email, p.designation].join(' ').toLowerCase().indexOf(q) !== -1;
+    });
+    if (!list.length) { $('pList').innerHTML = '<p class="sub" style="padding:18px 0">কোনো শিক্ষক/স্টাফ নেই। উপরের ফর্ম দিয়ে যোগ করুন।</p>'; return; }
+    $('pList').innerHTML = list.map(function (p) {
+      var av = /^https:\/\//i.test(p.photo_url || '') ? '<img src="' + esc(p.photo_url) + '" alt="">' : esc((p.full_name || '?').charAt(0));
+      var linked = p.user_id ? '<span class="pill p-on">অ্যাকাউন্ট সক্রিয়</span>' : '<span class="pill p-sub">নিবন্ধন বাকি</span>';
+      return '<div class="row-i"><div class="av">' + av + '</div><div class="grow"><h4>' + esc(p.full_name) + '</h4>' +
+        '<div class="sm">' + esc(p.role_type) + (p.designation ? ' · ' + esc(p.designation) : '') + (p.subject ? ' · ' + esc(p.subject) : '') + '</div>' +
+        '<div class="sm">' + esc(p.email) + '</div>' +
+        '<div style="margin-top:6px"><span class="pill ' + (p.is_active ? 'p-on' : 'p-off') + '">' + (p.is_active ? 'সক্রিয়' : 'নিষ্ক্রিয়') + '</span>' + linked + '</div></div>' +
+        '<div class="acts"><button class="btn btn-dark" data-pa="view" data-id="' + p.id + '">সম্পূর্ণ ফাইল</button>' +
+        '<button class="btn btn-light" data-pa="edit" data-id="' + p.id + '">সম্পাদনা</button>' +
+        '<button class="btn btn-light" data-pa="toggle" data-id="' + p.id + '">' + (p.is_active ? 'নিষ্ক্রিয়' : 'সক্রিয়') + '</button>' +
+        '<button class="btn btn-danger" data-pa="del" data-id="' + p.id + '">মুছুন</button></div></div>';
+    }).join('');
+  }
+  $('pSearch').addEventListener('input', renderPeople);
+
+  function resetPerson() {
+    editingId = null;
+    $('pForm').reset();
+    $('pActive').checked = true;
+    $('pFormTitle').textContent = 'নতুন শিক্ষক/স্টাফ যোগ করুন';
+    $('pSave').textContent = 'সংরক্ষণ করুন';
+  }
+  $('pCancel').addEventListener('click', resetPerson);
+
+  $('pForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var name = $('pName').value.trim(), email = $('pEmail').value.trim(), phone = $('pPhone').value.trim();
+    var photo = $('pPhoto').value.trim();
+    if (name.length < 3) return flash('নাম কমপক্ষে ৩ অক্ষর হতে হবে।', false);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return flash('সঠিক লগইন ইমেইল দিন।', false);
+    if (phone && !/^01[3-9]\d{8}$/.test(phone)) return flash('মোবাইল নম্বর সঠিক নয়।', false);
+    if (photo && !/^https:\/\/\S+$/i.test(photo)) return flash('ছবির লিংক অবশ্যই https:// দিয়ে শুরু হতে হবে।', false);
+    var dup = PEOPLE.filter(function (p) { return p.email.toLowerCase() === email.toLowerCase() && p.id !== editingId; })[0];
+    if (dup) return flash('এই ইমেইল ইতিমধ্যে "' + dup.full_name + '"-এর নামে যুক্ত আছে।', false);
+
+    var tRow = {
+      full_name: name, role_type: $('pRole').value, designation: $('pDesig').value.trim(),
+      subject: $('pSubj').value.trim(), photo_url: photo, bio: $('pBio').value.trim(),
+      is_active: $('pActive').checked, joined_on: $('pJoin').value || null
+    };
+    var pRow = { email: email, phone: phone, address: $('pAddr').value.trim(), admin_notes: $('pNotes').value.trim() };
+    var btn = $('pSave'); btn.disabled = true;
+    try {
+      if (editingId) {
+        var a = await sb.from('teachers').update(tRow).eq('id', editingId); if (a.error) throw a.error;
+        var b2 = await sb.from('teacher_private').update(pRow).eq('teacher_id', editingId); if (b2.error) throw b2.error;
+        flash('তথ্য আপডেট হয়েছে।', true);
+      } else {
+        var ins = await sb.from('teachers').insert(tRow).select().single(); if (ins.error) throw ins.error;
+        pRow.teacher_id = ins.data.id;
+        var c = await sb.from('teacher_private').insert(pRow); if (c.error) throw c.error;
+        flash('নতুন শিক্ষক/স্টাফ যোগ হয়েছে। তিনি এখন "প্রথমবার অ্যাকাউন্ট খুলুন" থেকে নিবন্ধন করতে পারবেন।', true);
+      }
+      resetPerson();
+      await loadPeople();
+    } catch (err) { flash(D.errMsg(err), false); }
+    finally { btn.disabled = false; }
+  });
+
+  /* ---------- সম্পূর্ণ ফাইল (একজনের সব তথ্য) ---------- */
+  async function openFile(id) {
+    var p = PEOPLE.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+    var cv = '';
+    if (p.cv_path) cv = '<button class="btn btn-gold btn-sm" data-cv="' + esc(p.cv_path) + '">সিভি দেখুন</button>';
+    var reps = await sb.from('teacher_reports').select('*').eq('teacher_id', id).order('created_at', { ascending: false });
+    var att = await sb.from('teacher_attendance').select('*').eq('teacher_id', id).order('class_date', { ascending: false });
+    var ev = await sb.from('teacher_evaluations').select('*').eq('teacher_id', id).order('created_at', { ascending: false });
+    var sr = await sb.from('survey_responses').select('*, surveys(title)').eq('teacher_id', id).order('created_at', { ascending: false });
+    var msgRes = p.user_id ? await sb.from('messages').select('*').eq('channel', 'direct')
+      .or('sender_id.eq.' + p.user_id + ',recipient_id.eq.' + p.user_id).order('created_at', { ascending: false }).limit(50) : { data: [] };
+
+    var html = '<div class="detail"><div class="row-i" style="border:none;padding-top:0"><div class="av">' +
+      (/^https:\/\//i.test(p.photo_url || '') ? '<img src="' + esc(p.photo_url) + '" alt="">' : esc((p.full_name || '?').charAt(0))) +
+      '</div><div class="grow"><h4 style="font-size:20px">' + esc(p.full_name) + '</h4><div class="sm">' +
+      esc(p.role_type) + ' · ' + esc(p.designation) + ' · ' + esc(p.subject) + '</div></div>' +
+      '<div class="acts">' + cv + '<button class="btn btn-light btn-sm" data-close="1">বন্ধ করুন</button></div></div>' +
+
+      '<div class="sec-t">ব্যক্তিগত তথ্য (শুধু অ্যাডমিন)</div>' +
+      '<table class="tbl"><tr><th>লগইন ইমেইল</th><td>' + esc(p.email) + '</td></tr>' +
+      '<tr><th>মোবাইল</th><td>' + esc(p.phone || '—') + '</td></tr>' +
+      '<tr><th>ঠিকানা</th><td>' + esc(p.address || '—') + '</td></tr>' +
+      '<tr><th>যোগদান</th><td>' + esc(p.joined_on ? fmtDate(p.joined_on) : '—') + '</td></tr>' +
+      '<tr><th>অ্যাকাউন্ট</th><td>' + (p.user_id ? 'সক্রিয় (নিবন্ধিত)' : 'এখনো নিবন্ধন হয়নি') + '</td></tr>' +
+      '<tr><th>অ্যাডমিন নোট</th><td class="pre">' + esc(p.admin_notes || '—') + '</td></tr></table>' +
+
+      '<div class="sec-t">পরিচিতি</div><div class="pre">' + esc(p.bio || '—') + '</div>' +
+
+      '<div class="sec-t">রিপোর্ট (' + (reps.data || []).length + ')</div>' +
+      ((reps.data || []).length ? '<table class="tbl"><tr><th>তারিখ</th><th>ধরন</th><th>শিরোনাম</th><th>অবস্থা</th></tr>' +
+        reps.data.map(function (r) { return '<tr><td>' + esc(fmtDate(r.report_date)) + '</td><td>' + esc(r.report_type) + '</td><td>' + esc(r.title) + '</td><td>' + (r.status === 'reviewed' ? 'পর্যালোচিত' : 'জমা') + '</td></tr>'; }).join('') + '</table>' : '<div class="sm">কোনো রিপোর্ট নেই।</div>') +
+
+      '<div class="sec-t">হাজিরা (' + (att.data || []).length + ')</div>' +
+      ((att.data || []).length ? '<table class="tbl"><tr><th>তারিখ</th><th>ক্লাস</th><th>মোট</th><th>উপস্থিত</th><th>অনুপস্থিত</th></tr>' +
+        att.data.map(function (a) { return '<tr><td>' + esc(fmtDate(a.class_date)) + '</td><td>' + esc(a.class_name) + '</td><td>' + a.total_students + '</td><td>' + a.present_count + '</td><td>' + a.absent_count + '</td></tr>'; }).join('') + '</table>' : '<div class="sm">কোনো হাজিরা নেই।</div>') +
+
+      '<div class="sec-t">মূল্যায়ন (' + (ev.data || []).length + ')</div>' +
+      ((ev.data || []).length ? ev.data.map(function (x) { return '<div class="sm" style="margin-bottom:8px"><b>' + esc(x.period) + '</b> · স্কোর ' + x.score + '/১০ · ' + (x.is_published ? 'প্রকাশিত' : 'গোপন') + '</div>'; }).join('') : '<div class="sm">কোনো মূল্যায়ন নেই।</div>') +
+
+      '<div class="sec-t">জরিপের উত্তর (' + (sr.data || []).length + ')</div>' +
+      ((sr.data || []).length ? sr.data.map(function (x) { return '<div class="sm" style="margin-bottom:8px"><b>' + esc(x.surveys ? x.surveys.title : 'জরিপ') + '</b> · ' + esc(fmtDate(x.created_at)) + '<div class="pre">' + esc(JSON.stringify(x.answers)) + '</div></div>'; }).join('') : '<div class="sm">কোনো উত্তর নেই।</div>') +
+
+      '<div class="sec-t">সর্বশেষ বার্তা (' + (msgRes.data || []).length + ')</div>' +
+      ((msgRes.data || []).length ? (msgRes.data).map(function (m) {
+        return '<div class="sm" style="margin-bottom:8px"><b>' + esc(userNameOf(m.sender_id)) + '</b> → ' + esc(m.recipient_id ? userNameOf(m.recipient_id) : 'সবাই') +
+          ' · ' + esc(fmtDT(m.created_at)) + '<div class="pre">' + esc(m.body || '') + (m.attachment_path ? ' [ফাইল: ' + esc(m.attachment_name) + ']' : '') + '</div></div>';
+      }).join('') : '<div class="sm">কোনো বার্তা নেই।</div>') +
+
+      (p.user_id ? '<div class="sec-t">বার্তা পাঠান</div><div class="toolbar"><input class="inp" id="dmText" maxlength="2000" placeholder="বার্তা লিখুন"><button class="btn btn-gold" data-dm="' + esc(p.user_id) + '">পাঠান</button></div>' : '') +
+      '</div>';
+    $('pDetail').innerHTML = html;
+    window.scrollTo({ top: $('pDetail').offsetTop - 90, behavior: 'smooth' });
+  }
+
+  $('pDetail').addEventListener('click', async function (e) {
+    var cv = e.target.closest('button[data-cv]');
+    if (cv) {
+      var s = await sb.storage.from('teacher-files').createSignedUrl(cv.getAttribute('data-cv'), 300);
+      if (s.error) return flash(D.errMsg(s.error), false);
+      window.open(s.data.signedUrl, '_blank', 'noopener'); return;
+    }
+    if (e.target.closest('button[data-close]')) { $('pDetail').innerHTML = ''; return; }
+    var dm = e.target.closest('button[data-dm]');
+    if (dm) {
+      var txt = $('dmText').value.trim();
+      if (!txt) return flash('বার্তা লিখুন।', false);
+      var r = await sb.from('messages').insert({ channel: 'direct', sender_id: adminId, recipient_id: dm.getAttribute('data-dm'), body: txt });
+      if (r.error) return flash(D.errMsg(r.error), false);
+      flash('বার্তা পাঠানো হয়েছে।', true);
+      openFile(PEOPLE.filter(function (x) { return x.user_id === dm.getAttribute('data-dm'); })[0].id);
+    }
+  });
+
+  $('pList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-pa]'); if (!b) return;
+    var act = b.getAttribute('data-pa'), id = b.getAttribute('data-id');
+    var p = PEOPLE.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+    try {
+      if (act === 'view') return openFile(id);
+      if (act === 'edit') {
+        editingId = id;
+        $('pName').value = p.full_name; $('pRole').value = p.role_type; $('pDesig').value = p.designation || '';
+        $('pSubj').value = p.subject || ''; $('pEmail').value = p.email; $('pPhone').value = p.phone || '';
+        $('pJoin').value = p.joined_on || ''; $('pPhoto').value = p.photo_url || ''; $('pAddr').value = p.address || '';
+        $('pBio').value = p.bio || ''; $('pNotes').value = p.admin_notes || ''; $('pActive').checked = !!p.is_active;
+        $('pFormTitle').textContent = 'তথ্য সম্পাদনা: ' + p.full_name;
+        $('pSave').textContent = 'আপডেট করুন';
+        window.scrollTo({ top: $('pForm').offsetTop - 90, behavior: 'smooth' });
+        return;
+      }
+      if (act === 'toggle') {
+        var r1 = await sb.from('teachers').update({ is_active: !p.is_active }).eq('id', id); if (r1.error) throw r1.error;
+        flash(p.is_active ? 'অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে।' : 'অ্যাকাউন্ট সক্রিয় করা হয়েছে।', true);
+      }
+      if (act === 'del') {
+        if (!confirm('"' + p.full_name + '" এবং তার সব রেকর্ড স্থায়ীভাবে মুছে যাবে। নিশ্চিত?')) return;
+        var r2 = await sb.from('teachers').delete().eq('id', id); if (r2.error) throw r2.error;
+        flash('মুছে ফেলা হয়েছে।', true);
+        $('pDetail').innerHTML = '';
+      }
+      await loadPeople();
+    } catch (err) { flash(D.errMsg(err), false); }
+  });
+
+  /* =================== ২. রিপোর্ট =================== */
+  async function loadReports() {
+    var r = await sb.from('teacher_reports').select('*').order('created_at', { ascending: false });
+    REPORTS = r.data || []; renderReports();
+  }
+  function renderReports() {
+    var f = $('rFilter').value;
+    var list = REPORTS.filter(function (x) { return !f || x.status === f; });
+    if (!list.length) { $('rList').innerHTML = '<p class="sub" style="padding:14px 0">কোনো রিপোর্ট নেই।</p>'; return; }
+    $('rList').innerHTML = list.map(function (x) {
+      return '<div class="row-i" style="display:block"><div><span class="pill ' + (x.status === 'reviewed' ? 'p-rev' : 'p-sub') + '">' + (x.status === 'reviewed' ? 'পর্যালোচিত' : 'জমা হয়েছে') + '</span>' +
+        '<b>' + esc(nameOf(x.teacher_id)) + '</b> · <span class="sm">' + esc(x.report_type) + ' · ' + esc(fmtDate(x.report_date)) + '</span></div>' +
+        '<h4 style="margin:6px 0;color:var(--green)">' + esc(x.title) + '</h4><div class="pre sm" style="font-size:13.5px;color:var(--ink)">' + esc(x.body) + '</div>' +
+        '<div class="toolbar" style="margin-top:10px"><input class="inp" data-note="' + x.id + '" value="' + esc(x.admin_note || '') + '" maxlength="1000" placeholder="মন্তব্য (ঐচ্ছিক)">' +
+        '<button class="btn btn-gold btn-sm" data-rv="' + x.id + '">পর্যালোচিত হিসেবে সংরক্ষণ</button></div></div>';
+    }).join('');
+  }
+  $('rFilter').addEventListener('change', renderReports);
+  $('rList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-rv]'); if (!b) return;
+    var id = b.getAttribute('data-rv');
+    var note = document.querySelector('input[data-note="' + id + '"]').value.trim();
+    var r = await sb.from('teacher_reports').update({ status: 'reviewed', admin_note: note }).eq('id', id);
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('রিপোর্ট পর্যালোচিত হিসেবে সংরক্ষিত হয়েছে।', true);
+    loadReports();
+  });
+
+  /* =================== ৩. হাজিরা =================== */
+  async function loadAtt() {
+    var r = await sb.from('teacher_attendance').select('*').order('class_date', { ascending: false }).limit(500);
+    ATT = r.data || []; renderAtt();
+  }
+  function renderAtt() {
+    var q = $('aSearch').value.trim().toLowerCase();
+    var list = ATT.filter(function (x) { return !q || (x.class_name + ' ' + nameOf(x.teacher_id)).toLowerCase().indexOf(q) !== -1; });
+    if (!list.length) { $('aList').innerHTML = '<p class="sub" style="padding:14px 0">কোনো হাজিরা নেই।</p>'; return; }
+    $('aList').innerHTML = '<table class="tbl"><tr><th>তারিখ</th><th>শিক্ষক</th><th>ক্লাস</th><th>মোট</th><th>উপস্থিত</th><th>অনুপস্থিত</th><th>হাজিরা</th></tr>' +
+      list.map(function (a) {
+        var pct = a.total_students ? Math.round(a.present_count * 100 / a.total_students) : 0;
+        return '<tr><td>' + esc(fmtDate(a.class_date)) + '</td><td>' + esc(nameOf(a.teacher_id)) + '</td><td>' + esc(a.class_name) + '</td><td>' + a.total_students + '</td><td>' + a.present_count + '</td><td>' + a.absent_count + '</td><td>' + pct + '%</td></tr>';
+      }).join('') + '</table>';
+  }
+  $('aSearch').addEventListener('input', renderAtt);
+
+  /* =================== ৪. মূল্যায়ন =================== */
+  function fillTeacherSelect() {
+    $('eTeacher').innerHTML = PEOPLE.map(function (p) { return '<option value="' + p.id + '">' + esc(p.full_name) + '</option>'; }).join('');
+  }
+  async function loadEvals() {
+    var r = await sb.from('teacher_evaluations').select('*').order('created_at', { ascending: false });
+    EVALS = r.data || []; renderEvals();
+  }
+  function renderEvals() {
+    if (!EVALS.length) { $('eList').innerHTML = '<p class="sub">এখনো কোনো মূল্যায়ন নেই।</p>'; return; }
+    $('eList').innerHTML = EVALS.map(function (x) {
+      return '<div class="row-i"><div class="grow"><h4>' + esc(nameOf(x.teacher_id)) + ' — ' + esc(x.period) + ' (স্কোর ' + x.score + '/১০)</h4>' +
+        '<div class="sm">' + esc(x.strengths || '') + (x.improvements ? ' · পরামর্শ: ' + esc(x.improvements) : '') + '</div></div>' +
+        '<div class="acts"><span class="pill ' + (x.is_published ? 'p-on' : 'p-off') + '">' + (x.is_published ? 'প্রকাশিত' : 'গোপন') + '</span>' +
+        '<button class="btn btn-light" data-ev="pub" data-id="' + x.id + '">' + (x.is_published ? 'গোপন' : 'প্রকাশ') + '</button>' +
+        '<button class="btn btn-danger" data-ev="del" data-id="' + x.id + '">মুছুন</button></div></div>';
+    }).join('');
+  }
+  $('eForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var score = Number($('eScore').value), per = $('ePeriod').value.trim();
+    if (!$('eTeacher').value) return flash('শিক্ষক বাছুন।', false);
+    if (per.length < 2) return flash('সময়কাল লিখুন।', false);
+    if (!(score >= 1 && score <= 10)) return flash('স্কোর ১ থেকে ১০-এর মধ্যে হতে হবে।', false);
+    var r = await sb.from('teacher_evaluations').insert({ teacher_id: $('eTeacher').value, period: per, score: score,
+      strengths: $('eStr').value.trim(), improvements: $('eImp').value.trim(), is_published: $('ePub').checked });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    $('eForm').reset(); flash('মূল্যায়ন সংরক্ষিত হয়েছে।', true); loadEvals();
+  });
+  $('eList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-ev]'); if (!b) return;
+    var id = b.getAttribute('data-id'), x = EVALS.filter(function (y) { return String(y.id) === id; })[0];
+    if (!x) return;
+    var r = b.getAttribute('data-ev') === 'pub'
+      ? await sb.from('teacher_evaluations').update({ is_published: !x.is_published }).eq('id', id)
+      : (confirm('এই মূল্যায়ন মুছে যাবে। নিশ্চিত?') ? await sb.from('teacher_evaluations').delete().eq('id', id) : { error: null });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    loadEvals();
+  });
+
+  /* =================== ৫. জরিপ =================== */
+  function parseQuestions(text) {
+    return text.split('\n').map(function (l) { return l.trim(); }).filter(Boolean).map(function (line, i) {
+      var parts = line.split('|');
+      var q = { id: 'q' + (i + 1), text: parts[0].trim(), type: 'text' };
+      var t = (parts[1] || 'text').trim();
+      if (t.indexOf('choice:') === 0) { q.type = 'choice'; q.options = t.slice(7).split(';').map(function (o) { return o.trim(); }).filter(Boolean); }
+      else if (t === 'rating') q.type = 'rating';
+      return q;
+    }).filter(function (q) { return q.text; });
+  }
+  async function loadSurveys() {
+    var r = await sb.from('surveys').select('*').order('created_at', { ascending: false });
+    SURVEYS = r.data || [];
+    $('sList').innerHTML = SURVEYS.length ? SURVEYS.map(function (s) {
+      return '<div class="row-i"><div class="grow"><h4>' + esc(s.title) + '</h4><div class="sm">' + ((s.questions || []).length) + ' টি প্রশ্ন · ' + esc(fmtDate(s.created_at)) + '</div></div>' +
+        '<div class="acts"><span class="pill ' + (s.is_open ? 'p-on' : 'p-off') + '">' + (s.is_open ? 'খোলা' : 'বন্ধ') + '</span>' +
+        '<button class="btn btn-light" data-sv="toggle" data-id="' + s.id + '">' + (s.is_open ? 'বন্ধ করুন' : 'খুলুন') + '</button>' +
+        '<button class="btn btn-dark" data-sv="resp" data-id="' + s.id + '">উত্তর দেখুন</button>' +
+        '<button class="btn btn-danger" data-sv="del" data-id="' + s.id + '">মুছুন</button></div></div>';
+    }).join('') : '<p class="sub">এখনো কোনো জরিপ নেই।</p>';
+  }
+  $('sForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var title = $('sTitle').value.trim(), qs = parseQuestions($('sQs').value);
+    if (title.length < 3) return flash('জরিপের শিরোনাম লিখুন।', false);
+    if (!qs.length) return flash('অন্তত একটি প্রশ্ন লিখুন।', false);
+    var r = await sb.from('surveys').insert({ title: title, description: $('sDesc').value.trim(), questions: qs, is_open: true });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    $('sForm').reset(); flash('জরিপ তৈরি হয়েছে এবং শিক্ষকদের জন্য খোলা।', true); loadSurveys();
+  });
+  $('sList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-sv]'); if (!b) return;
+    var act = b.getAttribute('data-sv'), id = b.getAttribute('data-id');
+    var s = SURVEYS.filter(function (x) { return String(x.id) === id; })[0]; if (!s) return;
+    if (act === 'resp') return showResponses(s);
+    var r;
+    if (act === 'toggle') r = await sb.from('surveys').update({ is_open: !s.is_open }).eq('id', id);
+    if (act === 'del') { if (!confirm('জরিপ ও এর সব উত্তর মুছে যাবে। নিশ্চিত?')) return; r = await sb.from('surveys').delete().eq('id', id); }
+    if (r && r.error) return flash(D.errMsg(r.error), false);
+    loadSurveys();
+  });
+  async function showResponses(s) {
+    var r = await sb.from('survey_responses').select('*').eq('survey_id', s.id).order('created_at', { ascending: false });
+    var rows = r.data || [];
+    var qs = s.questions || [];
+    var head = '<tr><th>শিক্ষক/স্টাফ</th><th>তারিখ</th>' + qs.map(function (q) { return '<th>' + esc(q.text) + '</th>'; }).join('') + '</tr>';
+    var body = rows.map(function (x) {
+      return '<tr><td>' + esc(nameOf(x.teacher_id)) + '</td><td>' + esc(fmtDate(x.created_at)) + '</td>' +
+        qs.map(function (q) { return '<td>' + esc((x.answers || {})[q.id] || '') + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    var summary = '';
+    qs.forEach(function (q) {
+      if (q.type !== 'rating') return;
+      var vals = rows.map(function (x) { return Number((x.answers || {})[q.id]); }).filter(function (n) { return n >= 1; });
+      var avg = vals.length ? (vals.reduce(function (a, b) { return a + b; }, 0) / vals.length).toFixed(2) : '—';
+      summary += '<div class="sm" style="margin-bottom:6px"><b>' + esc(q.text) + '</b> · গড় স্কোর: ' + avg + ' (' + vals.length + ' জন)</div>';
+    });
+    $('sResp').innerHTML = '<div class="detail"><div class="row-i" style="border:none;padding-top:0"><div class="grow"><h4>' + esc(s.title) + ' — উত্তর (' + rows.length + ')</h4></div>' +
+      '<button class="btn btn-light btn-sm" onclick="document.getElementById(\'sResp\').innerHTML=\'\'">বন্ধ করুন</button></div>' +
+      (summary ? '<div class="sec-t">সারসংক্ষেপ</div>' + summary : '') +
+      '<div class="sec-t">বিস্তারিত উত্তর</div><div style="overflow-x:auto"><table class="tbl">' + head + body + '</table></div></div>';
+    window.scrollTo({ top: $('sResp').offsetTop - 90, behavior: 'smooth' });
+  }
+
+  /* =================== ৬. বার্তা নিরীক্ষা =================== */
+  async function loadMsgs() {
+    var r = await sb.from('messages').select('*').order('created_at', { ascending: false }).limit(200);
+    MSGS = r.data || [];
+    $('cList').innerHTML = MSGS.length ? '<table class="tbl"><tr><th>সময়</th><th>ধরন</th><th>প্রেরক</th><th>প্রাপক</th><th>বার্তা</th><th></th></tr>' +
+      MSGS.map(function (m) {
+        return '<tr><td>' + esc(fmtDT(m.created_at)) + '</td><td>' + (m.channel === 'group' ? 'গ্রুপ' : 'ব্যক্তিগত') + '</td><td>' + esc(userNameOf(m.sender_id)) +
+          '</td><td>' + (m.recipient_id ? esc(userNameOf(m.recipient_id)) : 'সবাই') + '</td><td>' + esc(m.body || '') + (m.attachment_path ? ' 📎' : '') +
+          '</td><td><button class="btn btn-danger btn-sm" data-msg="' + m.id + '">মুছুন</button></td></tr>';
+      }).join('') + '</table>' : '<p class="sub">কোনো বার্তা নেই।</p>';
+  }
+  $('cRefresh').addEventListener('click', loadMsgs);
+  $('cList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-msg]'); if (!b) return;
+    if (!confirm('এই বার্তা মুছে যাবে। নিশ্চিত?')) return;
+    var r = await sb.from('messages').delete().eq('id', b.getAttribute('data-msg'));
+    if (r.error) return flash(D.errMsg(r.error), false);
+    loadMsgs();
+  });
+
+  /* =================== ৭. সেটিংস =================== */
+  var PS = null;
+  async function loadSettings() {
+    var r = await sb.from('portal_settings').select('*').eq('id', 1).single();
+    if (r.error) throw r.error; PS = r.data;
+    $('sPortal').checked = PS.portal_open; $('sChat').checked = PS.chat_enabled; $('sRep').checked = PS.reports_enabled;
+    $('sAtt').checked = PS.attendance_enabled; $('sSurv').checked = PS.surveys_enabled;
+    $('sAnn').value = PS.announcement || ''; $('sTypes').value = PS.report_types || '';
+  }
+  $('setSave').addEventListener('click', async function () {
+    var types = $('sTypes').value.trim();
+    if (!types) return flash('অন্তত একটি রিপোর্টের ধরন লিখুন।', false);
+    var r = await sb.from('portal_settings').update({
+      portal_open: $('sPortal').checked, chat_enabled: $('sChat').checked, reports_enabled: $('sRep').checked,
+      attendance_enabled: $('sAtt').checked, surveys_enabled: $('sSurv').checked,
+      announcement: $('sAnn').value.trim(), report_types: types, updated_at: new Date().toISOString()
+    }).eq('id', 1);
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('পোর্টাল সেটিংস সংরক্ষিত হয়েছে। শিক্ষক পোর্টালে এখনই প্রভাব পড়বে।', true);
+  });
+
+  /* ---------- শুরু ---------- */
+  try {
+    await Promise.all([loadPeople(), loadReports(), loadAtt(), loadEvals(), loadSurveys(), loadMsgs(), loadSettings()]);
+  } catch (err) { flash('তথ্য লোড করা যায়নি: ' + D.errMsg(err), false); }
+  var start = (location.hash || '').replace('#', '');
+  showTab(TABS.some(function (t) { return t[0] === start; }) ? start : 't-people');
+})();
+</script>
+</body>
+</html>
