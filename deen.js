@@ -46,7 +46,8 @@
     { label: 'শিক্ষক ও স্টাফ', href: 'admin-teachers.html' },
     { label: 'কন্টেন্ট', items: [
       ['admin-pages.html', 'পেজ ব্যবস্থাপনা'],
-      ['admin-events.html', 'ইভেন্ট ও নোটিশ']
+      ['admin-events.html', 'ইভেন্ট ও নোটিশ'],
+      ['admin-learning.html', 'শিক্ষা ও পরীক্ষা']
     ]},
     { label: 'ওয়েবসাইট দেখুন', href: 'index.html' },
     { label: 'লগআউট', href: '#', id: 'logoutBtn', cls: 'nav-cta' }
