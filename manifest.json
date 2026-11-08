@@ -1,0 +1,29 @@
+
+{
+  "id": "./",
+  "name": "DEEN — Dawah Education & E-learning Nexus",
+  "short_name": "DEEN",
+  "description": "Knowledge Changes Lives",
+  "lang": "bn",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#faf8f1",
+  "theme_color": "#062b23",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "./images/logo.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
