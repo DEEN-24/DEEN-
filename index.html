@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#062b23">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./images/logo.jpg">
 <title>DEEN | Dawah Education & E-learning Nexus — Knowledge Changes Lives</title>
 <meta name="description" content="DEEN — খাঁটি ইসলামী জ্ঞান, আধুনিক শিক্ষা ও প্রযুক্তির সমন্বয়ে ৩০টি কোর্স। Knowledge Changes Lives.">
 <meta property="og:title" content="DEEN — Knowledge Changes Lives">
@@ -845,5 +847,17 @@ html.js .reveal.in{opacity:1;transform:none}
 })();
 </script>
 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js", {
+      scope: "./"
+    }).catch(function (error) {
+      console.error("DEEN PWA Error:", error);
+    });
+  });
+}
+</script>  
+  
 </body>
 </html>
