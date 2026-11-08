@@ -11,142 +11,122 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="deen.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .frm .full{grid-column:1/-1}
+  .tabs2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  .tabs2 button{border:1px solid #d8d7ca;background:#fff;color:var(--green);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14.5px}
+  .tabs2 button.on{background:var(--green);color:var(--gold-2);border-color:var(--green)}
+  .pane{display:none}.pane.on{display:block;animation:fadeUp .4s var(--ease) both}
+  .item{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid #efece2;flex-wrap:wrap}
+  .item:last-child{border-bottom:none}
+  .ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,#edf2e9,#f8f1de);flex-shrink:0}
+  .grow{flex:1;min-width:200px}
+  .grow h4{color:var(--green);font-size:16px;margin-bottom:3px}
+  .sm{font-size:13px;color:var(--muted);line-height:1.6}
+  .video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;margin:10px 0 6px}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .p-ok{background:#e3f4ea;color:#1b6b43}.p-no{background:#fbe6e3;color:#8e2f25}.p-wait{background:#fbf0d9;color:#7a5410}.p-info{background:#e6eefb;color:#1d4a80}
+  .exam-top{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+  .timer{font-family:'Playfair Display',serif;font-size:28px;color:var(--green);font-variant-numeric:tabular-nums;background:#f3f8f4;border:1px solid #cfe3d6;border-radius:14px;padding:8px 16px}
+  .timer.low{color:#8e2f25;background:#fdf0ee;border-color:#f0c8c2}
+  .qnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .qnav button{width:40px;height:40px;border-radius:12px;border:1px solid #d8d7ca;background:#fff;color:var(--green);font-weight:700}
+  .qnav button.done{background:#e3f4ea;border-color:#bfe0cd}
+  .qnav button.cur{background:var(--green);color:var(--gold-2);border-color:var(--green)}
+  .qcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:var(--shadow-sm)}
+  .qtext{font-size:17px;line-height:1.8;color:var(--ink);margin-bottom:16px}
+  .opt{display:flex;gap:12px;align-items:center;padding:14px 16px;border:1px solid #d8d7ca;border-radius:14px;margin-bottom:10px;cursor:pointer;background:#fdfcf8;transition:.25s}
+  .opt:hover{border-color:var(--gold)}
+  .opt.sel{border-color:var(--green);background:#f1f6f3;box-shadow:0 0 0 3px rgba(6,43,35,.1)}
+  .opt input{accent-color:var(--green);width:18px;height:18px}
+  .empty{color:var(--muted);text-align:center;padding:30px}
+  @media(max-width:620px){.frm{grid-template-columns:1fr}.qcard{padding:18px}}
+</style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="container topbar-inner">
     <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
-    <div class="top-links">
-      <a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
+    <div class="top-links"><a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a></div>
   </div>
 </div>
+<header id="siteHeader"></header>
 
-<header id="siteHeader">
-  <div class="container navbar">
-    <a href="index.html" class="brand" aria-label="DEEN হোম">
-      <img src="images/logo.jpg" alt="DEEN Logo" onerror="this.style.display='none'">
-      <div>
-        <div class="brand-name">DEEN</div>
-        <div class="brand-sub">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>
-      </div>
-    </a>
-    <button class="menu-toggle" id="menuToggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="navMenu">☰</button>
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="index.html">হোম</a></li>
-      <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-      <li><a href="Courses.html">একাডেমিক ও কোর্সসমূহ</a></li>
-      <li><a href="departments.html">বিভাগসমূহ</a></li>
-      <li><a href="quran.html">আল-কুরআন</a></li>
-      <li><a href="hadith.html">হাদীস</a></li>
-      <li><a href="blog.html">ব্লগ ও প্রকাশনা</a></li>
-      <li><a href="events.html">ইভেন্ট ও নোটিশ</a></li>
-      <li><a href="gallery.html">গ্যালারি</a></li>
-      <li><a href="contact.html">যোগাযোগ</a></li>
-      <li><a href="donate.html">সহযোগিতা</a></li>
-      <li><a href="login.html" class="nav-cta active" id="navLogin">শিক্ষার্থী লগইন</a></li>
-    </ul>
-  </div>
-</header>
-
-<main class="page">
+<main class="page" style="padding-top:36px">
   <div class="container">
-    <div class="topline"></div>
-
-    <div class="row-between" style="margin-bottom:24px">
-      <div>
-        <div class="eyebrow">STUDENT DASHBOARD</div>
-        <h1 class="h1" id="welcome">স্বাগতম</h1>
-      </div>
-      <button class="btn btn-light btn-sm" id="logoutBtn" type="button">লগআউট</button>
-    </div>
-
     <div class="alert" id="pageAlert" role="status"></div>
-
     <div id="loading" class="empty">তথ্য লোড হচ্ছে...</div>
 
-    <!-- No linked application -->
-    <section class="card reveal hide" id="noApp" aria-labelledby="h-noapp">
-      <h2 id="h-noapp">আপনার অ্যাকাউন্টে কোনো ভর্তি যুক্ত নেই</h2>
-      <p class="sub">আপনি যদি ভর্তির আবেদন করে পেমেন্ট ও অনুমোদন সম্পন্ন করে থাকেন, তাহলে আবেদন নম্বরটি নিচে দিয়ে যুক্ত করুন। না থাকলে আগে আবেদন করুন।</p>
+    <section class="card hide" id="noApp">
+      <h2>আপনার অ্যাকাউন্টে কোনো ভর্তি যুক্ত নেই</h2>
+      <p class="sub">ভর্তির আবেদন অনুমোদিত হলে আবেদন নম্বর দিয়ে এখানে যুক্ত করুন।</p>
       <form id="linkForm" class="row" novalidate>
-        <input id="linkCode" type="text" placeholder="DEEN-2026-XXXXXX" autocomplete="off"
-          style="flex:1;min-width:220px;padding:13px 15px;border:1px solid #d8d7ca;border-radius:13px;text-transform:uppercase">
+        <input class="inp" id="linkCode" placeholder="DEEN-2026-XXXXXX" style="flex:1;min-width:220px;text-transform:uppercase">
         <button class="btn btn-gold" type="submit">যুক্ত করুন</button>
       </form>
       <div class="alert" id="linkAlert" role="status"></div>
-      <div class="row" style="margin-top:18px">
-        <a class="btn btn-dark btn-sm" href="apply.html">ভর্তির আবেদন করুন</a>
-      </div>
+      <div style="margin-top:18px"><a class="btn btn-dark btn-sm" href="apply.html">ভর্তির আবেদন করুন</a></div>
     </section>
 
-    <!-- Application present -->
-    <div id="appArea" class="hide">
-      <div class="grid-2">
-        <section class="card card-dark reveal" aria-labelledby="h-course">
-          <h2 id="h-course">আমার কোর্স</h2>
-          <p class="sub" id="courseTitle">-</p>
-          <div class="kv" style="background:transparent">
-            <div style="background:rgba(255,255,255,.07);color:#fff"><small style="color:#cfd9d1">আবেদন নম্বর</small><strong id="appCode" style="color:var(--gold-2)">-</strong></div>
-            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">অবস্থা</small><span id="appStatus"></span></div>
-            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">মেয়াদ</small><strong id="appMonths" style="color:#fff">-</strong></div>
-            <div style="background:rgba(255,255,255,.07)"><small style="color:#cfd9d1">পেমেন্ট ধরন</small><strong id="appType" style="color:#fff">-</strong></div>
-          </div>
-        </section>
+    <section class="card hide" id="notReady">
+      <h2>আপনার ভর্তি প্রক্রিয়াধীন</h2>
+      <p class="sub" id="nrText"></p>
+      <a class="btn btn-dark btn-sm" href="apply.html">আবেদনের অবস্থা দেখুন</a>
+    </section>
 
-        <section class="card reveal" aria-labelledby="h-prof">
-          <h2 id="h-prof">আমার তথ্য</h2>
-          <p class="sub">এই তথ্য আবেদনের সময় দেওয়া হয়েছিল।</p>
-          <div class="kv">
-            <div><small>নাম</small><strong id="pName">-</strong></div>
-            <div><small>মোবাইল</small><strong id="pPhone">-</strong></div>
-            <div style="grid-column:1/-1"><small>ইমেইল</small><strong id="pEmail">-</strong></div>
-          </div>
-          <div class="hr"></div>
-          <div id="statusHint" class="alert info show" style="margin-top:0"></div>
-        </section>
+    <section class="card hide" id="feeGate">
+      <h2>অ্যাকাউন্ট ফি পরিশোধ করুন</h2>
+      <p class="sub">কোর্সের পাঠ্যসামগ্রী ও পরীক্ষা খুলতে প্রথমবার অ্যাকাউন্ট ফি দিতে হবে। নিচের যেকোনো নম্বরে Send Money করে Transaction ID দিন।</p>
+      <div id="feeInfo" style="margin-bottom:18px"></div>
+      <div id="feeWait" class="alert info show hide">আপনার অ্যাকাউন্ট ফি জমা হয়েছে। যাচাই শেষ হলে এখানে প্রবেশ খুলবে।</div>
+      <form id="feeForm" class="frm" novalidate>
+        <div><label class="lbl" for="fMethod">মাধ্যম</label><select class="inp" id="fMethod"><option value="bkash">বিকাশ</option><option value="nagad">নগদ</option></select></div>
+        <div><label class="lbl" for="fSender">যে নম্বর থেকে পাঠিয়েছেন</label><input class="inp" id="fSender" placeholder="01XXXXXXXXX"></div>
+        <div><label class="lbl" for="fTrx">Transaction ID (TrxID)</label><input class="inp" id="fTrx" autocomplete="off"></div>
+        <div><label class="lbl" for="fAmt">পরিমাণ (৳)</label><input class="inp" id="fAmt" type="number" min="1"></div>
+        <div class="full"><label class="lbl" for="fDate">পেমেন্টের তারিখ</label><input class="inp" id="fDate" type="date"></div>
+        <div class="full"><button class="btn btn-gold btn-block" type="submit" id="fBtn">ফি জমা দিন</button></div>
+      </form>
+      <div class="alert" id="feeAlert" role="status"></div>
+    </section>
+
+    <div id="main" class="hide">
+      <div class="card" style="background:linear-gradient(120deg,var(--green-3),var(--green-2));color:#fff;border:none;margin-bottom:22px">
+        <div class="eyebrow" style="color:var(--gold-2)">STUDENT DASHBOARD</div>
+        <h1 style="font-family:'Playfair Display',serif;color:var(--gold-2);font-size:clamp(24px,3vw,32px);margin:6px 0" id="welcome">স্বাগতম</h1>
+        <p style="color:#dfe7e0" id="courseLine"></p>
+        <div class="row" style="margin-top:14px"><button class="btn btn-light btn-sm" id="logoutBtn" type="button">লগআউট</button></div>
       </div>
 
-      <section class="card reveal" style="margin-top:24px" aria-labelledby="h-pay">
-        <h2 id="h-pay">পেমেন্ট ইতিহাস</h2>
-        <p class="sub">আপনার জমা দেওয়া পেমেন্ট ও যাচাইয়ের অবস্থা।</p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>তারিখ</th><th>মাধ্যম</th><th>TrxID</th><th>পরিমাণ</th><th>অবস্থা</th></tr></thead>
-            <tbody id="payBody"><tr><td colspan="5" class="empty">কোনো পেমেন্ট জমা হয়নি।</td></tr></tbody>
-          </table>
-        </div>
+      <nav class="tabs2" id="tabs">
+        <button class="on" data-p="content">কোর্স কনটেন্ট</button>
+        <button data-p="exams">পরীক্ষা</button>
+        <button data-p="results">ফলাফল</button>
+        <button data-p="notices">নোটিশ</button>
+      </nav>
+
+      <section class="pane on card" id="p-content"><h2>কোর্স কনটেন্ট</h2><p class="sub">ভিডিও, PDF, Google Drive ও অন্যান্য সামগ্রী এখানে।</p><div id="contentList"></div></section>
+
+      <section class="pane card" id="p-exams">
+        <div id="examList"></div>
+        <div id="examRun" class="hide"></div>
       </section>
-    </div>
 
-    <!-- Notices -->
-    <section class="card reveal" style="margin-top:24px" aria-labelledby="h-notice">
-      <h2 id="h-notice">নোটিশ</h2>
-      <p class="sub">সর্বশেষ ঘোষণা ও গুরুত্বপূর্ণ তথ্য।</p>
-      <div id="noticeList"><div class="empty">এখন কোনো নোটিশ নেই।</div></div>
-    </section>
+      <section class="pane card" id="p-results"><h2>আমার ফলাফল</h2><div id="resultList" style="margin-top:12px"></div></section>
+
+      <section class="pane card" id="p-notices"><h2>নোটিশ</h2><div id="noticeList" style="margin-top:12px"></div></section>
+    </div>
   </div>
 </main>
 
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-brand">DEEN</div>
-        <p>Dawah Education &amp; E-learning Nexus. Knowledge Changes Lives.</p>
-      </div>
-      <div class="footer-col">
-        <h3>যোগাযোগ</h3>
-        <ul><li>📞 01332991478</li><li>📞 01769668093</li></ul>
-      </div>
-      <div class="footer-col">
-        <h3>লিংক</h3>
-        <ul><li><a href="apply.html">ভর্তির আবেদন</a></li><li><a href="Courses.html">কোর্সসমূহ</a></li><li><a href="index.html">হোম</a></li></ul>
-      </div>
-    </div>
-    <div class="footer-bottom">© 2026 DEEN — All Rights Reserved.</div>
-  </div>
+  <div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Student Portal</div></div>
 </footer>
 
 <a class="whatsapp" href="https://wa.me/8801332991478" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
@@ -155,144 +135,276 @@
 <script src="deen.js"></script>
 <script>
 (async function () {
-  var D = window.DEEN, sb = D.client;
+  var D = window.DEEN, sb = D.client, esc = D.esc;
   var $ = function (id) { return document.getElementById(id); };
   if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি। পেজটি রিফ্রেশ করুন।'); $('loading').classList.add('hide'); return; }
 
-  /* must be signed in */
   var session = await D.getSession();
   if (!session) { location.href = 'login.html'; return; }
-  var user = session.user;
+  if (await D.isAdmin()) { location.href = 'admin.html'; return; }
 
-  $('logoutBtn').addEventListener('click', async function () {
-    await sb.auth.signOut();
-    location.href = 'login.html';
-  });
+  var app = null, feeAmount = 300, settings = { currency: '৳' }, exams = [], attempts = {};
+  var runState = null, timerId = null;
 
-  /* admin should use the admin page */
-  if (await D.isAdmin()) {
-    $('welcome').textContent = 'অ্যাডমিন';
-    $('loading').innerHTML = 'আপনি অ্যাডমিন। <a href="admin.html" class="link" style="color:#99712f;font-weight:700">অ্যাডমিন প্যানেলে যান</a>';
+  $('logoutBtn').addEventListener('click', async function () { await sb.auth.signOut(); location.href = 'login.html'; });
+
+  function show(id, on) { $(id).classList.toggle('hide', !on); }
+  function fmtDate(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } }
+  function fmtTime(d) { try { return new Date(d).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function ytId(u) {
+    var m = String(u).match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    return m ? m[1] : '';
+  }
+
+  /* ---------- ১. ভর্তি ও অবস্থা ---------- */
+  var r = await sb.from('applications').select('*, courses(id,title,months)').maybeSingle();
+  $('loading').classList.add('hide');
+  if (r.error) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(r.error))); return; }
+  app = r.data;
+
+  if (!app) { show('noApp', true); bindLink(); return; }
+
+  if (app.status !== 'registered') {
+    show('notReady', true);
+    $('nrText').innerHTML = ({
+      pending_payment: 'ভর্তি ফি এখনো জমা হয়নি। আবেদন পেজে গিয়ে পেমেন্ট করুন।',
+      submitted: 'আপনার ভর্তি ফি যাচাই চলছে। যাচাই শেষ হলে অ্যাকাউন্ট খোলার নির্দেশনা পাবেন।',
+      approved: 'আপনার ভর্তি অনুমোদিত। নিবন্ধন করতে login.html-এর "নিবন্ধন" ট্যাব ব্যবহার করুন।',
+      rejected: 'আপনার আবেদন বাতিল হয়েছে।' + (app.admin_note ? ' কারণ: ' + esc(app.admin_note) : '')
+    })[app.status] || '';
     return;
   }
 
-  function fmtDate(d) {
-    try { return new Date(d).toLocaleDateString('bn-BD', { year: 'numeric', month: 'short', day: 'numeric' }); }
-    catch (e) { return d; }
+  /* ---------- ২. অ্যাকাউন্ট ফি ---------- */
+  var ft = await sb.from('fee_tiers').select('amount').eq('role', 'শিক্ষার্থী').maybeSingle();
+  if (ft.data) feeAmount = ft.data.amount;
+  var st = await sb.from('settings').select('bkash_number,nagad_number,currency').eq('id', 1).maybeSingle();
+  if (st.data) settings = st.data;
+
+  var ap = await sb.from('account_payments').select('*').eq('application_id', app.id).order('created_at', { ascending: false });
+  var payments = ap.data || [];
+  var verified = payments.some(function (p) { return p.status === 'verified'; });
+  var pending = payments.some(function (p) { return p.status === 'submitted'; });
+
+  if (!verified) {
+    show('feeGate', true);
+    $('feeInfo').innerHTML = '<div class="row-between"><div><span class="sm">অ্যাকাউন্ট ফি</span><div class="amount" style="font-size:30px">' +
+      esc(settings.currency || '৳') + D.bn(feeAmount) + '</div></div>' +
+      '<div class="sm" style="text-align:right">বিকাশ: <b>' + esc(settings.bkash_number || '—') + '</b><br>নগদ: <b>' + esc(settings.nagad_number || '—') + '</b></div></div>';
+    $('fAmt').value = feeAmount;
+    $('fDate').value = new Date().toISOString().slice(0, 10);
+    $('fDate').max = $('fDate').value;
+    if (pending) { show('feeWait', true); $('feeForm').classList.add('hide'); }
+    if (payments.length && payments[0].status === 'rejected') D.show($('feeAlert'), 'bad', 'আগের পেমেন্টটি বাতিল হয়েছে। সঠিক তথ্য দিয়ে আবার জমা দিন।');
+    bindFee();
+    return;
   }
 
-  async function loadApp() {
-    var r = await sb.from('applications').select('*, courses(title, months, monthly_fee)').maybeSingle();
-    if (r.error) throw r.error;
-    return r.data;
-  }
+  /* ---------- ৩. মূল ড্যাশবোর্ড ---------- */
+  show('main', true);
+  $('welcome').textContent = 'স্বাগতম, ' + app.full_name;
+  $('courseLine').textContent = (app.courses ? app.courses.title : '') + ' · আবেদন নম্বর: ' + app.code;
 
-  async function loadPayments() {
-    var r = await sb.from('payments').select('*').order('created_at', { ascending: false });
-    if (r.error) throw r.error;
-    return r.data || [];
-  }
-
-  async function loadNotices() {
-    var r = await sb.from('notices').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(10);
-    if (r.error) throw r.error;
-    return r.data || [];
-  }
-
-  function renderApp(app, payments, settings) {
-    $('loading').classList.add('hide');
-    $('noApp').classList.add('hide');
-    $('appArea').classList.remove('hide');
-
-    var name = app.full_name;
-    $('welcome').textContent = 'স্বাগতম, ' + name;
-    $('courseTitle').textContent = app.courses ? app.courses.title : '-';
-    $('appCode').textContent = app.code;
-    $('appStatus').innerHTML = D.statusBadge(app.status);
-    $('appMonths').textContent = app.courses ? app.courses.months + ' মাস' : '-';
-    $('appType').textContent = app.payment_type === 'onetime' ? 'এককালীন (ছাড়সহ)' : 'মাসিক';
-    $('pName').textContent = app.full_name;
-    $('pPhone').textContent = app.phone;
-    $('pEmail').textContent = app.email;
-
-    var hint = {
-      pending_payment: 'পেমেন্ট এখনো জমা হয়নি। আবেদন পেজে গিয়ে পেমেন্ট তথ্য জমা দিন।',
-      submitted: 'আপনার পেমেন্ট যাচাই চলছে। যাচাই শেষ হলে এখানে অবস্থা আপডেট হবে।',
-      approved: 'ভর্তি অনুমোদিত হয়েছে। এখনো অ্যাকাউন্ট যুক্ত না থাকলে উপরের "যুক্ত করুন" ব্যবহার করুন।',
-      registered: 'আপনার ভর্তি সক্রিয়। স্বাগতম DEEN পরিবারে!',
-      rejected: 'এই আবেদনটি বাতিল হয়েছে।' + (app.admin_note ? ' কারণ: ' + D.esc(app.admin_note) : '') + ' বিস্তারিত জানতে যোগাযোগ করুন।'
-    }[app.status] || '';
-    $('statusHint').innerHTML = hint;
-
-    var body = $('payBody');
-    if (!payments.length) {
-      body.innerHTML = '<tr><td colspan="5" class="empty">কোনো পেমেন্ট জমা হয়নি।</td></tr>';
-    } else {
-      body.innerHTML = payments.map(function (p) {
-        return '<tr>' +
-          '<td>' + D.esc(fmtDate(p.paid_on)) + '</td>' +
-          '<td>' + D.esc(D.PAY_LABEL[p.method] || p.method) + '</td>' +
-          '<td><b>' + D.esc(p.trx_id) + '</b></td>' +
-          '<td>' + D.esc(settings.currency) + D.bn(p.amount) + '</td>' +
-          '<td><span class="badge b-' + (p.status === 'verified' ? 'verified' : p.status === 'rejected' ? 'rejected' : 'submitted') + '">' +
-            (p.status === 'verified' ? 'যাচাইকৃত' : p.status === 'rejected' ? 'বাতিল' : 'যাচাই চলছে') + '</span></td>' +
-          '</tr>';
-      }).join('');
-    }
-  }
-
-  async function loadNotice() {
-    var list = $('noticeList');
-    try {
-      var n = await loadNotices();
-      if (!n.length) return;
-      list.innerHTML = n.map(function (x) {
-        return '<div style="padding:16px 0;border-bottom:1px solid #efece2">' +
-          '<div class="row-between"><strong style="color:var(--green)">' + D.esc(x.title) + '</strong>' +
-          '<span class="muted" style="font-size:13px">' + D.esc(fmtDate(x.created_at)) + '</span></div>' +
-          '<p class="muted" style="margin-top:6px;white-space:pre-wrap">' + D.esc(x.body) + '</p></div>';
-      }).join('');
-    } catch (e) { /* notices are optional; keep placeholder */ }
-  }
-
-  async function init() {
-    try {
-      var settings = await D.getSettings();
-      var app = await loadApp();
-      if (!app) {
-        $('loading').classList.add('hide');
-        $('noApp').classList.remove('hide');
-        $('welcome').textContent = 'স্বাগতম';
-      } else {
-        var payments = await loadPayments();
-        renderApp(app, payments, settings);
-      }
-      loadNotice();
-    } catch (e) {
-      $('loading').classList.add('hide');
-      D.show($('pageAlert'), 'bad', D.esc(D.errMsg(e)));
-    }
-  }
-
-  /* link an approved application to this (already signed-in) account */
-  $('linkForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    D.hide($('linkAlert'));
-    var code = $('linkCode').value.trim().toUpperCase();
-    if (code.length < 8) { D.show($('linkAlert'), 'bad', 'সঠিক আবেদন নম্বর লিখুন।'); return; }
-    try {
-      var r = await sb.rpc('claim_application', { p_code: code });
-      if (r.error) throw r.error;
-      D.show($('linkAlert'), 'ok', 'আবেদন যুক্ত হয়েছে। তথ্য লোড হচ্ছে...');
-      await init();
-    } catch (err) {
-      D.show($('linkAlert'), 'bad', D.esc(D.errMsg(err)));
-    }
+  $('tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-p]'); if (!b) return;
+    document.querySelectorAll('#tabs button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    document.querySelectorAll('.pane').forEach(function (p) { p.classList.toggle('on', p.id === 'p-' + b.getAttribute('data-p')); });
   });
 
-  await init();
+  /* কোর্স কনটেন্ট */
+  async function loadContent() {
+    var c = await sb.from('course_content').select('*').eq('course_id', app.course_id).order('sort_order').order('created_at');
+    var list = c.data || [];
+    $('contentList').innerHTML = list.length ? list.map(function (x) {
+      var yt = x.kind === 'youtube' ? ytId(x.url) : '';
+      var icon = { youtube: '▶️', pdf: '📄', drive: '📁', link: '🔗' }[x.kind] || '📘';
+      if (yt) {
+        return '<div class="item" style="display:block"><h4 style="color:var(--green)">' + esc(x.title) + '</h4>' +
+          '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(yt) + '" title="' + esc(x.title) +
+          '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' +
+          (x.description ? '<div class="sm">' + esc(x.description) + '</div>' : '') + '</div>';
+      }
+      var label = x.kind === 'pdf' ? 'PDF খুলুন' : x.kind === 'drive' ? 'Google Drive-এ খুলুন' : 'খুলুন';
+      return '<div class="item"><div class="ico">' + icon + '</div><div class="grow"><h4>' + esc(x.title) + '</h4>' +
+        (x.description ? '<div class="sm">' + esc(x.description) + '</div>' : '') + '</div>' +
+        '<a class="btn btn-dark btn-sm" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + label + '</a></div>';
+    }).join('') : '<div class="empty">শীঘ্রই এই কোর্সের পাঠ্যসামগ্রী যুক্ত করা হবে।</div>';
+  }
+
+  /* পরীক্ষার তালিকা ও ফলাফল */
+  async function loadExams() {
+    var ex = await sb.from('exams').select('*').eq('course_id', app.course_id).eq('is_published', true).order('created_at');
+    exams = ex.data || [];
+    var at = await sb.from('exam_attempts').select('*').eq('user_id', session.user.id);
+    attempts = {};
+    (at.data || []).forEach(function (a) { attempts[a.exam_id] = a; });
+
+    $('examList').innerHTML = exams.length ? exams.map(function (e) {
+      var a = attempts[e.id], now = Date.now(), state = '', action = '';
+      if (a && a.submitted_at) state = '<span class="pill p-ok">জমা হয়েছে</span>';
+      else if (a) { state = '<span class="pill p-wait">চলমান</span>'; action = '<button class="btn btn-gold btn-sm" data-start="' + e.id + '">পরীক্ষায় ফিরুন</button>'; }
+      else if (e.opens_at && now < new Date(e.opens_at).getTime()) state = '<span class="pill p-info">শুরু: ' + esc(fmtDate(e.opens_at)) + ' ' + esc(fmtTime(e.opens_at)) + '</span>';
+      else if (e.closes_at && now > new Date(e.closes_at).getTime()) state = '<span class="pill p-no">সময় শেষ</span>';
+      else { state = '<span class="pill p-info">খোলা</span>'; action = '<button class="btn btn-gold btn-sm" data-start="' + e.id + '">পরীক্ষা শুরু করুন</button>'; }
+      return '<div class="item"><div class="ico">📝</div><div class="grow"><h4>' + esc(e.title) + '</h4>' +
+        '<div class="sm">' + e.duration_min + ' মিনিট · পাস নম্বর ' + e.pass_mark + '%</div>' +
+        (e.description ? '<div class="sm">' + esc(e.description) + '</div>' : '') +
+        '<div style="margin-top:6px">' + state + '</div></div><div>' + action + '</div></div>';
+    }).join('') : '<div class="empty">এখন কোনো পরীক্ষা নেই।</div>';
+
+    var rows = Object.keys(attempts).map(function (k) { return attempts[k]; }).filter(function (a) { return a.submitted_at; });
+    $('resultList').innerHTML = rows.length ? rows.map(function (a) {
+      var ex2 = exams.filter(function (x) { return x.id === a.exam_id; })[0] || { title: 'পরীক্ষা', pass_mark: 40 };
+      var pct = a.total ? Math.round(a.score * 100 / a.total) : 0;
+      var ok = pct >= ex2.pass_mark;
+      return '<div class="item"><div class="ico">' + (ok ? '🏅' : '📘') + '</div><div class="grow"><h4>' + esc(ex2.title) + '</h4>' +
+        '<div class="sm">প্রাপ্ত নম্বর: ' + a.score + ' / ' + a.total + ' · ' + pct + '%</div></div>' +
+        '<span class="pill ' + (ok ? 'p-ok' : 'p-no') + '">' + (ok ? 'উত্তীর্ণ' : 'অনুত্তীর্ণ') + '</span></div>';
+    }).join('') : '<div class="empty">এখনো কোনো ফলাফল নেই।</div>';
+  }
+
+  /* পরীক্ষা চালানো */
+  function renderRun() {
+    var s = runState, q = s.questions[s.idx];
+    var answered = s.questions.filter(function (x) { return x.chosen !== null; }).length;
+    $('examRun').innerHTML =
+      '<div class="exam-top"><div><h2 style="color:var(--green)">' + esc(s.title) + '</h2><div class="sm">' + answered + ' / ' + s.questions.length + ' টির উত্তর দেওয়া হয়েছে</div></div>' +
+      '<div class="timer" id="timer">--:--</div></div>' +
+      '<div class="qnav">' + s.questions.map(function (x, i) {
+        var cls = i === s.idx ? 'cur' : (x.chosen !== null ? 'done' : '');
+        return '<button type="button" class="' + cls + '" data-go="' + i + '">' + (i + 1) + '</button>';
+      }).join('') + '</div>' +
+      '<div class="qcard"><div class="sm" style="margin-bottom:8px">প্রশ্ন ' + (s.idx + 1) + '</div><div class="qtext">' + esc(q.text) + '</div>' +
+      q.options.map(function (o, i) {
+        return '<label class="opt' + (q.chosen === i ? ' sel' : '') + '"><input type="radio" name="ans" value="' + i + '"' + (q.chosen === i ? ' checked' : '') + '> ' + esc(o) + '</label>';
+      }).join('') + '</div>' +
+      '<div class="row-between" style="margin-top:20px"><button class="btn btn-light" type="button" data-nav="-1"' + (s.idx === 0 ? ' disabled' : '') + '>← আগের</button>' +
+      '<button class="btn btn-dark" type="button" data-nav="1"' + (s.idx === s.questions.length - 1 ? ' disabled' : '') + '>পরের →</button>' +
+      '<button class="btn btn-gold" type="button" id="submitExam">পরীক্ষা জমা দিন</button></div>' +
+      '<div class="alert" id="examAlert" role="status"></div>';
+    show('examList', false); show('examRun', true);
+    tick();
+  }
+
+  function tick() {
+    if (!runState) return;
+    var t = $('timer'); if (!t) return;
+    var left = Math.max(0, Math.floor((new Date(runState.expires).getTime() - Date.now()) / 1000));
+    var m = Math.floor(left / 60), ss = left % 60;
+    t.textContent = String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+    t.classList.toggle('low', left < 120);
+    if (left <= 0) { clearInterval(timerId); timerId = null; finishRun(true); }
+  }
+
+  async function startExam(id) {
+    try {
+      var r2 = await sb.rpc('start_exam', { p_exam: Number(id) });
+      if (r2.error) throw r2.error;
+      var d = r2.data;
+      runState = {
+        attemptId: d.attempt_id, title: d.title, expires: d.expires_at, idx: 0,
+        questions: (d.questions || []).map(function (q) {
+          return { id: q.id, text: q.text, options: q.options, chosen: (q.saved === null || q.saved === undefined) ? null : q.saved };
+        })
+      };
+      renderRun();
+      clearInterval(timerId); timerId = setInterval(tick, 1000);
+      window.scrollTo({ top: $('examRun').offsetTop - 90, behavior: 'smooth' });
+    } catch (err) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err))); }
+  }
+
+  async function choose(i) {
+    var q = runState.questions[runState.idx], prev = q.chosen;
+    q.chosen = i;
+    try {
+      var r3 = await sb.rpc('save_answer', { p_attempt: runState.attemptId, p_question: q.id, p_choice: i });
+      if (r3.error) throw r3.error;
+      renderRun();
+    } catch (err) {
+      q.chosen = prev;
+      D.show($('examAlert'), 'bad', D.esc(D.errMsg(err)));
+      if (/সময় শেষ/.test(String(err.message))) finishRun(true);
+    }
+  }
+
+  async function finishRun(auto) {
+    if (!runState) return;
+    try {
+      var r4 = await sb.rpc('finish_exam', { p_attempt: runState.attemptId });
+      if (r4.error) throw r4.error;
+      var d = r4.data;
+      clearInterval(timerId); timerId = null;
+      runState = null;
+      show('examRun', false); show('examList', true);
+      D.show($('pageAlert'), d.passed ? 'ok' : 'info',
+        (auto ? 'সময় শেষ হয়েছে, উত্তর স্বয়ংক্রিয়ভাবে জমা হয়েছে। ' : 'পরীক্ষা জমা হয়েছে। ') +
+        'প্রাপ্ত নম্বর: ' + d.score + ' / ' + d.total + ' (' + d.percent + '%) · ' + (d.passed ? 'উত্তীর্ণ' : 'অনুত্তীর্ণ'));
+      await loadExams();
+    } catch (err) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err))); }
+  }
+
+  $('examRun').addEventListener('click', function (e) {
+    var g = e.target.closest('button[data-go]');
+    if (g) { runState.idx = Number(g.getAttribute('data-go')); renderRun(); return; }
+    var n = e.target.closest('button[data-nav]');
+    if (n) { runState.idx = Math.min(runState.questions.length - 1, Math.max(0, runState.idx + Number(n.getAttribute('data-nav')))); renderRun(); return; }
+    if (e.target.closest('#submitExam')) {
+      var left = runState.questions.filter(function (x) { return x.chosen === null; }).length;
+      if (left && !confirm(left + ' টি প্রশ্নের উত্তর দেওয়া হয়নি। তবু জমা দেবেন?')) return;
+      finishRun(false);
+    }
+  });
+  $('examRun').addEventListener('change', function (e) {
+    if (e.target.name === 'ans') choose(Number(e.target.value));
+  });
+  $('examList').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-start]'); if (b) startExam(b.getAttribute('data-start'));
+  });
+
+  /* নোটিশ */
+  async function loadNotices() {
+    var n = await sb.from('notices').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(20);
+    var list = n.data || [];
+    $('noticeList').innerHTML = list.length ? list.map(function (x) {
+      return '<div class="item" style="display:block"><div class="row-between"><strong style="color:var(--green)">' + esc(x.title) + '</strong>' +
+        '<span class="sm">' + esc(fmtDate(x.created_at)) + '</span></div><p class="sm" style="white-space:pre-wrap;margin-top:6px">' + esc(x.body) + '</p></div>';
+    }).join('') : '<div class="empty">এখন কোনো নোটিশ নেই।</div>';
+  }
+
+  await Promise.all([loadContent(), loadExams(), loadNotices()]);
+
+  /* ---------- অ্যাকাউন্ট ফি জমা ---------- */
+  function bindFee() {
+    $('feeForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); D.hide($('feeAlert'));
+      var b = $('fBtn'); b.disabled = true;
+      try {
+        var r5 = await sb.rpc('submit_account_payment', {
+          p_method: $('fMethod').value, p_sender: $('fSender').value.trim(), p_trx: $('fTrx').value.trim(),
+          p_amount: Number($('fAmt').value), p_paid_on: $('fDate').value
+        });
+        if (r5.error) throw r5.error;
+        D.show($('feeAlert'), 'ok', 'ফি জমা হয়েছে। যাচাই শেষ হলে প্রবেশ খুলবে।');
+        $('feeForm').classList.add('hide'); show('feeWait', true);
+      } catch (err) { D.show($('feeAlert'), 'bad', D.esc(D.errMsg(err))); }
+      finally { b.disabled = false; }
+    });
+  }
+
+  /* ---------- আবেদন যুক্ত করা ---------- */
+  function bindLink() {
+    $('linkForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); D.hide($('linkAlert'));
+      var code = $('linkCode').value.trim().toUpperCase();
+      if (code.length < 8) { D.show($('linkAlert'), 'bad', 'সঠিক আবেদন নম্বর লিখুন।'); return; }
+      try {
+        var r6 = await sb.rpc('claim_application', { p_code: code });
+        if (r6.error) throw r6.error;
+        location.reload();
+      } catch (err) { D.show($('linkAlert'), 'bad', D.esc(D.errMsg(err))); }
+    });
+  }
 })();
 </script>
 </body>
 </html>
-
