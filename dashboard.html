@@ -108,6 +108,7 @@
         <button class="on" data-p="content">কোর্স কনটেন্ট</button>
         <button data-p="exams">পরীক্ষা</button>
         <button data-p="results">ফলাফল</button>
+        <button data-p="fees">মাসিক ফি</button>
         <button data-p="certs">সনদ</button>
         <button data-p="notices">নোটিশ</button>
       </nav>
@@ -120,6 +121,22 @@
       </section>
 
       <section class="pane card" id="p-results"><h2>আমার ফলাফল</h2><div id="resultList" style="margin-top:12px"></div></section>
+
+      <section class="pane card" id="p-fees">
+        <h2>মাসিক কোর্স ফি</h2>
+        <p class="sub">প্রতি মাসের ফি আলাদাভাবে জমা দিন। যাচাই হলে সেই মাস পরিশোধিত হিসেবে দেখাবে।</p>
+        <div id="feesList"></div>
+        <form id="kForm" class="frm" style="margin-top:18px" novalidate>
+          <div><label class="lbl" for="kPeriod">কোন মাসের ফি</label><select class="inp" id="kPeriod"></select></div>
+          <div><label class="lbl" for="kMethod">মাধ্যম</label><select class="inp" id="kMethod"><option value="bkash">বিকাশ</option><option value="nagad">নগদ</option></select></div>
+          <div><label class="lbl" for="kSender">যে নম্বর থেকে পাঠিয়েছেন</label><input class="inp" id="kSender" placeholder="01XXXXXXXXX"></div>
+          <div><label class="lbl" for="kTrx">Transaction ID (TrxID)</label><input class="inp" id="kTrx" autocomplete="off"></div>
+          <div><label class="lbl" for="kAmt">পরিমাণ (৳)</label><input class="inp" id="kAmt" type="number" min="1"></div>
+          <div><label class="lbl" for="kDate">পেমেন্টের তারিখ</label><input class="inp" id="kDate" type="date"></div>
+          <div class="full"><button class="btn btn-gold btn-block" type="submit" id="kBtn">কিস্তি জমা দিন</button></div>
+        </form>
+        <div class="alert" id="kAlert" role="status"></div>
+      </section>
 
       <section class="pane card" id="p-certs">
         <h2>আমার সনদ</h2>
@@ -372,6 +389,55 @@
     var c = e.target.closest('button[data-cq]'); if (c) openCq(c.getAttribute('data-cq'));
   });
 
+  /* মাসিক কোর্স ফি */
+  var feesBound = false;
+  async function loadFees() {
+    if (app.payment_type !== 'monthly') {
+      $('feesList').innerHTML = '<div class="empty">আপনার পেমেন্ট এককালীন, তাই মাসিক কিস্তি নেই।</div>';
+      $('kForm').classList.add('hide');
+      return;
+    }
+    var c = await sb.from('courses').select('monthly_fee,months').eq('id', app.course_id).maybeSingle();
+    var monthly = c.data ? c.data.monthly_fee : 0, months = c.data ? c.data.months : 0;
+    var r = await sb.from('course_fee_payments').select('*').eq('application_id', app.id).order('created_at', { ascending: false });
+    var rows = r.data || [];
+    var html = '', opts = '';
+    for (var p = 1; p <= months; p++) {
+      var mine = rows.filter(function (x) { return x.period_no === p; });
+      var st = mine.some(function (x) { return x.status === 'verified'; }) ? 'verified'
+             : mine.some(function (x) { return x.status === 'submitted'; }) ? 'submitted'
+             : mine.length ? 'rejected' : 'none';
+      var lbl = { verified: '<span class="pill p-ok">পরিশোধিত</span>', submitted: '<span class="pill p-wait">যাচাই চলছে</span>',
+                  rejected: '<span class="pill p-no">বাতিল, আবার দিন</span>', none: '<span class="pill p-info">বাকি</span>' }[st];
+      html += '<div class="item"><div class="ico">' + p + '</div><div class="grow"><h4>' + p + ' নম্বর মাস</h4><div class="sm">৳' + D.bn(monthly) + '</div></div>' + lbl + '</div>';
+      if (st !== 'verified' && st !== 'submitted') opts += '<option value="' + p + '">' + p + ' নম্বর মাস</option>';
+    }
+    $('feesList').innerHTML = html || '<div class="empty">মাসের তথ্য পাওয়া যায়নি।</div>';
+    $('kPeriod').innerHTML = opts || '<option value="">সব মাসের ফি জমা বা পরিশোধিত</option>';
+    $('kAmt').value = monthly;
+    $('kDate').value = new Date().toISOString().slice(0, 10);
+    $('kDate').max = $('kDate').value;
+    if (!feesBound) {
+      feesBound = true;
+      $('kForm').addEventListener('submit', async function (e) {
+        e.preventDefault(); D.hide($('kAlert'));
+        if (!$('kPeriod').value) return D.show($('kAlert'), 'info', 'জমা দেওয়ার মতো বাকি মাস নেই।');
+        var b = $('kBtn'); b.disabled = true;
+        try {
+          var r2 = await sb.rpc('submit_course_fee', {
+            p_period: Number($('kPeriod').value), p_method: $('kMethod').value, p_sender: $('kSender').value.trim(),
+            p_trx: $('kTrx').value.trim(), p_amount: Number($('kAmt').value), p_paid_on: $('kDate').value
+          });
+          if (r2.error) throw r2.error;
+          D.show($('kAlert'), 'ok', 'কিস্তি জমা হয়েছে। যাচাই শেষ হলে এখানে আপডেট হবে।');
+          $('kSender').value = ''; $('kTrx').value = '';
+          loadFees();
+        } catch (err) { D.show($('kAlert'), 'bad', D.esc(D.errMsg(err))); }
+        finally { b.disabled = false; }
+      });
+    }
+  }
+
   /* লিখিত পরীক্ষা */
   var currentCq = null;
   async function openCq(examId) {
@@ -425,7 +491,7 @@
     }).join('') : '<div class="empty">এখন কোনো নোটিশ নেই।</div>';
   }
 
-  await Promise.all([loadContent(), loadExams(), loadNotices()]);
+  await Promise.all([loadContent(), loadExams(), loadNotices(), loadFees()]);
 
   /* ---------- অ্যাকাউন্ট ফি জমা ---------- */
   function bindFee() {
