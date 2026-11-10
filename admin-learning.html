@@ -100,6 +100,7 @@
             <div><label class="lbl" for="exPass">পাস নম্বর (%)</label><input class="inp" id="exPass" type="number" min="0" max="100" value="40"></div>
             <div><label class="lbl" for="exOpen">শুরুর সময় (ঐচ্ছিক)</label><input class="inp" id="exOpen" type="datetime-local"></div>
             <div><label class="lbl" for="exClose">শেষের সময় (ঐচ্ছিক)</label><input class="inp" id="exClose" type="datetime-local"></div>
+            <div><label class="lbl" for="exType">ধরন</label><select class="inp" id="exType"><option value="mcq">MCQ (স্বয়ংক্রিয় নম্বর)</option><option value="cq">লিখিত (শিক্ষক নম্বর দেবেন)</option></select></div>
             <div class="full"><label class="lbl" for="exDesc">বিবরণ</label><textarea class="inp" id="exDesc" maxlength="1000"></textarea></div>
             <div class="full"><label class="chk"><input type="checkbox" id="exPub"> শিক্ষার্থীদের জন্য প্রকাশ করুন</label></div>
           </div>
@@ -124,6 +125,29 @@
 
         <div class="sec-h">পরীক্ষার ফলাফল</div>
         <div id="resList"></div>
+      </section>
+
+      <!-- ৫. সনদ ও শিক্ষক বরাদ্দ -->
+      <section class="card" style="margin-top:22px">
+        <h2>সনদ ইস্যু ও বাতিল</h2>
+        <p class="sub">কোর্স সম্পন্ন হলে শিক্ষার্থীর জন্য সনদ ইস্যু করুন। প্রতিটি সনদে যাচাইযোগ্য নম্বর তৈরি হবে।</p>
+        <div class="frm">
+          <div><label class="lbl" for="certApp">নিবন্ধিত শিক্ষার্থী</label><select class="inp" id="certApp"></select></div>
+          <div><label class="lbl" for="certCourse">কোর্স</label><select class="inp" id="certCourse"></select></div>
+        </div>
+        <div class="acts" style="margin-top:14px"><button class="btn btn-gold" type="button" id="certIssue">সনদ ইস্যু করুন</button></div>
+        <div class="sec-h">ইস্যুকৃত সনদসমূহ</div>
+        <div id="certList"></div>
+
+        <div class="sec-h">শিক্ষক-কোর্স বরাদ্দ</div>
+        <p class="sub">কোন শিক্ষক কোন কোর্সের লিখিত খাতা দেখবেন ও নম্বর দেবেন, তা এখানে ঠিক করুন।</p>
+        <div class="frm">
+          <div><label class="lbl" for="asgTeacher">শিক্ষক/স্টাফ</label><select class="inp" id="asgTeacher"></select></div>
+          <div class="full"><label class="lbl">কোর্সসমূহ</label>
+            <div id="asgCourses" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;max-height:260px;overflow:auto;border:1px solid #efece2;border-radius:12px;padding:12px"></div>
+          </div>
+        </div>
+        <div class="acts" style="margin-top:12px"><button class="btn btn-dark" type="button" id="asgSave">বরাদ্দ সংরক্ষণ</button></div>
       </section>
     </div>
   </div>
@@ -261,7 +285,7 @@
     if (!(dur >= 5 && dur <= 300)) return flash('সময় ৫ থেকে ৩০০ মিনিটের মধ্যে হতে হবে।', false);
     if (!(pass >= 0 && pass <= 100)) return flash('পাস নম্বর ০ থেকে ১০০-এর মধ্যে হতে হবে।', false);
     var r = await sb.from('exams').insert({ course_id: Number($('exCourse').value), title: t, description: $('exDesc').value.trim(),
-      duration_min: dur, pass_mark: pass, opens_at: localToIso($('exOpen').value), closes_at: localToIso($('exClose').value), is_published: $('exPub').checked });
+      exam_type: $('exType').value, duration_min: dur, pass_mark: pass, opens_at: localToIso($('exOpen').value), closes_at: localToIso($('exClose').value), is_published: $('exPub').checked });
     if (r.error) return flash(D.errMsg(r.error), false);
     $('exForm').reset(); $('exDur').value = 30; $('exPass').value = 40;
     flash('পরীক্ষা তৈরি হয়েছে। এখন প্রশ্ন যোগ করুন।', true); loadExams();
@@ -335,10 +359,77 @@
       }).join('') + '</table>' : '<p class="sub">এখনো কেউ এই পরীক্ষা দেয়নি।</p>';
   }
 
+  /* ================= ৫. সনদ ও শিক্ষক বরাদ্দ ================= */
+  async function loadCertForm() {
+    var a = await sb.from('applications').select('id,full_name,code,course_id').eq('status', 'registered').order('full_name');
+    $('certApp').innerHTML = (a.data || []).length
+      ? (a.data).map(function (x) { return '<option value="' + x.id + '" data-course="' + x.course_id + '">' + esc(x.full_name) + ' (' + esc(x.code) + ')</option>'; }).join('')
+      : '<option value="">কোনো নিবন্ধিত শিক্ষার্থী নেই</option>';
+    $('certCourse').innerHTML = COURSES.map(function (c) { return '<option value="' + c.id + '">' + esc(c.title) + '</option>'; }).join('');
+    syncCourse();
+  }
+  function syncCourse() {
+    var o = $('certApp').selectedOptions[0];
+    if (o && o.getAttribute('data-course')) $('certCourse').value = o.getAttribute('data-course');
+  }
+  $('certApp').addEventListener('change', syncCourse);
+
+  async function loadCerts() {
+    var r = await sb.from('certificates').select('*, applications(full_name,code), courses(title)').order('issued_at', { ascending: false });
+    var list = r.data || [];
+    $('certList').innerHTML = list.length ? '<table class="tbl"><tr><th>সনদ নম্বর</th><th>শিক্ষার্থী</th><th>কোর্স</th><th>তারিখ</th><th>অবস্থা</th><th></th></tr>' +
+      list.map(function (c) {
+        return '<tr><td><b>' + esc(c.number) + '</b></td><td>' + esc(c.applications ? c.applications.full_name : '—') + '</td><td>' + esc(c.courses ? c.courses.title : '—') + '</td>' +
+          '<td>' + esc(fmt(c.issued_at)) + '</td><td><span class="pill ' + (c.status === 'active' ? 'p-ok' : 'p-no') + '">' + (c.status === 'active' ? 'বৈধ' : 'বাতিল') + '</span></td>' +
+          '<td>' + (c.status === 'active' ? '<button class="btn btn-danger btn-sm" data-cert="' + esc(c.number) + '">বাতিল</button>' : '') + '</td></tr>';
+      }).join('') + '</table>' : '<p class="sub">এখনো কোনো সনদ ইস্যু হয়নি।</p>';
+  }
+  $('certIssue').addEventListener('click', async function () {
+    var app = $('certApp').value, course = Number($('certCourse').value);
+    if (!app) return flash('শিক্ষার্থী বাছুন।', false);
+    var r = await sb.rpc('issue_certificate', { p_application: app, p_course: course });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('সনদ ইস্যু হয়েছে: ' + r.data, true);
+    loadCerts();
+  });
+  $('certList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-cert]'); if (!b) return;
+    if (!confirm('এই সনদ বাতিল করা হবে। নিশ্চিত?')) return;
+    var r = await sb.rpc('revoke_certificate', { p_no: b.getAttribute('data-cert') });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('সনদ বাতিল করা হয়েছে।', true); loadCerts();
+  });
+
+  async function loadAssign() {
+    var t = await sb.from('teachers').select('id,full_name').order('full_name');
+    $('asgTeacher').innerHTML = (t.data || []).map(function (x) { return '<option value="' + x.id + '">' + esc(x.full_name) + '</option>'; }).join('');
+    drawAssign();
+  }
+  async function drawAssign() {
+    var r = await sb.from('teacher_courses').select('course_id').eq('teacher_id', $('asgTeacher').value);
+    var set = {};
+    (r.data || []).forEach(function (x) { set[x.course_id] = true; });
+    $('asgCourses').innerHTML = COURSES.map(function (c) {
+      return '<label class="chk" style="padding:4px 0"><input type="checkbox" value="' + c.id + '"' + (set[c.id] ? ' checked' : '') + '> ' + esc(c.title) + '</label>';
+    }).join('');
+  }
+  $('asgTeacher').addEventListener('change', drawAssign);
+  $('asgSave').addEventListener('click', async function () {
+    var tid = $('asgTeacher').value, ids = [];
+    document.querySelectorAll('#asgCourses input:checked').forEach(function (i) { ids.push(Number(i.value)); });
+    var del = await sb.from('teacher_courses').delete().eq('teacher_id', tid);
+    if (del.error) return flash(D.errMsg(del.error), false);
+    if (ids.length) {
+      var ins = await sb.from('teacher_courses').insert(ids.map(function (c) { return { teacher_id: tid, course_id: c }; }));
+      if (ins.error) return flash(D.errMsg(ins.error), false);
+    }
+    flash('শিক্ষকের কোর্স বরাদ্দ সংরক্ষিত হয়েছে।', true);
+  });
+
   /* ---------- শুরু ---------- */
   try {
     await loadBase();
-    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams()]);
+    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams(), loadCertForm(), loadCerts(), loadAssign()]);
   } catch (err) { flash('তথ্য লোড করা যায়নি: ' + D.errMsg(err), false); }
 })();
 </script>
