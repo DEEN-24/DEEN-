@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>লিখিত পরীক্ষার খাতা | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  textarea.inp{min-height:90px;resize:vertical}
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .frm .full{grid-column:1/-1}
+  .sel{max-width:480px;margin-bottom:18px}
+  .ans{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+  .ans .who{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+  .ans .q{font-weight:700;color:var(--green);margin-bottom:8px;line-height:1.6}
+  .ans .a{background:#fbfaf5;border:1px solid #efece2;border-radius:14px;padding:14px;white-space:pre-wrap;line-height:1.8;color:var(--ink)}
+  .grade-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+  .grade-row .inp{max-width:140px}
+  .grade-row .c{flex:1;min-width:220px}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .p-ok{background:#e3f4ea;color:#1b6b43}.p-wait{background:#fbf0d9;color:#7a5410}
+  .sec-h{font-family:'Playfair Display',serif;color:var(--green);font-size:21px;margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid #efece2}
+  @media(max-width:620px){.frm{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>DEEN — লিখিত পরীক্ষার খাতা ও নম্বর</span>
+    <div class="top-links"><a href="teacher-dashboard.html">শিক্ষক ড্যাশবোর্ড</a></div>
+  </div>
+</div>
+<header id="siteHeader"></header>
+
+<main class="page" style="padding-top:36px">
+  <div class="container">
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="sub" style="text-align:center;padding:30px">যাচাই হচ্ছে...</div>
+    <section class="card hide" id="denied"><h2>অনুমতি নেই</h2><p class="sub">এই পেজ শুধু অ্যাডমিন ও বরাদ্দপ্রাপ্ত শিক্ষক ব্যবহার করতে পারবেন।</p><a class="btn btn-dark btn-sm" href="teachers.html">শিক্ষক পোর্টাল</a></section>
+
+    <div id="app" class="hide">
+      <section class="card">
+        <h2 style="color:var(--green)">লিখিত পরীক্ষার খাতা</h2>
+        <p class="sub">পরীক্ষা বেছে নিন। প্রতিটি উত্তর পড়ে সর্বোচ্চ নম্বরের মধ্যে নম্বর ও মন্তব্য দিন।</p>
+        <div class="sel">
+          <label class="lbl" for="exSel">লিখিত পরীক্ষা</label>
+          <select class="inp" id="exSel"></select>
+        </div>
+        <div id="stats" class="sub" style="margin-bottom:10px"></div>
+        <div id="answers"></div>
+      </section>
+
+      <!-- অ্যাডমিন: লিখিত প্রশ্ন যোগ -->
+      <section class="card hide" id="qAdmin" style="margin-top:22px">
+        <h2 style="color:var(--green)">লিখিত প্রশ্ন যোগ করুন (শুধু অ্যাডমিন)</h2>
+        <p class="sub">প্রথমে অ্যাডমিন প্যানেলে ধরন "লিখিত" দিয়ে পরীক্ষা তৈরি করুন, তারপর এখানে প্রশ্ন যোগ করুন।</p>
+        <form id="qForm" novalidate>
+          <div class="frm">
+            <div class="full"><label class="lbl" for="qText">প্রশ্ন *</label><textarea class="inp" id="qText" maxlength="2000"></textarea></div>
+            <div><label class="lbl" for="qMarks">সর্বোচ্চ নম্বর *</label><input class="inp" id="qMarks" type="number" min="1" max="100" value="10"></div>
+            <div><label class="lbl" for="qSort">ক্রম</label><input class="inp" id="qSort" type="number" value="0"></div>
+          </div>
+          <div style="margin-top:14px"><button class="btn btn-gold" type="submit">প্রশ্ন যোগ করুন</button></div>
+        </form>
+        <div class="sec-h">এই পরীক্ষার প্রশ্নসমূহ</div>
+        <div id="qList"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Written Exams</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session) { $('denied').classList.remove('hide'); return; }
+
+  var isAdmin = await D.isAdmin();
+  var isTeacher = false;
+  if (!isAdmin) {
+    var t = await sb.from('teachers').select('id').eq('user_id', session.user.id).eq('is_active', true).maybeSingle();
+    isTeacher = !!t.data;
+  }
+  if (!isAdmin && !isTeacher) { $('denied').classList.remove('hide'); return; }
+  $('app').classList.remove('hide');
+  if (isAdmin) $('qAdmin').classList.remove('hide');
+
+  function flash(t, ok) { D.show($('pageAlert'), ok ? 'ok' : 'bad', t); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  /* পরীক্ষার তালিকা (RLS অনুযায়ী যা দেখা যায়) */
+  var ex = await sb.from('exams').select('id,title,exam_type,course_id,courses(title)').eq('exam_type', 'cq').order('created_at', { ascending: false });
+  var EXAMS = ex.data || [];
+  $('exSel').innerHTML = EXAMS.length ? EXAMS.map(function (e) {
+    return '<option value="' + e.id + '">' + esc(e.title) + ' — ' + esc(e.courses ? e.courses.title : '') + '</option>';
+  }).join('') : '<option value="">কোনো লিখিত পরীক্ষা নেই</option>';
+
+  async function loadAnswers() {
+    var id = Number($('exSel').value);
+    if (!id) { $('answers').innerHTML = '<p class="sub">কোনো পরীক্ষা নেই।</p>'; return; }
+    var r = await sb.rpc('grading_list', { p_exam: id });
+    if (r.error) { flash(D.errMsg(r.error), false); return; }
+    var list = r.data || [];
+    var graded = list.filter(function (x) { return x.marks !== null; }).length;
+    $('stats').textContent = 'মোট উত্তর: ' + list.length + ' · নম্বর দেওয়া হয়েছে: ' + graded + ' · বাকি: ' + (list.length - graded);
+    $('answers').innerHTML = list.length ? list.map(function (x) {
+      var done = x.marks !== null;
+      return '<div class="ans"><div class="who"><div><b>' + esc(x.student) + '</b> <span class="sub" style="font-size:13px">(' + esc(x.code) + ')</span></div>' +
+        '<span class="pill ' + (done ? 'p-ok' : 'p-wait') + '">' + (done ? 'নম্বর দেওয়া হয়েছে' : 'অপেক্ষমাণ') + '</span></div>' +
+        '<div class="q">' + esc(x.question) + ' <span class="sub" style="font-size:13px">(সর্বোচ্চ ' + x.max + ')</span></div>' +
+        '<div class="a">' + esc(x.answer) + '</div>' +
+        '<div class="grade-row"><div><label class="lbl">নম্বর (০–' + x.max + ')</label><input class="inp" type="number" min="0" max="' + x.max + '" value="' + (done ? x.marks : '') + '" data-m="' + x.answer_id + '"></div>' +
+        '<div class="c"><label class="lbl">মন্তব্য</label><input class="inp" maxlength="1000" value="' + esc(x.comment || '') + '" data-c="' + x.answer_id + '"></div>' +
+        '<button class="btn btn-dark btn-sm" data-save="' + x.answer_id + '" data-max="' + x.max + '">সংরক্ষণ</button></div></div>';
+    }).join('') : '<p class="sub">এই পরীক্ষায় এখনো কোনো উত্তর জমা পড়েনি।</p>';
+  }
+
+  $('exSel').addEventListener('change', function () { loadAnswers(); loadQuestions(); });
+  $('answers').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-save]'); if (!b) return;
+    var id = b.getAttribute('data-save'), max = Number(b.getAttribute('data-max'));
+    var m = document.querySelector('input[data-m="' + id + '"]').value;
+    var c = document.querySelector('input[data-c="' + id + '"]').value.trim();
+    if (m === '' || Number(m) < 0 || Number(m) > max) return flash('নম্বর ০ থেকে ' + max + ' এর মধ্যে দিন।', false);
+    var r = await sb.rpc('grade_cq', { p_answer: Number(id), p_marks: Math.round(Number(m)), p_comment: c });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('নম্বর সংরক্ষিত হয়েছে।', true);
+    loadAnswers();
+  });
+
+  /* ---------- অ্যাডমিন: প্রশ্ন ---------- */
+  async function loadQuestions() {
+    if (!isAdmin) return;
+    var id = Number($('exSel').value);
+    var q = await sb.from('cq_questions').select('*').eq('exam_id', id).order('sort_order').order('id');
+    $('qList').innerHTML = (q.data || []).length ? (q.data).map(function (x, i) {
+      return '<div class="ans"><div class="who"><b>' + (i + 1) + '।</b><button class="btn btn-danger btn-sm" data-qdel="' + x.id + '">মুছুন</button></div>' +
+        '<div class="q">' + esc(x.question_text) + '</div><div class="sub">সর্বোচ্চ নম্বর: ' + x.marks + '</div></div>';
+    }).join('') : '<p class="sub">এই পরীক্ষায় এখনো প্রশ্ন নেই।</p>';
+  }
+  if (isAdmin) {
+    $('qForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var text = $('qText').value.trim(), marks = Number($('qMarks').value);
+      if (text.length < 3) return flash('প্রশ্ন লিখুন।', false);
+      if (!(marks >= 1 && marks <= 100)) return flash('সর্বোচ্চ নম্বর ১ থেকে ১০০ হতে হবে।', false);
+      var r = await sb.from('cq_questions').insert({ exam_id: Number($('exSel').value), question_text: text, marks: marks, sort_order: Number($('qSort').value) || 0 });
+      if (r.error) return flash(D.errMsg(r.error), false);
+      $('qForm').reset(); $('qMarks').value = 10;
+      flash('প্রশ্ন যোগ হয়েছে।', true); loadQuestions();
+    });
+    $('qList').addEventListener('click', async function (e) {
+      var b = e.target.closest('button[data-qdel]'); if (!b) return;
+      if (!confirm('এই প্রশ্ন ও এর সব উত্তর মুছে যাবে। নিশ্চিত?')) return;
+      var r = await sb.from('cq_questions').delete().eq('id', b.getAttribute('data-qdel'));
+      if (r.error) return flash(D.errMsg(r.error), false);
+      loadQuestions();
+    });
+  }
+
+  if (EXAMS.length) { loadAnswers(); loadQuestions(); }
+})();
+</script>
+</body>
+</html>
