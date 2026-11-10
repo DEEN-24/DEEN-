@@ -37,7 +37,8 @@
     { label: 'যোগাযোগ', href: 'contact.html' },
     { label: 'পোর্টাল', items: [
       ['login.html', 'শিক্ষার্থী লগইন'],
-      ['teachers.html', 'শিক্ষক ও স্টাফ পোর্টাল']
+      ['teachers.html', 'শিক্ষক ও স্টাফ পোর্টাল'],
+      ['certificate.html', 'সনদ যাচাই ও সংগ্রহ']
     ]}
   ];
 
@@ -47,7 +48,8 @@
     { label: 'কন্টেন্ট', items: [
       ['admin-pages.html', 'পেজ ব্যবস্থাপনা'],
       ['admin-events.html', 'ইভেন্ট ও নোটিশ'],
-      ['admin-learning.html', 'শিক্ষা ও পরীক্ষা']
+      ['admin-learning.html', 'শিক্ষা ও পরীক্ষা'],
+      ['grading.html', 'লিখিত খাতা ও নম্বর']
     ]},
     { label: 'ওয়েবসাইট দেখুন', href: 'index.html' },
     { label: 'লগআউট', href: '#', id: 'logoutBtn', cls: 'nav-cta' }
