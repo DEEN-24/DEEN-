@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<title>সনদ | DEEN</title>
+<meta name="description" content="DEEN সনদ দেখুন, ডাউনলোড করুন বা যাচাই করুন।">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:13px 15px;border:1px solid #d8d7ca;border-radius:13px;background:#fdfcf8;font-size:15px;outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  .list .item{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #efece2;flex-wrap:wrap}
+  .list .item:last-child{border-bottom:none}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .p-ok{background:#e3f4ea;color:#1b6b43}.p-no{background:#fbe6e3;color:#8e2f25}
+  /* সনদ */
+  .cert{position:relative;background:#fffdf6;border:14px double #b08a3e;border-radius:6px;padding:46px 56px;text-align:center;box-shadow:var(--shadow-lg);max-width:980px;margin:0 auto;aspect-ratio:1.414/1;display:flex;flex-direction:column;justify-content:center}
+  .cert::before{content:"";position:absolute;inset:14px;border:1px solid #d7b46a;pointer-events:none}
+  .cert .logo{font-family:'Playfair Display',serif;font-size:34px;letter-spacing:6px;color:#8b682b;font-weight:700}
+  .cert .tag{font-size:13px;letter-spacing:2px;color:#8b682b;margin-top:4px}
+  .cert h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);color:var(--green);margin:18px 0 6px}
+  .cert .lead{color:#5b6b63;font-size:16px}
+  .cert .name{font-family:'Playfair Display',serif;font-size:clamp(26px,3.6vw,40px);color:#8b682b;margin:14px 0 6px;border-bottom:1px solid #d7b46a;display:inline-block;padding:0 26px 4px}
+  .cert .course{font-size:20px;color:var(--ink);margin-top:8px;font-weight:600}
+  .cert .arab{font-family:'Amiri',serif;font-size:22px;color:var(--green);margin:10px 0 2px;direction:rtl}
+  .cert .foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px;gap:20px;text-align:left;font-size:13px;color:#5b6b63}
+  .cert .foot b{color:var(--green)}
+  .cert .sig{border-top:1px solid #8b682b;padding-top:6px;min-width:180px;text-align:center}
+  .verify-box{max-width:620px;margin:0 auto;text-align:left}
+  @media print{
+    body *{visibility:hidden}
+    #certPrint, #certPrint *{visibility:visible}
+    #certPrint{position:absolute;left:0;top:0;width:100%;margin:0;padding:0}
+    .cert{box-shadow:none;max-width:none;width:277mm;height:190mm;aspect-ratio:auto;border-radius:0;page-break-inside:avoid}
+    .no-print{display:none!important}
+    @page{size:A4 landscape;margin:8mm}
+  }
+  @media(max-width:620px){.cert{padding:28px 22px;border-width:8px}.cert .foot{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<div class="topbar no-print">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links"><a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</div>
+<header id="siteHeader"></header>
+
+<main class="page" style="padding-top:36px">
+  <div class="container">
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="sub" style="text-align:center;padding:30px">লোড হচ্ছে...</div>
+
+    <!-- যাচাই (সবার জন্য, লগইন ছাড়াই) -->
+    <section class="card verify-box hide" id="verifyBox">
+      <div class="eyebrow">CERTIFICATE VERIFICATION</div>
+      <h2 style="color:var(--green);margin-bottom:12px">সনদ যাচাই</h2>
+      <form id="vForm" class="row" novalidate>
+        <input class="inp" id="vNo" placeholder="DEEN-CERT-2026-XXXXXXXX" style="flex:1;min-width:230px;text-transform:uppercase">
+        <button class="btn btn-gold" type="submit">যাচাই করুন</button>
+      </form>
+      <div id="vResult" style="margin-top:18px"></div>
+    </section>
+
+    <!-- আমার সনদ (লগইন করা শিক্ষার্থী) -->
+    <section class="card hide" id="myCerts">
+      <h2 style="color:var(--green)">আমার সনদসমূহ</h2>
+      <p class="sub">সনদ খুলে "প্রিন্ট / PDF হিসেবে সংরক্ষণ" চাপলে PDF ফাইল তৈরি হবে।</p>
+      <div class="list" id="certList"></div>
+    </section>
+
+    <!-- প্রিন্টযোগ্য সনদ -->
+    <section class="hide" id="certWrap">
+      <div class="row no-print" style="justify-content:center;margin-bottom:18px">
+        <button class="btn btn-gold" type="button" id="printBtn">প্রিন্ট / PDF হিসেবে সংরক্ষণ</button>
+        <a class="btn btn-light" href="certificate.html">← সব সনদ</a>
+      </div>
+      <div id="certPrint"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="no-print"><div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — সনদ যাচাই ও ডাউনলোড</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  var params = new URLSearchParams(location.search);
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  function fmtDate(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return ''; } }
+
+  function certHtml(c) {
+    return '<div class="cert">' +
+      '<div class="logo">DEEN</div>' +
+      '<div class="tag">DAWAH EDUCATION &amp; E-LEARNING NEXUS</div>' +
+      '<h1>সনদপত্র</h1>' +
+      '<div class="lead">এই মর্মে প্রত্যয়ন করা যাচ্ছে যে</div>' +
+      '<div class="name">' + esc(c.full_name) + '</div>' +
+      '<div class="lead">সফলভাবে সম্পন্ন করেছেন</div>' +
+      '<div class="course">' + esc(c.course_title) + '</div>' +
+      '<div class="arab">بَارَكَ اللهُ فِيك</div>' +
+      '<div class="foot">' +
+        '<div><b>সনদ নম্বর:</b> ' + esc(c.number) + '<br><b>প্রদানের তারিখ:</b> ' + esc(fmtDate(c.issued_at)) + '<br>' +
+        '<b>যাচাই:</b> ' + esc(location.origin + location.pathname.replace(/[^/]*$/, '') + 'certificate.html?verify=' + c.number) + '</div>' +
+        '<div class="sig">কর্তৃপক্ষ<br>DEEN</div>' +
+      '</div>' +
+      (c.status === 'revoked' ? '<div style="position:absolute;top:40%;left:0;right:0;text-align:center;font-size:44px;color:rgba(176,58,46,.25);font-family:Playfair Display,serif;transform:rotate(-12deg)">বাতিল</div>' : '') +
+    '</div>';
+  }
+
+  /* ---------- যাচাই মোড ---------- */
+  async function verify(no) {
+    var r = await sb.rpc('verify_certificate', { p_no: no });
+    var box = $('vResult');
+    if (r.error) { box.innerHTML = '<div class="alert show bad">' + esc(D.errMsg(r.error)) + '</div>'; return; }
+    var d = r.data;
+    if (!d || !d.found) { box.innerHTML = '<div class="alert show bad">এই নম্বরে কোনো সনদ পাওয়া যায়নি। নম্বরটি আবার দেখে নিন।</div>'; return; }
+    var ok = d.status === 'active';
+    box.innerHTML = '<div class="alert show ' + (ok ? 'ok' : 'bad') + '">' +
+      '<b>' + (ok ? '✔ এই সনদটি বৈধ' : '✖ এই সনদটি বাতিল করা হয়েছে') + '</b><br>' +
+      'নাম: <b>' + esc(d.name) + '</b><br>কোর্স: <b>' + esc(d.course) + '</b><br>' +
+      'প্রদানের তারিখ: ' + esc(fmtDate(d.issued_at)) + '<br>সনদ নম্বর: ' + esc(d.number) + '</div>';
+  }
+
+  $('vForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var n = $('vNo').value.trim().toUpperCase();
+    if (n.length < 10) { D.show($('pageAlert'), 'bad', 'সঠিক সনদ নম্বর লিখুন।'); return; }
+    verify(n);
+  });
+
+  if (params.get('verify')) {
+    $('loading').classList.add('hide');
+    $('verifyBox').classList.remove('hide');
+    $('vNo').value = params.get('verify').toUpperCase();
+    verify(params.get('verify').toUpperCase());
+    return;
+  }
+
+  /* ---------- শিক্ষার্থীর সনদ ---------- */
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session) { location.href = 'login.html'; return; }
+
+  var q = await sb.from('certificates').select('number,status,issued_at,course_id,courses(title),applications(full_name)').order('issued_at', { ascending: false });
+  if (q.error) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(q.error))); return; }
+  var rows = (q.data || []).map(function (x) {
+    return { number: x.number, status: x.status, issued_at: x.issued_at,
+      course_title: x.courses ? x.courses.title : '', full_name: x.applications ? x.applications.full_name : '' };
+  });
+
+  var no = params.get('no');
+  if (no) {
+    var c = rows.filter(function (x) { return x.number === no.toUpperCase(); })[0];
+    if (!c) { D.show($('pageAlert'), 'bad', 'এই সনদ আপনার অ্যাকাউন্টে পাওয়া যায়নি।'); return; }
+    $('certPrint').innerHTML = certHtml(c);
+    $('certWrap').classList.remove('hide');
+    $('printBtn').addEventListener('click', function () { window.print(); });
+    return;
+  }
+
+  $('myCerts').classList.remove('hide');
+  $('certList').innerHTML = rows.length ? rows.map(function (x) {
+    return '<div class="item"><div style="flex:1;min-width:200px"><b style="color:var(--green)">' + esc(x.course_title) + '</b>' +
+      '<div style="font-size:13px;color:var(--muted)">' + esc(x.number) + ' · ' + esc(fmtDate(x.issued_at)) + '</div></div>' +
+      '<span class="pill ' + (x.status === 'active' ? 'p-ok' : 'p-no') + '">' + (x.status === 'active' ? 'বৈধ' : 'বাতিল') + '</span>' +
+      '<a class="btn btn-dark btn-sm" href="certificate.html?no=' + esc(x.number) + '">সনদ দেখুন</a></div>';
+  }).join('') : '<div class="sub" style="padding:20px 0">এখনো কোনো সনদ ইস্যু হয়নি। কোর্স সম্পন্ন হলে এখানে দেখা যাবে।</div>';
+})();
+</script>
+</body>
+</html>
