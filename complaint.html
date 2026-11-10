@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>অভিযোগ ও পরামর্শ | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:12px 14px;border:1px solid #d8d7ca;border-radius:12px;background:#fdfcf8;font-size:15px;color:var(--ink);outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  textarea.inp{min-height:140px;resize:vertical}
+  .frm{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+  .frm .full{grid-column:1/-1}
+  .item{padding:16px 0;border-bottom:1px solid #efece2}
+  .item:last-child{border-bottom:none}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .p-new{background:#fbf0d9;color:#7a5410}.p-inv{background:#e6eefb;color:#1d4a80}.p-ok{background:#e3f4ea;color:#1b6b43}
+  .note{background:#fbf7ec;border:1px solid #ecdcae;color:#6b4e10;border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.8;margin-bottom:18px}
+  @media(max-width:620px){.frm{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links"><a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</div>
+<header id="siteHeader"></header>
+
+<main class="page" style="padding-top:36px">
+  <div class="container">
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="sub" style="text-align:center;padding:30px">লোড হচ্ছে...</div>
+
+    <div id="app" class="hide">
+      <div class="eyebrow">COMPLAINTS &amp; FEEDBACK</div>
+      <h1 class="h1" style="color:var(--green)">অভিযোগ ও পরামর্শ</h1>
+      <p class="lead" style="margin-bottom:24px">আপনার যেকোনো সমস্যা বা পরামর্শ আমাদের জানান। আপনার অভিযোগের অবস্থা এখানে দেখতে পাবেন।</p>
+
+      <div class="note">
+        <b>শিশু সুরক্ষা সংক্রান্ত অভিযোগ</b> বিভাগে জানালে সেটি অগ্রাধিকার পাবে এবং তাৎক্ষণিক ব্যবস্থার জন্য চিহ্নিত হবে। এ ধরনের অভিযোগের বিস্তারিত উত্তর গোপন রাখা হবে।
+        এখন যদি কারো তাৎক্ষণিক বিপদ হয়, তবে স্থানীয় জরুরি সেবায় যোগাযোগ করুন।
+      </div>
+
+      <section class="card" style="margin-bottom:22px">
+        <h2 style="color:var(--green)">নতুন অভিযোগ বা পরামর্শ</h2>
+        <form id="cForm" novalidate>
+          <div class="frm">
+            <div><label class="lbl" for="cCat">বিভাগ *</label>
+              <select class="inp" id="cCat">
+                <option value="সাধারণ">সাধারণ</option>
+                <option value="একাডেমিক">একাডেমিক (পাঠদান, পরীক্ষা, ফল)</option>
+                <option value="আর্থিক">আর্থিক (পেমেন্ট, ফি, ফেরত)</option>
+                <option value="আচরণ">আচরণ</option>
+                <option value="শিশু সুরক্ষা">শিশু সুরক্ষা (অগ্রাধিকার)</option>
+              </select></div>
+            <div><label class="lbl" for="cSub">বিষয় *</label><input class="inp" id="cSub" maxlength="200"></div>
+            <div class="full"><label class="lbl" for="cDet">বিস্তারিত *</label><textarea class="inp" id="cDet" maxlength="4000" placeholder="যা ঘটেছে, কখন ও কোথায় ঘটেছে, কোন তথ্য দরকার, সব লিখুন"></textarea></div>
+          </div>
+          <button class="btn btn-gold" type="submit" id="cBtn" style="margin-top:16px">জমা দিন</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2 style="color:var(--green)">আমার অভিযোগসমূহ</h2>
+        <div id="cList" style="margin-top:12px"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — অভিযোগ ব্যবস্থা</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  var session = await D.getSession();
+  $('loading').classList.add('hide');
+  if (!session) { location.href = 'login.html'; return; }
+  if (await D.isAdmin()) { location.href = 'admin-learning.html'; return; }
+  $('app').classList.remove('hide');
+
+  function fmt(d) { try { return new Date(d).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return ''; } }
+
+  async function loadMine() {
+    var r = await sb.rpc('my_complaints');
+    if (r.error) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(r.error))); return; }
+    var list = r.data || [];
+    $('cList').innerHTML = list.length ? list.map(function (x) {
+      var cls = x.status === 'নিষ্পন্ন' ? 'p-ok' : x.status === 'তদন্তাধীন' ? 'p-inv' : 'p-new';
+      return '<div class="item"><div class="row-between"><b style="color:var(--green)">' + esc(x.subject) + '</b>' +
+        '<span class="pill ' + cls + '">' + esc(x.status) + '</span></div>' +
+        '<div style="font-size:13px;color:var(--muted);margin-top:4px">' + esc(x.category) + ' · ' + esc(fmt(x.created_at)) + '</div>' +
+        (x.response ? '<div style="margin-top:8px;background:#fbfaf5;border:1px solid #efece2;border-radius:12px;padding:10px 12px;white-space:pre-wrap">' + esc(x.response) + '</div>' : '') +
+        '</div>';
+    }).join('') : '<p class="sub">এখনো কোনো অভিযোগ জমা দেননি।</p>';
+  }
+
+  $('cForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('pageAlert'));
+    var sub = $('cSub').value.trim(), det = $('cDet').value.trim();
+    if (sub.length < 3) return D.show($('pageAlert'), 'bad', 'বিষয় কমপক্ষে ৩ অক্ষর লিখুন।');
+    if (det.length < 10) return D.show($('pageAlert'), 'bad', 'বিস্তারিত কমপক্ষে ১০ অক্ষর লিখুন।');
+    var b = $('cBtn'); b.disabled = true;
+    try {
+      var r = await sb.rpc('submit_complaint', { p_category: $('cCat').value, p_subject: sub, p_details: det });
+      if (r.error) throw r.error;
+      D.show($('pageAlert'), 'ok', 'আপনার বার্তা গৃহীত হয়েছে। অবস্থা নিচের তালিকায় দেখতে পাবেন।');
+      $('cForm').reset();
+      loadMine();
+    } catch (err) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  loadMine();
+})();
+</script>
+</body>
+</html>
