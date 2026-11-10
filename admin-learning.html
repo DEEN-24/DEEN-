@@ -149,6 +149,19 @@
         </div>
         <div class="acts" style="margin-top:12px"><button class="btn btn-dark" type="button" id="asgSave">বরাদ্দ সংরক্ষণ</button></div>
       </section>
+
+      <!-- ৬. মাসিক কিস্তি ও অভিযোগ -->
+      <section class="card" style="margin-top:22px">
+        <h2>মাসিক কোর্স ফি যাচাই</h2>
+        <p class="sub">শিক্ষার্থীর জমা দেওয়া মাসিক কিস্তি যাচাই বা বাতিল করুন।</p>
+        <div id="kiList"></div>
+      </section>
+
+      <section class="card" style="margin-top:22px">
+        <h2>অভিযোগ ও পরামর্শ</h2>
+        <p class="sub">শিশু সুরক্ষা অভিযোগ সবার উপরে থাকবে। সুরক্ষা-সংক্রান্ত উত্তর শিক্ষার্থী দেখতে পাবেন না।</p>
+        <div id="compList"></div>
+      </section>
     </div>
   </div>
 </main>
@@ -426,10 +439,58 @@
     flash('শিক্ষকের কোর্স বরাদ্দ সংরক্ষিত হয়েছে।', true);
   });
 
+  /* ================= ৬. মাসিক কিস্তি ও অভিযোগ ================= */
+  async function loadInstallments() {
+    var r = await sb.from('course_fee_payments').select('*, applications(full_name,code)').order('created_at', { ascending: false }).limit(300);
+    var list = r.data || [];
+    $('kiList').innerHTML = list.length ? '<table class="tbl"><tr><th>মাস</th><th>শিক্ষার্থী</th><th>মাধ্যম</th><th>TrxID</th><th>পরিমাণ</th><th>অবস্থা</th><th></th></tr>' +
+      list.map(function (p) {
+        var cls = p.status === 'verified' ? 'p-ok' : p.status === 'rejected' ? 'p-no' : 'p-wait';
+        var lbl = p.status === 'verified' ? 'যাচাইকৃত' : p.status === 'rejected' ? 'বাতিল' : 'যাচাই বাকি';
+        return '<tr><td>' + p.period_no + '</td><td>' + esc(p.applications ? p.applications.full_name : '—') + '<div class="sm" style="font-size:12px">' + esc(p.applications ? p.applications.code : '') + '</div></td>' +
+          '<td>' + esc(p.method) + ' · ' + esc(p.sender_number) + '</td><td><b>' + esc(p.trx_id) + '</b></td><td>৳' + Number(p.amount).toLocaleString('en-US') + '</td>' +
+          '<td><span class="pill ' + cls + '">' + lbl + '</span></td>' +
+          '<td><div class="acts"><button class="btn btn-dark" data-ki="verified" data-id="' + p.id + '">যাচাই</button>' +
+          '<button class="btn btn-danger" data-ki="rejected" data-id="' + p.id + '">বাতিল</button></div></td></tr>';
+      }).join('') + '</table>' : '<p class="sub">কোনো কিস্তি জমা নেই।</p>';
+  }
+  $('kiList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-ki]'); if (!b) return;
+    var r = await sb.from('course_fee_payments').update({ status: b.getAttribute('data-ki') }).eq('id', b.getAttribute('data-id'));
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('কিস্তির অবস্থা আপডেট হয়েছে।', true); loadInstallments();
+  });
+
+  async function loadComplaints() {
+    var r = await sb.from('complaints').select('*').order('is_safety', { ascending: false }).order('created_at', { ascending: false });
+    var list = r.data || [];
+    $('compList').innerHTML = list.length ? list.map(function (c) {
+      return '<div class="qbox" style="' + (c.is_safety ? 'border-color:#e8c4bf;background:#fdf7f6' : '') + '">' +
+        '<div class="row-between"><b>' + (c.is_safety ? '🛡️ শিশু সুরক্ষা — ' : '') + esc(c.subject) + '</b>' +
+        '<span class="sm">' + esc(c.reporter_role) + ' · ' + esc(c.category) + ' · ' + esc(fmt(c.created_at)) + '</span></div>' +
+        '<p>' + esc(c.details) + '</p>' +
+        '<div class="grade-row" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start">' +
+        '<select class="inp" style="max-width:180px" data-cs="' + c.id + '">' +
+          ['গৃহীত', 'তদন্তাধীন', 'নিষ্পন্ন'].map(function (s) { return '<option' + (s === c.status ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
+        '</select>' +
+        '<textarea class="inp" style="flex:1;min-width:220px;min-height:60px" maxlength="2000" data-cr="' + c.id + '" placeholder="উত্তর / ব্যবস্থার বিবরণ">' + esc(c.admin_response) + '</textarea>' +
+        '<button class="btn btn-dark btn-sm" data-cv="' + c.id + '">সংরক্ষণ</button></div></div>';
+    }).join('') : '<p class="sub">এখনো কোনো অভিযোগ জমা হয়নি।</p>';
+  }
+  $('compList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-cv]'); if (!b) return;
+    var id = b.getAttribute('data-cv');
+    var st = document.querySelector('select[data-cs="' + id + '"]').value;
+    var rs = document.querySelector('textarea[data-cr="' + id + '"]').value.trim();
+    var r = await sb.rpc('update_complaint', { p_id: id, p_status: st, p_response: rs });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('অভিযোগের অবস্থা সংরক্ষিত হয়েছে।', true); loadComplaints();
+  });
+
   /* ---------- শুরু ---------- */
   try {
     await loadBase();
-    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams(), loadCertForm(), loadCerts(), loadAssign()]);
+    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams(), loadCertForm(), loadCerts(), loadAssign(), loadInstallments(), loadComplaints()]);
   } catch (err) { flash('তথ্য লোড করা যায়নি: ' + D.errMsg(err), false); }
 })();
 </script>
