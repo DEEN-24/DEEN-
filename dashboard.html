@@ -108,6 +108,7 @@
         <button class="on" data-p="content">কোর্স কনটেন্ট</button>
         <button data-p="exams">পরীক্ষা</button>
         <button data-p="results">ফলাফল</button>
+        <button data-p="certs">সনদ</button>
         <button data-p="notices">নোটিশ</button>
       </nav>
 
@@ -119,6 +120,12 @@
       </section>
 
       <section class="pane card" id="p-results"><h2>আমার ফলাফল</h2><div id="resultList" style="margin-top:12px"></div></section>
+
+      <section class="pane card" id="p-certs">
+        <h2>আমার সনদ</h2>
+        <p class="sub">কোর্স সম্পন্ন হলে সনদ এখানে আসবে। সনদ দেখে প্রিন্ট বা PDF হিসেবে সংরক্ষণ করতে পারবেন।</p>
+        <a class="btn btn-dark" href="certificate.html">আমার সনদ দেখুন</a>
+      </section>
 
       <section class="pane card" id="p-notices"><h2>নোটিশ</h2><div id="noticeList" style="margin-top:12px"></div></section>
     </div>
@@ -245,6 +252,7 @@
       else if (a) { state = '<span class="pill p-wait">চলমান</span>'; action = '<button class="btn btn-gold btn-sm" data-start="' + e.id + '">পরীক্ষায় ফিরুন</button>'; }
       else if (e.opens_at && now < new Date(e.opens_at).getTime()) state = '<span class="pill p-info">শুরু: ' + esc(fmtDate(e.opens_at)) + ' ' + esc(fmtTime(e.opens_at)) + '</span>';
       else if (e.closes_at && now > new Date(e.closes_at).getTime()) state = '<span class="pill p-no">সময় শেষ</span>';
+      else if (e.exam_type === 'cq') { state = '<span class="pill p-info">লিখিত · খোলা</span>'; action = '<button class="btn btn-gold btn-sm" data-cq="' + e.id + '">লিখিত উত্তর দিন</button>'; }
       else { state = '<span class="pill p-info">খোলা</span>'; action = '<button class="btn btn-gold btn-sm" data-start="' + e.id + '">পরীক্ষা শুরু করুন</button>'; }
       return '<div class="item"><div class="ico">📝</div><div class="grow"><h4>' + esc(e.title) + '</h4>' +
         '<div class="sm">' + e.duration_min + ' মিনিট · পাস নম্বর ' + e.pass_mark + '%</div>' +
@@ -348,6 +356,8 @@
     if (g) { runState.idx = Number(g.getAttribute('data-go')); renderRun(); return; }
     var n = e.target.closest('button[data-nav]');
     if (n) { runState.idx = Math.min(runState.questions.length - 1, Math.max(0, runState.idx + Number(n.getAttribute('data-nav')))); renderRun(); return; }
+    if (e.target.closest('#cqSubmit')) { submitCq(); return; }
+    if (e.target.closest('#cqBack')) { show('examRun', false); show('examList', true); return; }
     if (e.target.closest('#submitExam')) {
       var left = runState.questions.filter(function (x) { return x.chosen === null; }).length;
       if (left && !confirm(left + ' টি প্রশ্নের উত্তর দেওয়া হয়নি। তবু জমা দেবেন?')) return;
@@ -359,7 +369,51 @@
   });
   $('examList').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-start]'); if (b) startExam(b.getAttribute('data-start'));
+    var c = e.target.closest('button[data-cq]'); if (c) openCq(c.getAttribute('data-cq'));
   });
+
+  /* লিখিত পরীক্ষা */
+  var currentCq = null;
+  async function openCq(examId) {
+    currentCq = Number(examId);
+    var ex2 = exams.filter(function (x) { return x.id === currentCq; })[0];
+    var qs = await sb.from('cq_questions').select('*').eq('exam_id', currentCq).order('sort_order').order('id');
+    var an = await sb.from('cq_answers').select('*').eq('user_id', session.user.id);
+    var mine = {};
+    (an.data || []).forEach(function (a) { mine[a.question_id] = a; });
+    var list = qs.data || [];
+    $('examRun').innerHTML =
+      '<div class="exam-top"><div><h2 style="color:var(--green)">' + esc(ex2 ? ex2.title : 'লিখিত পরীক্ষা') + '</h2>' +
+      '<div class="sm">' + (ex2 && ex2.closes_at ? 'সময়সীমা: ' + esc(fmtDate(ex2.closes_at)) + ' ' + esc(fmtTime(ex2.closes_at)) : 'সময়সীমা শিক্ষক জানাবেন') + '</div></div></div>' +
+      (list.length ? list.map(function (x, i) {
+        var a = mine[x.id], graded = a && a.graded_at;
+        return '<div class="qcard" style="margin-bottom:16px"><div class="sm">প্রশ্ন ' + (i + 1) + ' · সর্বোচ্চ ' + x.marks + ' নম্বর' +
+          (graded ? ' · প্রাপ্ত নম্বর: ' + a.marks_awarded : '') + '</div>' +
+          '<div class="qtext">' + esc(x.question_text) + '</div>' +
+          (graded && a.comment ? '<div class="sm" style="margin-bottom:8px">মন্তব্য: ' + esc(a.comment) + '</div>' : '') +
+          '<textarea class="inp" data-cq="' + x.id + '" maxlength="5000" style="min-height:140px"' + (graded ? ' disabled' : '') + '>' +
+          esc(a ? a.answer_text : '') + '</textarea></div>';
+      }).join('') +
+        '<div class="row" style="margin-top:6px"><button class="btn btn-gold" type="button" id="cqSubmit">উত্তর জমা দিন</button>' +
+        '<button class="btn btn-light" type="button" id="cqBack">ফিরে যান</button></div>'
+      : '<p class="sub">এই পরীক্ষার প্রশ্ন এখনো যুক্ত হয়নি।</p><button class="btn btn-light" type="button" id="cqBack">ফিরে যান</button>');
+    show('examList', false); show('examRun', true);
+  }
+
+  async function submitCq() {
+    var payload = [];
+    document.querySelectorAll('textarea[data-cq]:not([disabled])').forEach(function (t) {
+      var v = t.value.trim();
+      if (v) payload.push({ question_id: Number(t.getAttribute('data-cq')), text: v });
+    });
+    if (!payload.length) { D.show($('pageAlert'), 'bad', 'অন্তত একটি উত্তর লিখুন।'); return; }
+    try {
+      var r = await sb.rpc('submit_cq', { p_exam: currentCq, p_answers: payload });
+      if (r.error) throw r.error;
+      D.show($('pageAlert'), 'ok', 'উত্তর জমা হয়েছে। শিক্ষক নম্বর দিলে এখানে দেখা যাবে।');
+      show('examRun', false); show('examList', true);
+    } catch (err) { D.show($('pageAlert'), 'bad', D.esc(D.errMsg(err))); }
+  }
 
   /* নোটিশ */
   async function loadNotices() {
