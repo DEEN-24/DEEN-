@@ -38,7 +38,8 @@
     { label: 'পোর্টাল', items: [
       ['login.html', 'শিক্ষার্থী লগইন'],
       ['teachers.html', 'শিক্ষক ও স্টাফ পোর্টাল'],
-      ['certificate.html', 'সনদ যাচাই ও সংগ্রহ']
+      ['certificate.html', 'সনদ যাচাই ও সংগ্রহ'],
+      ['complaint.html', 'অভিযোগ ও পরামর্শ']
     ]}
   ];
 
