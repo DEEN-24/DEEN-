@@ -162,6 +162,35 @@
         <p class="sub">শিশু সুরক্ষা অভিযোগ সবার উপরে থাকবে। সুরক্ষা-সংক্রান্ত উত্তর শিক্ষার্থী দেখতে পাবেন না।</p>
         <div id="compList"></div>
       </section>
+
+      <!-- ৭. শিশু সুরক্ষা ও অভিভাবক -->
+      <section class="card" style="margin-top:22px">
+        <h2>শিশু সুরক্ষা ও অভিভাবক</h2>
+        <div class="sec-h">সুরক্ষা কর্মকর্তা (এখন ডেমো তথ্য; নিয়োগের পর এখান থেকে বদলান)</div>
+        <div class="frm">
+          <div><label class="lbl" for="soName">নাম</label><input class="inp" id="soName" maxlength="120"></div>
+          <div><label class="lbl" for="soDes">পদবি</label><input class="inp" id="soDes" maxlength="120"></div>
+          <div><label class="lbl" for="soPhone">মোবাইল</label><input class="inp" id="soPhone" placeholder="01XXXXXXXXX"></div>
+          <div><label class="lbl" for="soEmail">লগইন ইমেইল (সুরক্ষা পোর্টালের জন্য)</label><input class="inp" id="soEmail" type="email"></div>
+          <div class="full"><label class="chk"><input type="checkbox" id="soActive"> সক্রিয় (সুরক্ষা পোর্টালে প্রবেশাধিকার চালু)</label></div>
+        </div>
+        <div class="acts" style="margin-top:12px"><button class="btn btn-gold" type="button" id="soSave">সুরক্ষা কর্মকর্তার তথ্য সংরক্ষণ</button></div>
+
+        <div class="sec-h">শিক্ষার্থীর জন্মতারিখ (১৮ বছরের নিচে = শিশু)</div>
+        <div id="dobList"></div>
+
+        <div class="sec-h">অভিভাবক যুক্ত করুন</div>
+        <p class="sub">অভিভাবক তাঁর ইমেইল দিয়ে অভিভাবক পোর্টালে প্রথমবার সক্রিয় করবেন। ইমেইলটি এখানে সঠিক হতে হবে।</p>
+        <div class="frm">
+          <div><label class="lbl" for="gApp">শিক্ষার্থী</label><select class="inp" id="gApp"></select></div>
+          <div><label class="lbl" for="gName">অভিভাবকের নাম</label><input class="inp" id="gName" maxlength="120"></div>
+          <div><label class="lbl" for="gRel">সম্পর্ক</label><select class="inp" id="gRel"><option>বাবা</option><option>মা</option><option>অভিভাবক</option></select></div>
+          <div><label class="lbl" for="gEmail">অভিভাবকের লগইন ইমেইল</label><input class="inp" id="gEmail" type="email"></div>
+          <div><label class="lbl" for="gPhone">মোবাইল</label><input class="inp" id="gPhone" placeholder="01XXXXXXXXX"></div>
+        </div>
+        <div class="acts" style="margin-top:12px"><button class="btn btn-dark" type="button" id="gAdd">অভিভাবক যুক্ত করুন</button></div>
+        <div id="gList" style="margin-top:12px"></div>
+      </section>
     </div>
   </div>
 </main>
@@ -487,10 +516,92 @@
     flash('অভিযোগের অবস্থা সংরক্ষিত হয়েছে।', true); loadComplaints();
   });
 
+  /* ================= ৭. শিশু সুরক্ষা ও অভিভাবক ================= */
+  var SO = null;
+  async function loadSafety() {
+    var r = await sb.from('safety_officer').select('*').eq('id', 1).single();
+    if (r.error) throw r.error;
+    SO = r.data;
+    $('soName').value = SO.full_name || ''; $('soDes').value = SO.designation || '';
+    $('soPhone').value = SO.phone || ''; $('soEmail').value = SO.email || '';
+    $('soActive').checked = !!SO.is_active;
+  }
+  $('soSave').addEventListener('click', async function () {
+    var em = $('soEmail').value.trim(), ph = $('soPhone').value.trim(), nm = $('soName').value.trim();
+    if (nm.length < 3) return flash('সুরক্ষা কর্মকর্তার নাম লিখুন।', false);
+    if (ph && !/^01[3-9]\d{8}$/.test(ph)) return flash('মোবাইল নম্বর সঠিক নয়।', false);
+    if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return flash('ইমেইল সঠিক নয়।', false);
+    if ($('soActive').checked && !em) return flash('সক্রিয় করতে ইমেইল লাগবে।', false);
+    var changed = (SO.email || '').toLowerCase() !== em.toLowerCase();
+    var upd = { full_name: nm, designation: $('soDes').value.trim(), phone: ph, email: em,
+      is_active: $('soActive').checked, updated_at: new Date().toISOString() };
+    if (changed) upd.user_id = null; // ইমেইল বদলালে আগের অ্যাকাউন্টের সংযোগ বাতিল
+    var r = await sb.from('safety_officer').update(upd).eq('id', 1);
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('সুরক্ষা কর্মকর্তার তথ্য সংরক্ষিত হয়েছে।', true);
+    loadSafety();
+  });
+
+  async function loadDob() {
+    var r = await sb.from('applications').select('id,full_name,code,date_of_birth').order('created_at', { ascending: false }).limit(300);
+    var list = r.data || [];
+    var today = new Date(), cutoff = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    $('dobList').innerHTML = list.length ? '<table class="tbl"><tr><th>শিক্ষার্থী</th><th>জন্মতারিখ</th><th>অবস্থা</th><th></th></tr>' +
+      list.map(function (a) {
+        var minor = !a.date_of_birth || new Date(a.date_of_birth) > cutoff;
+        return '<tr><td>' + esc(a.full_name) + '<div class="sm" style="font-size:12px">' + esc(a.code) + '</div></td>' +
+          '<td><input class="inp" type="date" style="max-width:180px" id="dob_' + a.id + '" value="' + esc(a.date_of_birth || '') + '"></td>' +
+          '<td><span class="pill ' + (minor ? 'p-wait' : 'p-ok') + '">' + (minor ? 'শিশু (১৮ এর নিচে বা তারিখ নেই)' : 'প্রাপ্তবয়স্ক') + '</span></td>' +
+          '<td><button class="btn btn-dark btn-sm" data-dob="' + a.id + '">সংরক্ষণ</button></td></tr>';
+      }).join('') + '</table>' : '<p class="sub">কোনো শিক্ষার্থী নেই।</p>';
+  }
+  $('dobList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-dob]'); if (!b) return;
+    var id = b.getAttribute('data-dob'), v = document.getElementById('dob_' + id).value || null;
+    var r = await sb.from('applications').update({ date_of_birth: v }).eq('id', id);
+    if (r.error) return flash(D.errMsg(r.error), false);
+    flash('জন্মতারিখ সংরক্ষিত হয়েছে।', true); loadDob();
+  });
+
+  async function loadGuardianForm() {
+    var a = await sb.from('applications').select('id,full_name,code').order('full_name');
+    $('gApp').innerHTML = (a.data || []).map(function (x) {
+      return '<option value="' + x.id + '">' + esc(x.full_name) + ' (' + esc(x.code) + ')</option>';
+    }).join('');
+  }
+  async function loadGuardians() {
+    var r = await sb.from('guardians').select('*, applications(full_name)').order('created_at', { ascending: false });
+    var list = r.data || [];
+    $('gList').innerHTML = list.length ? '<table class="tbl"><tr><th>অভিভাবক</th><th>শিক্ষার্থী</th><th>সম্পর্ক</th><th>ইমেইল</th><th>সক্রিয়</th><th></th></tr>' +
+      list.map(function (g) {
+        return '<tr><td>' + esc(g.full_name) + '</td><td>' + esc(g.applications ? g.applications.full_name : '—') + '</td><td>' + esc(g.relation) + '</td><td>' + esc(g.email) + '</td>' +
+          '<td><span class="pill ' + (g.user_id ? 'p-ok' : 'p-wait') + '">' + (g.user_id ? 'হ্যাঁ' : 'না') + '</span></td>' +
+          '<td><button class="btn btn-danger btn-sm" data-gdel="' + g.id + '">মুছুন</button></td></tr>';
+      }).join('') + '</table>' : '<p class="sub">কোনো অভিভাবক যুক্ত নেই।</p>';
+  }
+  $('gAdd').addEventListener('click', async function () {
+    var app = $('gApp').value, nm = $('gName').value.trim(), em = $('gEmail').value.trim(), ph = $('gPhone').value.trim();
+    if (!app) return flash('শিক্ষার্থী বাছুন।', false);
+    if (nm.length < 3) return flash('অভিভাবকের নাম লিখুন।', false);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return flash('সঠিক ইমেইল দিন।', false);
+    if (ph && !/^01[3-9]\d{8}$/.test(ph)) return flash('মোবাইল নম্বর সঠিক নয়।', false);
+    var r = await sb.from('guardians').insert({ application_id: app, full_name: nm, relation: $('gRel').value, email: em, phone: ph });
+    if (r.error) return flash(D.errMsg(r.error), false);
+    $('gName').value = ''; $('gEmail').value = ''; $('gPhone').value = '';
+    flash('অভিভাবক যুক্ত হয়েছে।', true); loadGuardians();
+  });
+  $('gList').addEventListener('click', async function (e) {
+    var b = e.target.closest('button[data-gdel]'); if (!b) return;
+    if (!confirm('এই অভিভাবকের প্রবেশাধিকার বাতিল হবে। নিশ্চিত?')) return;
+    var r = await sb.from('guardians').delete().eq('id', b.getAttribute('data-gdel'));
+    if (r.error) return flash(D.errMsg(r.error), false);
+    loadGuardians();
+  });
+
   /* ---------- শুরু ---------- */
   try {
     await loadBase();
-    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams(), loadCertForm(), loadCerts(), loadAssign(), loadInstallments(), loadComplaints()]);
+    await Promise.all([loadTiers(), loadPayments(), loadContent(), loadExams(), loadCertForm(), loadCerts(), loadAssign(), loadInstallments(), loadComplaints(), loadSafety(), loadDob(), loadGuardianForm(), loadGuardians()]);
   } catch (err) { flash('তথ্য লোড করা যায়নি: ' + D.errMsg(err), false); }
 })();
 </script>
