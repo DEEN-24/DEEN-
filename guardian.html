@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#062b23">
+<meta name="robots" content="noindex,nofollow">
+<title>অভিভাবক পোর্টাল | DEEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deen.css">
+<style>
+  .lbl{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .inp{width:100%;padding:13px 15px;border:1px solid #d8d7ca;border-radius:13px;background:#fdfcf8;font-size:15px;outline:none}
+  .inp:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,180,106,.2);background:#fff}
+  .tabs2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  .tabs2 button{border:1px solid #d8d7ca;background:#fff;color:var(--green);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14.5px}
+  .tabs2 button.on{background:var(--green);color:var(--gold-2);border-color:var(--green)}
+  .pane{display:none}.pane.on{display:block;animation:fadeUp .4s var(--ease) both}
+  .row-i{padding:14px 0;border-bottom:1px solid #efece2}
+  .row-i:last-child{border-bottom:none}
+  .pill{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .p-ok{background:#e3f4ea;color:#1b6b43}.p-no{background:#fbe6e3;color:#8e2f25}
+  .msgs{max-height:420px;overflow-y:auto;background:#fbfaf5;border:1px solid #efece2;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .bub{background:#fff;border:1px solid #efece2;border-radius:14px;padding:10px 12px}
+  .bub .w{font-size:12px;color:var(--muted);margin-bottom:3px}
+  .note{background:#fbf7ec;border:1px solid #ecdcae;color:#6b4e10;border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.8;margin-bottom:18px}
+  .tabbox{display:grid;grid-template-columns:1fr 1fr;background:#f3f1e8;border-radius:999px;padding:5px;margin-bottom:24px}
+  .tab{border:none;background:transparent;padding:10px;border-radius:999px;color:var(--muted);font-weight:600}
+  .tab[aria-selected="true"]{background:var(--green);color:var(--gold-2)}
+  .panel-f{display:none}.panel-f.on{display:block}
+  .field.invalid .inp{border-color:var(--bad);background:#fff7f6}
+  .field .err{display:none;color:var(--bad);font-size:13px;margin-top:5px}
+  .field.invalid .err{display:block}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>Knowledge Changes Lives &nbsp;|&nbsp; Established August 2024</span>
+    <div class="top-links"><a href="https://wa.me/8801332991478" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</div>
+<header id="siteHeader"></header>
+
+<main class="page" style="padding-top:36px">
+  <div class="container">
+    <div class="alert" id="pageAlert" role="status"></div>
+    <div id="loading" class="sub" style="text-align:center;padding:30px">লোড হচ্ছে...</div>
+
+    <section class="card hide" id="entry" style="max-width:560px;margin:0 auto">
+      <div class="eyebrow">GUARDIAN PORTAL</div>
+      <h2 style="color:var(--green);margin-bottom:6px">অভিভাবক পোর্টাল</h2>
+      <p class="sub" style="margin-bottom:18px">সন্তানের তথ্য দেখতে অভিভাবক হিসেবে প্রবেশ করুন। শিক্ষার্থীরা এই পোর্টালে প্রবেশ করতে পারবে না।</p>
+      <div class="tabbox">
+        <button class="tab" data-tab="login" aria-selected="true">লগইন</button>
+        <button class="tab" data-tab="act" aria-selected="false">প্রথমবার সক্রিয় করুন</button>
+      </div>
+      <form class="panel-f on" id="pLogin" novalidate>
+        <div class="field" id="f-le"><label class="lbl" for="le">অভিভাবকের ইমেইল</label><input class="inp" id="le" type="email" autocomplete="username"><div class="err">সঠিক ইমেইল লিখুন।</div></div>
+        <div class="field" id="f-lp"><label class="lbl" for="lp">পাসওয়ার্ড</label><input class="inp" id="lp" type="password" autocomplete="current-password"><div class="err">পাসওয়ার্ড লিখুন।</div></div>
+        <button class="btn btn-gold btn-block" type="submit" id="lBtn">প্রবেশ করুন →</button>
+      </form>
+      <form class="panel-f" id="pAct" novalidate>
+        <div class="note">ভর্তির আবেদনে শিক্ষার্থী যে অভিভাবকের ইমেইল দিয়েছেন, শুধু সেই ইমেইল দিয়ে সক্রিয় করা যাবে।</div>
+        <div class="field" id="f-ae"><label class="lbl" for="ae">অভিভাবকের ইমেইল</label><input class="inp" id="ae" type="email"><div class="err">সঠিক ইমেইল লিখুন।</div></div>
+        <div class="field" id="f-ap"><label class="lbl" for="ap">নতুন পাসওয়ার্ড</label><input class="inp" id="ap" type="password" autocomplete="new-password" placeholder="কমপক্ষে ৮ অক্ষর"><div class="err">পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।</div></div>
+        <button class="btn btn-dark btn-block" type="submit" id="aBtn">সক্রিয় করুন →</button>
+      </form>
+      <div class="alert" id="entryAlert" role="status"></div>
+    </section>
+
+    <div id="main" class="hide">
+      <div class="card" style="background:linear-gradient(120deg,var(--green-3),var(--green-2));color:#fff;border:none;margin-bottom:22px">
+        <div class="eyebrow" style="color:var(--gold-2)">GUARDIAN</div>
+        <h1 style="font-family:'Playfair Display',serif;color:var(--gold-2);font-size:clamp(24px,3vw,32px);margin:6px 0" id="welcome"></h1>
+        <p style="color:#dfe7e0" id="childLine"></p>
+        <div class="row" style="margin-top:14px"><button class="btn btn-light btn-sm" id="logoutBtn" type="button">লগআউট</button></div>
+      </div>
+
+      <div class="note">আপনি শুধু দেখতে পারবেন। সন্তানের তথ্য বদলানো বা বার্তা পাঠানোর সুযোগ নেই।</div>
+
+      <nav class="tabs2" id="tabs">
+        <button class="on" data-p="overview">সারসংক্ষেপ</button>
+        <button data-p="results">পরীক্ষার ফল</button>
+        <button data-p="chats">সন্তানের বার্তা</button>
+      </nav>
+
+      <section class="pane on card" id="p-overview"><div id="overview"></div></section>
+      <section class="pane card" id="p-results"><div id="results"></div></section>
+      <section class="pane card" id="p-chats">
+        <h2 style="color:var(--green)">সন্তানের সব বার্তা (শুধু দেখার জন্য)</h2>
+        <p class="sub">কোর্স আলোচনা ও ব্যক্তিগত বার্তা, সবই এখানে দেখা যাবে।</p>
+        <div class="msgs" id="msgs" style="margin-top:12px"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="container"><div class="footer-bottom" style="border:none;margin:0;padding:0">© 2026 DEEN — Guardian Portal</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="deen.js"></script>
+<script>
+(async function () {
+  var D = window.DEEN, sb = D.client, esc = D.esc;
+  var $ = function (id) { return document.getElementById(id); };
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!sb) { D.show($('pageAlert'), 'bad', 'সিস্টেম লোড হয়নি।'); $('loading').classList.add('hide'); return; }
+
+  function fmt(d) { try { return new Date(d).toLocaleString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+  function check(id, ok) { $(id).classList.toggle('invalid', !ok); return ok; }
+  document.querySelectorAll('input').forEach(function (el) {
+    el.addEventListener('input', function () { var f = el.closest('.field'); if (f) f.classList.remove('invalid'); });
+  });
+
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.setAttribute('aria-selected', String(x === t)); });
+      $('pLogin').classList.toggle('on', t.getAttribute('data-tab') === 'login');
+      $('pAct').classList.toggle('on', t.getAttribute('data-tab') === 'act');
+    });
+  });
+  $('tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-p]'); if (!b) return;
+    document.querySelectorAll('#tabs button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    document.querySelectorAll('.pane').forEach(function (p) { p.classList.toggle('on', p.id === 'p-' + b.getAttribute('data-p')); });
+  });
+
+  /* অভিভাবক যাচাই ও ড্যাশবোর্ড */
+  async function enter() {
+    var o = await sb.rpc('guardian_overview');
+    if (o.error || !o.data) {
+      await sb.auth.signOut();
+      $('entry').classList.remove('hide');
+      D.show($('entryAlert'), 'bad', 'এই অ্যাকাউন্টটি অভিভাবক হিসেবে যুক্ত নয়। প্রথমবার হলে "প্রথমবার সক্রিয় করুন" ব্যবহার করুন।');
+      return;
+    }
+    var d = o.data;
+    $('main').classList.remove('hide');
+    $('welcome').textContent = 'স্বাগতম, ' + d.guardian;
+    $('childLine').textContent = 'শিক্ষার্থী: ' + d.child + ' · কোর্স: ' + (d.course || '—') + ' · অবস্থা: ' + d.status;
+
+    $('overview').innerHTML =
+      '<div class="row-i"><b>অ্যাকাউন্ট ফি ও কিস্তি</b><div class="sm" style="font-size:13px;color:var(--muted)">' +
+        (d.payment_type === 'monthly' ? 'মাসিক কিস্তি: ' + d.monthly_paid + ' মাস পরিশোধিত' : 'এককালীন পেমেন্ট') + '</div></div>' +
+      '<div class="row-i"><b>কোর্সের অবস্থা</b><div class="sm" style="font-size:13px;color:var(--muted)">' + esc(d.status) + '</div></div>';
+
+    var res = d.results || [];
+    $('results').innerHTML = res.length ? res.map(function (r) {
+      var pct = r.total ? Math.round(r.score * 100 / r.total) : 0, ok = pct >= r.pass;
+      return '<div class="row-i"><div class="row-between"><b style="color:var(--green)">' + esc(r.exam) + '</b>' +
+        '<span class="pill ' + (ok ? 'p-ok' : 'p-no') + '">' + (ok ? 'উত্তীর্ণ' : 'অনুত্তীর্ণ') + '</span></div>' +
+        '<div class="sm" style="font-size:13px;color:var(--muted)">নম্বর: ' + r.score + ' / ' + r.total + ' (' + pct + '%) · ' + esc(fmt(r.date)) + '</div></div>';
+    }).join('') : '<p class="sub">এখনো কোনো পরীক্ষার ফল নেই।</p>';
+
+    var m = await sb.from('messages').select('*').order('created_at', { ascending: true }).limit(300);
+    var msgs = m.data || [];
+    $('msgs').innerHTML = msgs.length ? msgs.map(function (x) {
+      return '<div class="bub"><div class="w">' + esc(x.channel === 'course' ? 'কোর্স আলোচনা' : 'ব্যক্তিগত বার্তা') + ' · ' + esc(fmt(x.created_at)) + '</div>' +
+        '<div style="white-space:pre-wrap">' + esc(x.body || (x.attachment_name ? '📎 ' + x.attachment_name : '')) + '</div></div>';
+    }).join('') : '<p class="sub">এখনো কোনো বার্তা নেই।</p>';
+  }
+
+  $('pLogin').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('entryAlert'));
+    var em = $('le').value.trim(), pw = $('lp').value;
+    if (![check('f-le', EMAIL.test(em)), check('f-lp', pw.length > 0)].every(Boolean)) return;
+    var b = $('lBtn'); b.disabled = true;
+    try {
+      var r = await sb.auth.signInWithPassword({ email: em, password: pw });
+      if (r.error) throw r.error;
+      $('entry').classList.add('hide');
+      await enter();
+    } catch (err) { D.show($('entryAlert'), 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  $('pAct').addEventListener('submit', async function (e) {
+    e.preventDefault(); D.hide($('entryAlert'));
+    var em = $('ae').value.trim(), pw = $('ap').value;
+    if (![check('f-ae', EMAIL.test(em)), check('f-ap', pw.length >= 8)].every(Boolean)) return;
+    var b = $('aBtn'); b.disabled = true;
+    try {
+      var s = await sb.auth.signUp({ email: em, password: pw });
+      if (s.error) throw s.error;
+      if (!s.data.session) {
+        var si = await sb.auth.signInWithPassword({ email: em, password: pw });
+        if (si.error) throw si.error;
+      }
+      var c = await sb.rpc('claim_guardian');
+      if (c.error) throw c.error;
+      $('entry').classList.add('hide');
+      await enter();
+    } catch (err) { D.show($('entryAlert'), 'bad', D.esc(D.errMsg(err))); }
+    finally { b.disabled = false; }
+  });
+
+  $('logoutBtn').addEventListener('click', async function () { await sb.auth.signOut(); location.reload(); });
+
+  $('loading').classList.add('hide');
+  var session = await D.getSession();
+  if (session) { await enter(); } else { $('entry').classList.remove('hide'); }
+})();
+</script>
+</body>
+</html>
