@@ -108,6 +108,7 @@
         <button class="on" data-p="content">কোর্স কনটেন্ট</button>
         <button data-p="exams">পরীক্ষা</button>
         <button data-p="results">ফলাফল</button>
+        <button data-p="chat">কোর্স আলোচনা</button>
         <button data-p="fees">মাসিক ফি</button>
         <button data-p="certs">সনদ</button>
         <button data-p="notices">নোটিশ</button>
@@ -121,6 +122,17 @@
       </section>
 
       <section class="pane card" id="p-results"><h2>আমার ফলাফল</h2><div id="resultList" style="margin-top:12px"></div></section>
+
+      <section class="pane card" id="p-chat">
+        <h2>কোর্স আলোচনা</h2>
+        <p class="sub">আপনার কোর্সের শিক্ষক ও সহপাঠীদের সঙ্গে আলোচনা। ব্যক্তিগত বার্তা এখানে নেই। আলোচনা সম্পর্কে নিয়ম মেনে চলুন।</p>
+        <div class="msgs-box" id="chatBox" style="max-height:420px;overflow-y:auto;background:#fbfaf5;border:1px solid #efece2;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-top:12px"></div>
+        <form id="chatForm" class="row" style="margin-top:12px" novalidate>
+          <input class="inp" id="chatText" maxlength="2000" placeholder="বার্তা লিখুন..." autocomplete="off" style="flex:1">
+          <button class="btn btn-dark btn-sm" type="submit">পাঠান</button>
+        </form>
+        <div class="alert" id="chatAlert" role="status"></div>
+      </section>
 
       <section class="pane card" id="p-fees">
         <h2>মাসিক কোর্স ফি</h2>
@@ -389,6 +401,41 @@
     var c = e.target.closest('button[data-cq]'); if (c) openCq(c.getAttribute('data-cq'));
   });
 
+  /* কোর্স আলোচনা */
+  var chatRows = [], chatIds = {};
+  function renderChat() {
+    var box = $('chatBox');
+    box.innerHTML = chatRows.length ? chatRows.map(function (m) {
+      var mine = m.sender_id === session.user.id;
+      return '<div style="align-self:' + (mine ? 'flex-end' : 'flex-start') + ';max-width:80%;background:' + (mine ? 'var(--green)' : '#fff') +
+        ';color:' + (mine ? '#fff' : 'var(--ink)') + ';border:1px solid #efece2;border-radius:14px;padding:10px 12px">' +
+        '<div style="font-size:12px;opacity:.75;margin-bottom:3px">' + (mine ? 'আমি' : 'সদস্য') + ' · ' + esc(fmtTime(m.created_at)) + '</div>' +
+        '<div style="white-space:pre-wrap">' + esc(m.body) + '</div></div>';
+    }).join('') : '<div class="empty">এখনো কোনো আলোচনা নেই।</div>';
+    box.scrollTop = box.scrollHeight;
+  }
+  async function loadChat() {
+    var r = await sb.from('messages').select('*').eq('channel', 'course').eq('course_id', app.course_id)
+      .order('created_at', { ascending: true }).limit(200);
+    chatRows = r.data || [];
+    chatRows.forEach(function (m) { chatIds[m.id] = true; });
+    renderChat();
+    sb.channel('course-chat-' + app.course_id).on('postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'messages' }, function (p) {
+        var m = p.new;
+        if (!m || m.channel !== 'course' || m.course_id !== app.course_id || chatIds[m.id]) return;
+        chatIds[m.id] = true; chatRows.push(m); renderChat();
+      }).subscribe();
+    $('chatForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); D.hide($('chatAlert'));
+      var t = $('chatText').value.trim();
+      if (!t) return;
+      var ins = await sb.from('messages').insert({ channel: 'course', course_id: app.course_id, sender_id: session.user.id, recipient_id: null, body: t }).select().single();
+      if (ins.error) return D.show($('chatAlert'), 'bad', D.esc(D.errMsg(ins.error)));
+      $('chatText').value = '';
+      if (!chatIds[ins.data.id]) { chatIds[ins.data.id] = true; chatRows.push(ins.data); renderChat(); }
+    });
+  }
   /* মাসিক কোর্স ফি */
   var feesBound = false;
   async function loadFees() {
@@ -491,7 +538,7 @@
     }).join('') : '<div class="empty">এখন কোনো নোটিশ নেই।</div>';
   }
 
-  await Promise.all([loadContent(), loadExams(), loadNotices(), loadFees()]);
+  await Promise.all([loadContent(), loadExams(), loadNotices(), loadFees(), loadChat()]);
 
   /* ---------- অ্যাকাউন্ট ফি জমা ---------- */
   function bindFee() {
